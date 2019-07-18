@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Radiance folder structure module.
 
@@ -7,25 +8,27 @@ structure.
 See https://github.com/ladybug-tools/radiance-folder-structure#radiance-folder-structure
 
 """
-
 import os
 import json
 import itertools
-from .folderutil import parse_dynamic_apertures, parse_dynamic_geometries
+from .folderutil import parse_dynamic_apertures, parse_dynamic_nonapertures
 
 
 class _FolderCollection(object):
-    """Folder collection base class."""
+    """Radiance folder base class structure.
+
+    Attributes:
+        folder (str): Path to project folder.
+
+    Args:
+        folder (str): Path to project folder as a string. The folder will be created
+            on write if it doesn't exist already.
+    
+    """
     REQUIRED = ()
     __slots__ = ('_folder',)
 
     def __init__(self, folder):
-        """Radiance folder  base class structure.
-
-        Args:
-            folder: Project folder. The folder will be created on write if it doesn't
-            exist already.
-        """
         self._folder = os.path.normpath(folder)
 
     @property
@@ -35,7 +38,10 @@ class _FolderCollection(object):
 
     # TODO: extend validation
     def validate(self):
-        """Validate a model folder."""
+        """Validate folder.
+        
+        Ensure required subfolders exist.
+        """
         folder = self.folder
         # ensure the folder exist
         assert os.path.isdir(folder), '{} folder does not exist!'
@@ -48,9 +54,9 @@ class _FolderCollection(object):
         """Find files in a subfolder.
         
         Args:
-            subfolder: A subfolder.
-            ext: File extention.
-            rel_path: Return relative path to root folder.
+            subfolder (str): A subfolder.
+            ext (str): File extention.
+            rel_path (bool): Return relative path to root folder.
         """
         folder = os.path.join(self.folder, subfolder)
         filtered_files = [
@@ -72,28 +78,33 @@ class ModelFolder(_FolderCollection):
 
     Model folder includes all geometry and geometry metadata.
 
-    ```
-    ├───model                     [required]
-        ├───bsdf
-        ├───dynamic
-        │   ├───aperture
-        │   │   └───interior
-        │   ├───nonopaque
-        │   │   ├───indoor
-        │   │   └───outdoor
-        │   └───opaque
-        │       ├───indoor
-        │       └───outdoor
-        └───static                [required]
-            ├───aperture
-            │   └───interior
-            ├───nonopaque         [required]
-            │   ├───indoor
-            │   └───outdoor
-            └───opaque            [required]
-                ├───indoor
-                └───outdoor
-    ```
+    Args:
+        folder (str): Project folder as string. The folder will be created on write
+            if it doesn't exist already.
+
+    .. code-block:: shell
+
+        ├───model                     [required]
+            ├───bsdf
+            ├───dynamic
+            │   ├───aperture
+            │   │   └───interior
+            │   ├───nonopaque
+            │   │   ├───indoor
+            │   │   └───outdoor
+            │   └───opaque
+            │       ├───indoor
+            │       └───outdoor
+            └───static                [required]
+                ├───aperture
+                │   └───interior
+                ├───nonopaque         [required]
+                │   ├───indoor
+                │   └───outdoor
+                └───opaque            [required]
+                    ├───indoor
+                    └───outdoor
+
     """
 
     MODEL_ROOT = 'model'
@@ -154,12 +165,6 @@ class ModelFolder(_FolderCollection):
     )
 
     def __init__(self, folder):
-        """Radiance Model folder.
-
-        Args:
-            folder: Project folder. The folder will be created on write if it doesn't
-            exist already.
-        """
         _FolderCollection.__init__(self, folder)
         self._dynamic_apertures = None
         self._dynamic_apertures_interior = None
@@ -192,10 +197,10 @@ class ModelFolder(_FolderCollection):
         return False
 
     @property
-    def has_dynamic_geometry(self):
-        """Return True if model has dynamic geometry."""
+    def has_dynamic_nonaperture(self):
+        """Return True if model has dynamic nonaperture geometries."""
         if self._dynamic_opaque is None:
-            self._load_dynamic_non_aperture()
+            self._load_dynamic_nonaperture()
         
         for geo in (
             self._dynamic_opaque, self._dynamic_opaque_indoor,
@@ -225,17 +230,24 @@ class ModelFolder(_FolderCollection):
 
     def static_aperture_files(self, black_out=False, rel_path=True):
         """Return list of files for static apertures.
-        
-        Set black_out to True for direct studies. Set rel_path to False for getting full
-        path to files. By default the path is relative to study folder root.
+
+        Args:
+            black_out (str): Set black_out to True for "isolated" studies for dynamic
+                apertures.
+            rel_path (str): Set rel_path to False for getting full path to files. By
+                default the path is relative to study folder root.
         """
         material_ext = '.mat' if not black_out else '.blk'
         return self._filter_files(self.STATIC_APERTURE, material_ext, rel_path)
 
-    def static_model_files(self, black_out=False, rel_path=True):
+    def static_nonaperture_files(self, black_out=False, rel_path=True):
         """Get list of static files.
+
+        Args:
+            black_out (str): Set black_out to True for direct studies.
+            rel_path (str): Set rel_path to False for getting full path to files. By
+                default the path is relative to study folder root.
         
-        NOTE: This does not include static aperture files.
         """
         material_ext = '.mat' if not black_out else '.blk'
         # collect opaque geometries
@@ -255,8 +267,8 @@ class ModelFolder(_FolderCollection):
         self._dynamic_apertures = \
             parse_dynamic_apertures(os.path.join(ext_folder, 'states.json'))
 
-    def _load_dynamic_non_aperture(self):
-        """Try to load interior and exterior dynamic apertures from folder."""
+    def _load_dynamic_nonaperture(self):
+        """Try to load indoor and outdoor dynamic nonapertures from folder."""
         opq_folder = os.path.join(self.folder, self.DYNAMIC_OPAQUE_ROOT)
         in_opq_folder = os.path.join(self.folder, self.DYNAMIC_OPAQUE_INDOOR)
         out_opq_folder = os.path.join(self.folder, self.DYNAMIC_OPAQUE_OUTDOOR)
@@ -265,30 +277,30 @@ class ModelFolder(_FolderCollection):
         out_nonopq_folder = os.path.join(self.folder, self.DYNAMIC_NONOPAQUE_OUTDOOR)
 
         self._dynamic_opaque = \
-            parse_dynamic_geometries(os.path.join(opq_folder, 'states.json'))
+            parse_dynamic_nonapertures(os.path.join(opq_folder, 'states.json'))
 
         self._dynamic_opaque_indoor = \
-            parse_dynamic_geometries(os.path.join(in_opq_folder, 'states.json'))
+            parse_dynamic_nonapertures(os.path.join(in_opq_folder, 'states.json'))
 
         self._dynamic_opaque_outdoor = \
-            parse_dynamic_geometries(os.path.join(out_opq_folder, 'states.json'))
+            parse_dynamic_nonapertures(os.path.join(out_opq_folder, 'states.json'))
 
         self._dynamic_nonopaque = \
-            parse_dynamic_geometries(os.path.join(nonopq_folder, 'states.json'))
+            parse_dynamic_nonapertures(os.path.join(nonopq_folder, 'states.json'))
 
         self._dynamic_nonopaque_indoor = \
-            parse_dynamic_geometries(os.path.join(in_nonopq_folder, 'states.json'))
+            parse_dynamic_nonapertures(os.path.join(in_nonopq_folder, 'states.json'))
 
         self._dynamic_nonopaque_outdoor = \
-            parse_dynamic_geometries(os.path.join(out_nonopq_folder, 'states.json'))
+            parse_dynamic_nonapertures(os.path.join(out_nonopq_folder, 'states.json'))
 
     def dynamic_aperture(self, interior=False, reload_folder=False):
         """List of dynamic apertures.
         
         Args:
-            interior: Boolean switch to return interior dynamic apertures.
-            reload_folder: Dynamic geometries are loaded the first time this method is
-            called. To reload the files set reload_folder to True.
+            interior (bool): Boolean switch to return interior dynamic apertures.
+            reload_folder (bool): Dynamic geometries are loaded the first time this
+                method is called. To reload the files set reload_folder to True.
         Returns:
             A list of dynamic apertures.
         """
@@ -298,24 +310,24 @@ class ModelFolder(_FolderCollection):
         
         return self._dynamic_apertures_interior if interior else self._dynamic_apertures
 
-    def dynamic_geometry(self, opaque=True, location=0, reload_folder=False):
+    def dynamic_nonaperture(self, opaque=True, location=0, reload_folder=False):
         """List of dynamic non-aperture geometries.
         
         Args:
-            opaque: A boolean switch to indicate if opaque geometries or nonopaque
-            geometries should be returned. Default is True which returns opaque
-            geometries.
-            indoor: An integer to indicate if geometries in enclouser, indoor ort outdoor
-            should be returned. Default is 0 to return enclosure geometries that are
-            located in the root folder. 1 returns indoor and 2 returns outdoor
-            geometries.
-            reload_folder: Dynamic geometries are loaded the first time this method is
-            called. To reload the files set reload_folder to True.
+            opaque (bool): A boolean switch to indicate if opaque geometries or nonopaque
+                geometries should be returned. Default is True which returns opaque
+                geometries.
+            location (int): An integer to indicate whether to return the geometries that
+                are in the enclosure, on the indoors, or in the outdoor. Default is 0 to
+                return enclosure geometries. 1 returns indoor and 2 returns
+                outdoor geometries.
+            reload_folder (bool): Dynamic geometries are loaded the first time this
+                method is called. To reload the files set reload_folder to True.
         """
         if reload_folder or self._dynamic_opaque is None:
-            self._load_dynamic_non_aperture()
+            self._load_dynamic_nonaperture()
         assert 0 <= location <=2, \
-            'Location must be 0 for enclouser, 1 for indoor or 2 for outdoor.'
+            'Location must be 0 for enclosure, 1 for indoor or 2 for outdoor.'
         if opaque:
             return self._dynamic_opaque if location == 0 \
                 else self._dynamic_opaque_indoor if location == 1 \
@@ -329,10 +341,10 @@ class ModelFolder(_FolderCollection):
         """Filter files in a folder collection.
         
         Args:
-            folder_collection: A list of subfolders.
-            material_ext: Expected extension for material files (default: .mat).
+            folder_collection (list[str]): A list of subfolders.
+            material_ext (str): Expected extension for material files (default: .mat).
             rel_path: A boolean to indicate if folders should be returned as relative
-            paths in relation to root folder.
+                paths in relation to root folder.
         """
         filtered_files = []
         for sf in folder_collection:
@@ -360,15 +372,22 @@ class ModelFolder(_FolderCollection):
             return filtered_files
 
     def write(self, overwrite=False):
-        """Write model folder."""
+        """Write model folder.
+        
+        Args:
+            overwrite (bool): Set to True to overwrite the folder is it already exist.
+        """
         root_folder = os.path.join(self.folder, self.root)
         if not overwrite and os.path.isdir(root_folder):
             raise ValueError(
-                'Model folder already exist.' \
+                'Model folder already exist.'
                 'Set overwrite to True if you want the folder to be overwritten.'
             )
         for subfolder in self.MODEL:
-            os.makedirs(os.path.join(self.folder, subfolder), exist_ok=overwrite)
+            directory = os.path.join(self.folder, subfolder)
+            if os.path.exists(directory) and not overwrite:
+                raise ValueError('{} already exist.'.format(directory))
+            os.makedirs(directory)
 
 
 class AssetFolder(_FolderCollection):
@@ -377,12 +396,14 @@ class AssetFolder(_FolderCollection):
     This folder includes input assets for daylight model. They can be divided into
     senders and receivers.
 
-    ├───asset                     [required]
-        ├───grid
-        ├───ies
-        ├───sky
-        ├───sun
-        └───view
+    .. code-block:: shell
+
+        ├───asset                     [required]
+            ├───grid
+            ├───ies
+            ├───sky
+            ├───sun
+            └───view
     """
     ASSET_ROOT = 'asset'
     GRID = 'asset/grid'
@@ -405,7 +426,12 @@ class AssetFolder(_FolderCollection):
         return self.IES
     
     def ies_files(self, rel_path=True):
-        """List of ies files."""
+        """List of ies files.
+
+        Args:
+            rel_path: A boolean to indicate if folders should be returned as relative
+                paths in relation to root folder.
+        """
         return self._find_files(self.IES, '.ies', rel_path)
 
     @property
@@ -414,7 +440,12 @@ class AssetFolder(_FolderCollection):
         return self.SKY
 
     def sky_files(self, rel_path=True):
-        """List of sky files."""
+        """List of sky files.
+        
+        Args:
+            rel_path: A boolean to indicate if folders should be returned as relative
+                paths in relation to root folder.
+        """
         return self._find_files(self.IES, '.sky', rel_path)
 
     @property
@@ -423,7 +454,12 @@ class AssetFolder(_FolderCollection):
         return self.SUN
 
     def sun_files(self, rel_path=True):
-        """List of ies files."""
+        """List of sun files.
+        
+        Args:
+            rel_path: A boolean to indicate if folders should be returned as relative
+                paths in relation to root folder.
+        """
         return self._find_files(self.SUN, '.sun', rel_path)
 
     @property
@@ -432,7 +468,12 @@ class AssetFolder(_FolderCollection):
         return self.GRID
 
     def grid_files(self, rel_path=True):
-        """List of sensor grid files."""
+        """List of sensor grid files.
+        
+        Args:
+            rel_path: A boolean to indicate if folders should be returned as relative
+                paths in relation to root folder.
+        """
         return self._find_files(self.GRID, '.pts', rel_path)
 
     @property
@@ -441,23 +482,40 @@ class AssetFolder(_FolderCollection):
         return self.VIEW
 
     def view_files(self, rel_path=True):
-        """List of view files."""
+        """List of view files.
+        
+        Args:
+            rel_path: A boolean to indicate if folders should be returned as relative
+                paths in relation to root folder.
+        """
         return self._find_files(self.VIEW, '.vf', rel_path)
 
     def write(self, overwrite=True):
-        """Write model folder."""
+        """Write model folder.
+
+        Args:
+            overwrite (bool): Set to True to overwrite the folder is it already exist.
+        """
         for subfolder in self.ASSET:
-            os.makedirs(os.path.join(self.folder, subfolder), exist_ok=overwrite)
+            directory = os.path.join(self.folder, subfolder)
+            if os.path.exists(directory) and not overwrite:
+                raise ValueError('{} already exist.'.format(directory))
+            os.makedirs(directory)
 
 
+# TODO: Add look up for files from output folder.
+# unlike other folders output should probably be more flexible on file extension and
+# accept a list of extentions. We may need to change this globally.
 class OutputFolder(_FolderCollection):
     """Radiance output folder.
 
-    ├───output                    [required]
-        ├───matrix
-        ├───octree
-        ├───postprocess
-        └───temp
+    .. code-block:: shell
+
+        ├───output                    [required]
+            ├───matrix
+            ├───octree
+            ├───postprocess
+            └───temp
     """
     OUTPUT_ROOT = 'output'
     OCTREE = 'output/octree'
@@ -493,9 +551,16 @@ class OutputFolder(_FolderCollection):
         return self.postprocess
 
     def write(self, overwrite=True):
-        """Write model folder."""
+        """Write model folder.
+
+        Args:
+            overwrite (bool): Set to True to overwrite the folder is it already exist.
+        """
         for subfolder in self.OUTPUT:
-            os.makedirs(os.path.join(self.folder, subfolder), exist_ok=overwrite)
+            directory = os.path.join(self.folder, subfolder)
+            if os.path.exists(directory) and not overwrite:
+                raise ValueError('{} already exist.'.format(directory))
+            os.makedirs(directory)
 
 
 class SystemFolder(_FolderCollection):
@@ -510,20 +575,27 @@ class SystemFolder(_FolderCollection):
         return self.SYSTEM_ROOT
 
     def write(self, overwrite=True):
-        """Write model folder."""
+        """Write model folder.
+
+        Args:
+            overwrite (bool): Set to True to overwrite the folder is it already exist.
+        """
         for subfolder in self.SYSTEM:
-            os.makedirs(os.path.join(self.folder, subfolder), exist_ok=overwrite)
+            directory = os.path.join(self.folder, subfolder)
+            if os.path.exists(directory) and not overwrite:
+                raise ValueError('{} already exist.'.format(directory))
+            os.makedirs(directory)
 
 
 class Folder(object):
     """Radiance folder structure."""
 
-    __version__ = '2.0.0'  # radiance folder version
+    __version__ = '2.0.1'  # radiance folder version
     def __init__(self, folder):
         """Radiance folder structure.
         
         Args:
-            folder: Target folder.
+            folder: Target folder as a string.
         """
         self._folder = folder
         self._model = ModelFolder(folder)
@@ -533,7 +605,11 @@ class Folder(object):
 
     @property
     def version(self):
-        """Folder structure version."""
+        """Version for supported folder structure.
+
+        This library might be behind the latest release of radiance folder structure at:
+        https://github.com/ladybug-tools/radiance-folder-structure/tags
+        """
         return self.__version__
 
     @property
@@ -565,7 +641,11 @@ class Folder(object):
         )
 
     def write(self, overwrite=True):
-        """Write folder."""
+        """Write folder.
+
+        Args:
+            overwrite (bool): Set to True to overwrite the folder is it already exist.
+        """
         self.model.write(overwrite)
         self.asset.write(overwrite)
         self.output.write(overwrite)

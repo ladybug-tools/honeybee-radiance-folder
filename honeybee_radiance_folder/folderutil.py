@@ -1,24 +1,24 @@
+# -*- coding: utf-8 -*-
 """Utilities for Radiance folder structure."""
 import os
 import json
 
 
-class GeometryState(object):
-    """A state for a dynamic geometry from Radiance files.
+class NonApertureState(object):
+    """A state for a dynamic non-aperture geometry from Radiance files.
     
     Attributes:
         name
         default
         direct
+
+    Args:
+        name (str): Name for state.
+        default (str): Path to file to be used for normal representation of the geometry.
+        direct (str): Path to file to be used for direct studies.
+
     """
     def __init__(self, name, default, direct):
-        """Geometry State.
-
-        Args:
-            name: Name for state.
-            default: Path to file to be used for normal representation of the geometry.
-            direct: Path to file to be used for direct studies.
-        """
         self.name = name
         self.default = default
         self.direct = direct
@@ -26,13 +26,14 @@ class GeometryState(object):
     @classmethod
     def from_dict(cls, input_dict):
         """Create a state from an input dictionary.
-        ```
-        {
-          "name": "grass_covered",
-          "default": "ground..summer..000.rad",
-          "direct": "ground..direct..000.rad",
-        }
-        ```
+
+        .. code-block:: python
+
+            {
+            "name": "grass_covered",
+            "default": "ground..summer..000.rad",
+            "direct": "ground..direct..000.rad",
+            }
         """
         # TODO: add checks for keys
         name = input_dict['name']
@@ -48,10 +49,10 @@ class GeometryState(object):
             'Failed to find direct file for %s' % self.name
 
     def __repr__(self):
-        return 'GeometryState: {}'.format(self.name)
+        return 'NonApertureState: {}'.format(self.name)
 
 
-class ApertureState(GeometryState):
+class ApertureState(NonApertureState):
     """A state for a dynamic aperture from Radiance files.
     
     Attributes:
@@ -62,22 +63,20 @@ class ApertureState(GeometryState):
         tmtx
         vmtx
         dmtx
+
+    Args:
+        name (str): Name for state.
+        default (str): Path to file to be used for normal representation of the geometry.
+        direct (str): Path to file to be used for direct studies.
+        black (str): Path to file for blacking out the window.
+        tmtx (str): Path to file for transmittance matrix.
+        vmtx (str): Path to file for transmittance matrix.
+        dmtx (str): Path to file for transmittance matrix.
     """
 
     def __init__(self, name, default, direct,
             black=None, tmtx=None, vmtx=None, dmtx=None):
-        """Aperture State.
-
-        Args:
-            name: Name for state.
-            default: Path to file to be used for normal representation of the geometry.
-            direct: Path to file to be used for direct studies.
-            black: Path to file for blacking out the window.
-            tmtx: Path to file for transmittance matrix.
-            vmtx: Path to file for transmittance matrix.
-            dmtx: Path to file for transmittance matrix.
-        """
-        GeometryState.__init__(self, name, default, direct)
+        NonApertureState.__init__(self, name, default, direct)
         self.black = black
         self.tmtx = tmtx
         self.vmtx = vmtx
@@ -86,17 +85,19 @@ class ApertureState(GeometryState):
     @classmethod
     def from_dict(cls, input_dict):
         """Create a state from an input dictionary.
-        ```
-        {
-            "name": "clear",
-            "default": "./south_window..default..000.rad",
-            "direct": "./south_window..direct..000.rad",
-            "black": "./south_window..black.rad",
-            "tmtx": "clear.xml",
-            "vmtx": "./south_window..mtx.rad",
-            "dmtx": "./south_window..mtx.rad"
-        }
-        ```
+        
+        .. code-block:: python
+
+            {
+                "name": "clear",
+                "default": "./south_window..default..000.rad",
+                "direct": "./south_window..direct..000.rad",
+                "black": "./south_window..black.rad",
+                "tmtx": "clear.xml",
+                "vmtx": "./south_window..mtx.rad",
+                "dmtx": "./south_window..mtx.rad"
+            }
+
         """
         # TODO: add checks for keys
         name = input_dict['name']
@@ -151,21 +152,19 @@ class ApertureState(GeometryState):
         return 'ApertureState: {}'.format(self.name)
 
 
-class DynamicGeometry(object):
-    """Representation of a Dynamic geometry in Radiance folder.
+class DynamicNonAperture(object):
+    """Representation of a Dynamic nonaperture geometry in Radiance folder.
     
     Attributes:
         name
         states
+
+    Args:
+        name (str): Dynamic nonaperture geometry name.
+        states(list[NonApertureState]): A list of nonaperture states.
     """
 
     def __init__(self, name, states):
-        """Define dynamic geometry from radiance files.
-        
-        Args:
-            name: Dynamic geometry name.
-            states: A list of Geometry states.
-        """
         self.name = name
         self.states = states
 
@@ -173,22 +172,22 @@ class DynamicGeometry(object):
     def from_dict(cls, input_dict):
         """Create a dynamic aperture from a dictionary.
 
-        ```
-        {
-            "ground": {
-                "0": {
-                "name": "grass_covered",
-                "default": "ground..summer..000.rad",
-                "direct": "ground..direct..000.rad",
-                },
-                "1": {
-                "name": "snow_covered",
-                "default": "ground..winter..001.rad",
-                "direct": "ground..direct..000.rad"
+        .. code-block:: python
+
+            {
+                "ground": {
+                    "0": {
+                    "name": "grass_covered",
+                    "default": "ground..summer..000.rad",
+                    "direct": "ground..direct..000.rad",
+                    },
+                    "1": {
+                    "name": "snow_covered",
+                    "default": "ground..winter..001.rad",
+                    "direct": "ground..direct..000.rad"
+                    }
                 }
             }
-        }
-        ```
         """
         keys = list(input_dict.keys())
         assert len(keys) == 1, 'There must be only one window group in input dictionary.'
@@ -196,7 +195,7 @@ class DynamicGeometry(object):
 
         states_dict = input_dict[name]
         states = [
-            GeometryState.from_dict(states_dict[str(state)]) 
+            NonApertureState.from_dict(states_dict[str(state)]) 
             for state in range(len(states_dict))
         ]
         return cls(name, states)
@@ -207,44 +206,50 @@ class DynamicGeometry(object):
             state.validate(folder)
 
     def __repr__(self):
-        return 'DynamicGeometry: {}'.format(self.name)
+        return 'DynamicNonAperture: {}'.format(self.name)
 
 
-class DynamicAperture(DynamicGeometry):
+class DynamicAperture(DynamicNonAperture):
     """Representation of a Dynamic aperture in Radiance folder.
     
     Attributes:
         name
         states
+
+    Args:
+        name: Dynamic aperture name.
+        states: A list of aperture states.
     """
 
     @classmethod
     def from_dict(cls, input_dict):
         """Create a dynamic aperture from a dictionary.
-        ```
-        {
-            "south_window": {
-                "0": {
-                "name": "clear",
-                "default": "./south_window..default..000.rad",
-                "direct": "./south_window..direct..000.rad",
-                "black": "./south_window..black.rad",
-                "tmtx": "clear.xml",
-                "vmtx": "./south_window..mtx.rad",
-                "dmtx": "./south_window..mtx.rad"
-                },
-                "1": {
-                "name": "diffuse",
-                "default": "./south_window..default..001.rad",
-                "direct": "./south_window..direct..001.rad",
-                "black": "./south_window..black.rad",
-                "tmtx": "diffuse50.xml",
-                "vmtx": "./south_window..mtx.rad",
-                "dmtx": "./south_window..mtx.rad"
+
+        .. code-block:: python
+
+            {
+                "south_window": {
+                    "0": {
+                    "name": "clear",
+                    "default": "./south_window..default..000.rad",
+                    "direct": "./south_window..direct..000.rad",
+                    "black": "./south_window..black.rad",
+                    "tmtx": "clear.xml",
+                    "vmtx": "./south_window..mtx.rad",
+                    "dmtx": "./south_window..mtx.rad"
+                    },
+                    "1": {
+                    "name": "diffuse",
+                    "default": "./south_window..default..001.rad",
+                    "direct": "./south_window..direct..001.rad",
+                    "black": "./south_window..black.rad",
+                    "tmtx": "diffuse50.xml",
+                    "vmtx": "./south_window..mtx.rad",
+                    "dmtx": "./south_window..mtx.rad"
+                    }
                 }
             }
-        }
-        ```
+
         """
         keys = list(input_dict.keys())
         assert len(keys) == 1, 'There must be only one window group in input dictionary.'
@@ -287,14 +292,14 @@ def parse_dynamic_apertures(states_file, validate=True):
     return apertures
 
 
-def parse_dynamic_geometries(states_file, validate=True):
-    """Parse dynamic geometries from a state file.
+def parse_dynamic_nonapertures(states_file, validate=True):
+    """Parse dynamic nonaperture geometries from a state file.
     
     Args:
         states_file: Path to states JSON file.
     
     Returns:
-        A list of dynamic geometries
+        A list of dynamic nonaperture geometries
     """
     if not os.path.isfile(states_file):
         return []
@@ -302,7 +307,7 @@ def parse_dynamic_geometries(states_file, validate=True):
     with open(states_file) as inf:
         data = json.load(inf)
 
-    geometries = [DynamicGeometry.from_dict({key: value}) for key, value in data.items()]
+    geometries = [DynamicNonAperture.from_dict({key: value}) for key, value in data.items()]
 
     if validate:
         # check for the files to exist

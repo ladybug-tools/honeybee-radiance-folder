@@ -38,7 +38,7 @@ rf = 'c:/ladybug/sample_folder'
 folder = Folder(rf)
 
 # get input files for static scene
-for f in folder.model.static_model_files(black_out=False, rel_path=True):
+for f in folder.model.static_nonaperture_files(black_out=False, rel_path=True):
     print(f)
 ```
 
