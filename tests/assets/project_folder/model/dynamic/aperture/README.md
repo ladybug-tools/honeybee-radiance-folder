@@ -26,11 +26,10 @@ In this sample case we only have a single dynamic aperture: `south_window` with 
 states. Below is the content of `states.json` file:
 
 ```json
-south_window:
 {
-  "south_window": {
-    "0": {
-      "name": "clear",
+  "south_window": [
+    {
+      "name": "0_clear",
       "default": "./south_window..default..000.rad",
       "direct": "./south_window..direct..000.rad",
       "black": "./south_window..black.rad",
@@ -38,8 +37,8 @@ south_window:
       "vmtx": "./south_window..mtx.rad",
       "dmtx": "./south_window..mtx.rad"
     },
-    "1": {
-      "name": "diffuse",
+    {
+      "name": "1_diffuse",
       "default": "./south_window..default..001.rad",
       "direct": "./south_window..direct..001.rad",
       "black": "./south_window..black.rad",
@@ -47,20 +46,24 @@ south_window:
       "vmtx": "./south_window..mtx.rad",
       "dmtx": "./south_window..mtx.rad"
     }
-  }
+  ]
 }
 
 ```
 
-You can add more than one aperture to the JSON file. For instance if we want to add
-another dynamic aperture named skylight you need to add the lines below to the file:
+Only one `states.json` file should be used to describe all dynamic apertures in the
+model and you can add more than one aperture to the JSON file by adding more keys
+to it (each key representing a unique identifier for the aperture).
+
+For instance, if we want to add another dynamic aperture for the skylight in the
+model above, the following needs to be added to the `states.json` file:
 
 ```json
 {
-  # ...
-  "skylight": {
-    "0": {
-      "name": "diffuse",
+  ...
+  "skylight": [
+    {
+      "name": "0_diffuse",
       "default": "skylight..default..000.rad",
       "direct": "skylight..direct..000.rad",
       "black": "skylight..black..000.rad",
@@ -68,11 +71,17 @@ another dynamic aperture named skylight you need to add the lines below to the f
       "vmtx": "skylight..mtx..000.rad",
       "dmtx": "skylight..mtx..000.rad"
     }
-  }
+  ]
 }
 ```
 
 ## Naming convention
 
-It is recommended to name the file as `<aperture name>..<field name>..<state count>`. For
-instance `skylight..direct..000.rad` is the direct representation of skylight for state 0.
+It is recommended that the `.rad` files be named with a standard convention as follows:
+`<aperture name>..<field name>..<state count>.rad`
+For instance, `skylight..direct..000.rad` is the direct representation of skylight for state 0.
+
+Note that the `"name"` key in the JSONs is only used to provide a human-readable name
+for the state and it is not required. However, if it is provided, it is recommended
+that it start with an integer index for the state (eg. `0`, `1`, etc.) in order to
+make its position in the order of the states clearer.

@@ -56,7 +56,7 @@ def test_dynamic_aperture():
     apertures = folder.model.dynamic_aperture(interior=False)
     assert len(apertures) == 1
     ap = apertures[0]
-    assert ap.states[0].name == 'clear'
+    assert ap.states[0].name == '0_clear'
     assert ap.states[0].default == 'south_window..default..000.rad'
-    assert ap.states[1].name == 'diffuse'
+    assert ap.states[1].name == '1_diffuse'
     assert ap.states[1].default == 'south_window..default..001.rad'

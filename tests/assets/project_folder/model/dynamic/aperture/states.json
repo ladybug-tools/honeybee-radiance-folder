@@ -1,7 +1,7 @@
 {
-  "south_window": {
-    "0": {
-      "name": "clear",
+  "south_window": [
+    {
+      "name": "0_clear",
       "default": "./south_window..default..000.rad",
       "direct": "./south_window..direct..000.rad",
       "black": "./south_window..black.rad",
@@ -9,8 +9,8 @@
       "vmtx": "./south_window..mtx.rad",
       "dmtx": "./south_window..mtx.rad"
     },
-    "1": {
-      "name": "diffuse",
+    {
+      "name": "1_diffuse",
       "default": "./south_window..default..001.rad",
       "direct": "./south_window..direct..001.rad",
       "black": "./south_window..black.rad",
@@ -18,5 +18,5 @@
       "vmtx": "./south_window..mtx.rad",
       "dmtx": "./south_window..mtx.rad"
     }
-  }
+  ]
 }

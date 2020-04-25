@@ -6,17 +6,16 @@ import json
 
 class NonApertureState(object):
     """A state for a dynamic non-aperture geometry from Radiance files.
-    
-    Attributes:
-        name
-        default
-        direct
 
     Args:
-        name (str): Name for state.
+        name (str): Optional human-readable name for the state. Can be None.
         default (str): Path to file to be used for normal representation of the geometry.
         direct (str): Path to file to be used for direct studies.
 
+    Properties:
+        * name
+        * default
+        * direct
     """
     def __init__(self, name, default, direct):
         self.name = name
@@ -36,7 +35,7 @@ class NonApertureState(object):
             }
         """
         # TODO: add checks for keys
-        name = input_dict['name']
+        name = input_dict['name'] if 'name' in input_dict else None
         default = input_dict['default']
         direct = input_dict['direct']
         return cls(name, default, direct)
@@ -54,24 +53,24 @@ class NonApertureState(object):
 
 class ApertureState(NonApertureState):
     """A state for a dynamic aperture from Radiance files.
-    
-    Attributes:
-        name
-        default
-        direct
-        black
-        tmtx
-        vmtx
-        dmtx
 
     Args:
-        name (str): Name for state.
+        name (str): Optional human-readable name for the state. Can be None.
         default (str): Path to file to be used for normal representation of the geometry.
         direct (str): Path to file to be used for direct studies.
         black (str): Path to file for blacking out the window.
         tmtx (str): Path to file for transmittance matrix.
         vmtx (str): Path to file for transmittance matrix.
         dmtx (str): Path to file for transmittance matrix.
+
+    Properties:
+        * name
+        * default
+        * direct
+        * black
+        * tmtx
+        * vmtx
+        * dmtx
     """
 
     def __init__(self, name, default, direct,
@@ -100,7 +99,7 @@ class ApertureState(NonApertureState):
 
         """
         # TODO: add checks for keys
-        name = input_dict['name']
+        name = input_dict['name'] if 'name' in input_dict else None
         default = os.path.normpath(input_dict['default'])
         direct = os.path.normpath(input_dict['direct'])
         try:
@@ -154,14 +153,15 @@ class ApertureState(NonApertureState):
 
 class DynamicNonAperture(object):
     """Representation of a Dynamic nonaperture geometry in Radiance folder.
-    
-    Attributes:
-        name
-        states
 
     Args:
-        name (str): Dynamic nonaperture geometry name.
+        name (str): Text string for a unique dynamic nonaperture group identifier.
+            This is required and cannot be None.
         states(list[NonApertureState]): A list of nonaperture states.
+
+    Properties:
+        * name
+        * states
     """
 
     def __init__(self, name, states):
@@ -175,29 +175,26 @@ class DynamicNonAperture(object):
         .. code-block:: python
 
             {
-                "ground": {
-                    "0": {
+                "ground": [
+                    {
                     "name": "grass_covered",
                     "default": "ground..summer..000.rad",
                     "direct": "ground..direct..000.rad",
                     },
-                    "1": {
+                    {
                     "name": "snow_covered",
                     "default": "ground..winter..001.rad",
                     "direct": "ground..direct..000.rad"
                     }
-                }
+                ]
             }
         """
         keys = list(input_dict.keys())
-        assert len(keys) == 1, 'There must be only one window group in input dictionary.'
+        assert len(keys) == 1, 'There must be only one dynamic group in input dictionary.'
         name = keys[0]
 
         states_dict = input_dict[name]
-        states = [
-            NonApertureState.from_dict(states_dict[str(state)]) 
-            for state in range(len(states_dict))
-        ]
+        states = [NonApertureState.from_dict(state) for state in states_dict]
         return cls(name, states)
 
     def validate(self, folder):
@@ -211,14 +208,15 @@ class DynamicNonAperture(object):
 
 class DynamicAperture(DynamicNonAperture):
     """Representation of a Dynamic aperture in Radiance folder.
-    
-    Attributes:
-        name
-        states
 
     Args:
-        name: Dynamic aperture name.
+        name (str): Text string for a unique dynamic aperture group identifier.
+            This is required and cannot be None.
         states: A list of aperture states.
+
+    Properties:
+        * name
+        * states
     """
 
     @classmethod
@@ -228,8 +226,8 @@ class DynamicAperture(DynamicNonAperture):
         .. code-block:: python
 
             {
-                "south_window": {
-                    "0": {
+                "south_window": [
+                    {
                     "name": "clear",
                     "default": "./south_window..default..000.rad",
                     "direct": "./south_window..direct..000.rad",
@@ -238,7 +236,7 @@ class DynamicAperture(DynamicNonAperture):
                     "vmtx": "./south_window..mtx.rad",
                     "dmtx": "./south_window..mtx.rad"
                     },
-                    "1": {
+                    {
                     "name": "diffuse",
                     "default": "./south_window..default..001.rad",
                     "direct": "./south_window..direct..001.rad",
@@ -247,19 +245,16 @@ class DynamicAperture(DynamicNonAperture):
                     "vmtx": "./south_window..mtx.rad",
                     "dmtx": "./south_window..mtx.rad"
                     }
-                }
+                ]
             }
 
         """
         keys = list(input_dict.keys())
-        assert len(keys) == 1, 'There must be only one window group in input dictionary.'
+        assert len(keys) == 1, 'There must be only one dynamic group in input dictionary.'
         name = keys[0]
 
         states_dict = input_dict[name]
-        states = [
-            ApertureState.from_dict(states_dict[str(state)]) 
-            for state in range(len(states_dict))
-        ]
+        states = [ApertureState.from_dict(state) for state in states_dict]
         return cls(name, states)
     
     def __repr__(self):
@@ -267,11 +262,12 @@ class DynamicAperture(DynamicNonAperture):
 
 
 def parse_dynamic_apertures(states_file, validate=True):
-    """Parse dynamic apertures from a state file.
+    """Parse dynamic apertures from a states.json file.
     
     Args:
         states_file: Path to states JSON file.
         validate: Validate the files in states files exist in the folder.
+
     Returns:
         A list of dynamic apertures
     """

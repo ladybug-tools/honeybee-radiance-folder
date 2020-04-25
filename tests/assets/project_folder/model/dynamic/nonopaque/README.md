@@ -11,25 +11,27 @@ outdoor dynamic nonopaque geometries like deciduous trees will only be included 
 daylight matrix calculation.
 
 You should use a `states.json` file to indicate the files for each state. In this sample
-case we don't have any dynamic nonopaque geometries but adding deciduous trees with
-summer and winter conditions could look lik this.
-
-The `JSON` file will look like this:
+case, we don't have any dynamic nonopaque geometries but adding deciduous trees with
+summer and winter conditions could look like this:
 
 ```json
 {
-  "outdoor_trees": {
-    "0": {
-      "name": "summer_condition",
+  "outdoor_trees": [
+    {
+      "name": "0_summer_condition",
       "default": "trees..summer..000.rad",
       "direct": "trees..direct..000.rad",
     },
-    "1": {
-      "name": "winter_condition",
+    {
+      "name": "1_winter_condition",
       "default": "trees..winter..001.rad",
       "direct": "trees..direct..001.rad"
     }
-  }
+  ]
 }
 
 ```
+
+Note that the `"direct"` file is only used in direct studies (2-phase and 5-phase)
+and, for isolation studies of individual apertures (any phase study with dynamic
+apertures), the `"default"` files have to be used.
