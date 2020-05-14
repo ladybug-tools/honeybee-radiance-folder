@@ -1,0 +1,22 @@
+{
+  "south_window": [
+    {
+      "identifier": "0_clear",
+      "default": "./south_window..default..000.rad",
+      "direct": "./south_window..direct..000.rad",
+      "black": "./south_window..black.rad",
+      "tmtx": "clear.xml",
+      "vmtx": "./south_window..mtx.rad",
+      "dmtx": "./south_window..mtx.rad"
+    },
+    {
+      "identifier": "1_diffuse",
+      "default": "./south_window..default..001.rad",
+      "direct": "./south_window..direct..001.rad",
+      "black": "./south_window..black.rad",
+      "tmtx": "diffuse50.xml",
+      "vmtx": "./south_window..mtx.rad",
+      "dmtx": "./south_window..mtx.rad"
+    }
+  ]
+}

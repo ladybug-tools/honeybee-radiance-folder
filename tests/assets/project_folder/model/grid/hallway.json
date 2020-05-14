@@ -1,0 +1,7 @@
+{
+    "count": 40,
+    "aperture_groups": [
+        ["static_apertures"],
+        ["south_window"] 
+    ]
+}

@@ -8,17 +8,17 @@ class NonApertureState(object):
     """A state for a dynamic non-aperture geometry from Radiance files.
 
     Args:
-        name (str): Optional human-readable name for the state. Can be None.
+        identifier (str): Human-readable identifier for the state.
         default (str): Path to file to be used for normal representation of the geometry.
         direct (str): Path to file to be used for direct studies.
 
     Properties:
-        * name
+        * identifier
         * default
         * direct
     """
-    def __init__(self, name, default, direct):
-        self.name = name
+    def __init__(self, identifier, default, direct):
+        self.identifier = identifier
         self.default = default
         self.direct = direct
 
@@ -29,33 +29,38 @@ class NonApertureState(object):
         .. code-block:: python
 
             {
-            "name": "grass_covered",
+            "identifier": "grass_covered",
             "default": "ground..summer..000.rad",
             "direct": "ground..direct..000.rad",
             }
         """
-        # TODO: add checks for keys
-        name = input_dict['name'] if 'name' in input_dict else None
-        default = input_dict['default']
-        direct = input_dict['direct']
-        return cls(name, default, direct)
+        for key in ['identifier', 'default', 'direct']:
+            assert key in input_dict, 'State is missing required key: %s' % key
+        identifier = input_dict['identifier']
+        default = os.path.normpath(input_dict['default'])
+        direct = os.path.normpath(input_dict['direct'])
+        return cls(identifier, default, direct)
 
     def validate(self, folder):
-        """Validate files in this state."""
+        """Validate files in this state.
+
+        Args:
+            folder: Path to state folder.
+        """
         assert os.path.isfile(os.path.join(folder, self.default)), \
-            'Failed to find default file for %s' % self.name
+            'Failed to find default file for %s' % self.identifier
         assert os.path.isfile(os.path.join(folder, self.direct)), \
-            'Failed to find direct file for %s' % self.name
+            'Failed to find direct file for %s' % self.identifier
 
     def __repr__(self):
-        return 'NonApertureState: {}'.format(self.name)
+        return 'NonApertureState: {}'.format(self.identifier)
 
 
 class ApertureState(NonApertureState):
     """A state for a dynamic aperture from Radiance files.
 
     Args:
-        name (str): Optional human-readable name for the state. Can be None.
+        identifier (str): Optional human-readable identifier for the state. Can be None.
         default (str): Path to file to be used for normal representation of the geometry.
         direct (str): Path to file to be used for direct studies.
         black (str): Path to file for blacking out the window.
@@ -64,7 +69,7 @@ class ApertureState(NonApertureState):
         dmtx (str): Path to file for transmittance matrix.
 
     Properties:
-        * name
+        * identifier
         * default
         * direct
         * black
@@ -73,9 +78,10 @@ class ApertureState(NonApertureState):
         * dmtx
     """
 
-    def __init__(self, name, default, direct,
-            black=None, tmtx=None, vmtx=None, dmtx=None):
-        NonApertureState.__init__(self, name, default, direct)
+    def __init__(
+        self, identifier, default, direct, black=None, tmtx=None, vmtx=None,
+            dmtx=None):
+        NonApertureState.__init__(self, identifier, default, direct)
         self.black = black
         self.tmtx = tmtx
         self.vmtx = vmtx
@@ -84,11 +90,11 @@ class ApertureState(NonApertureState):
     @classmethod
     def from_dict(cls, input_dict):
         """Create a state from an input dictionary.
-        
+
         .. code-block:: python
 
             {
-                "name": "clear",
+                "identifier": "clear",
                 "default": "./south_window..default..000.rad",
                 "direct": "./south_window..direct..000.rad",
                 "black": "./south_window..black.rad",
@@ -98,8 +104,9 @@ class ApertureState(NonApertureState):
             }
 
         """
-        # TODO: add checks for keys
-        name = input_dict['name'] if 'name' in input_dict else None
+        for key in ['identifier', 'default', 'direct']:
+            assert key in input_dict, 'State is missing required key: %s' % key
+        identifier = input_dict['identifier']
         default = os.path.normpath(input_dict['default'])
         direct = os.path.normpath(input_dict['direct'])
         try:
@@ -118,71 +125,69 @@ class ApertureState(NonApertureState):
             dmtx = os.path.normpath(input_dict['dmtx'])
         except KeyError:
             dmtx = None
-        return cls(name, default, direct, black, tmtx, vmtx, dmtx)
+        return cls(identifier, default, direct, black, tmtx, vmtx, dmtx)
 
-    def validate(self, folder):
+    def validate(self, folder, bsdf_folder):
         """Validate files in this state."""
         assert os.path.isfile(os.path.join(folder, self.default)), \
-            'Failed to find default file for %s' % self.name
+            'Failed to find default file for %s' % self.identifier
         assert os.path.isfile(os.path.join(folder, self.direct)), \
-            'Failed to find direct file for %s' % self.name
+            'Failed to find direct file for %s' % self.identifier
         if self.black is not None:
             assert os.path.isfile(os.path.join(folder, self.black)), \
-                'Failed to find black file for %s' % self.name
+                'Failed to find black file for %s' % self.identifier
         if self.tmtx is not None:
-            # find the root folder
-            try:
-                root, _ = folder.split('model')
-            except ValueError:
-                raise ValueError(
-                    'Invalid input folder. See Radiance folder structure.'
-                    '\nSee https://github.com/ladybug-tools/radiance-folder-structure#radiance-folder-structure'
-                )
-            assert os.path.isfile(os.path.join(root, 'model', 'bsdf', self.tmtx)), \
-                'Failed to find tmtx file for %s' % self.name
+            assert os.path.isfile(os.path.join(bsdf_folder, self.tmtx)), \
+                'Failed to find tmtx file for %s' % self.identifier
         if self.vmtx is not None:
             assert os.path.isfile(os.path.join(folder, self.vmtx)), \
-                'Failed to find vmtx file for %s' % self.name
+                'Failed to find vmtx file for %s' % self.identifier
         if self.dmtx is not None:
             assert os.path.isfile(os.path.join(folder, self.dmtx)), \
-                'Failed to find dmtx file for %s' % self.name
+                'Failed to find dmtx file for %s' % self.identifier
 
     def __repr__(self):
-        return 'ApertureState: {}'.format(self.name)
+        return 'ApertureState: {}'.format(self.identifier)
 
 
-class DynamicNonAperture(object):
-    """Representation of a Dynamic nonaperture geometry in Radiance folder.
+class DynamicScene(object):
+    """Representation of a Dynamic scene geometry in Radiance folder.
 
     Args:
-        name (str): Text string for a unique dynamic nonaperture group identifier.
+        identifier (str): Text string for a unique dynamic scene group identifier.
             This is required and cannot be None.
-        states(list[NonApertureState]): A list of nonaperture states.
+        states(list[NonApertureState]): A list of scene states.
 
     Properties:
-        * name
+        * identifier
         * states
+        * state_count
     """
 
-    def __init__(self, name, states):
-        self.name = name
+    def __init__(self, identifier, states):
+        self.identifier = identifier
         self.states = states
+
+    @property
+    def state_count(self):
+        """Number of states."""
+        return len(self.states)
 
     @classmethod
     def from_dict(cls, input_dict):
-        """Create a dynamic aperture from a dictionary.
+        """Create a aperture group from a dictionary.
 
         .. code-block:: python
 
             {
                 "ground": [
                     {
-                    "name": "grass_covered",
+                    "identifier": "grass_covered",
                     "default": "ground..summer..000.rad",
                     "direct": "ground..direct..000.rad",
                     },
                     {
-                    "name": "snow_covered",
+                    "identifier": "snow_covered",
                     "default": "ground..winter..001.rad",
                     "direct": "ground..direct..000.rad"
                     }
@@ -190,12 +195,13 @@ class DynamicNonAperture(object):
             }
         """
         keys = list(input_dict.keys())
-        assert len(keys) == 1, 'There must be only one dynamic group in input dictionary.'
-        name = keys[0]
+        assert len(keys) == 1, \
+            'There must be only one dynamic group in input dictionary.'
+        identifier = keys[0]
 
-        states_dict = input_dict[name]
+        states_dict = input_dict[identifier]
         states = [NonApertureState.from_dict(state) for state in states_dict]
-        return cls(name, states)
+        return cls(identifier, states)
 
     def validate(self, folder):
         """Validate this dynamic geometry."""
@@ -203,19 +209,19 @@ class DynamicNonAperture(object):
             state.validate(folder)
 
     def __repr__(self):
-        return 'DynamicNonAperture: {}'.format(self.name)
+        return 'DynamicScene: {}'.format(self.identifier)
 
 
-class DynamicAperture(DynamicNonAperture):
+class ApertureGroup(DynamicScene):
     """Representation of a Dynamic aperture in Radiance folder.
 
     Args:
-        name (str): Text string for a unique dynamic aperture group identifier.
+        identifier (str): Text string for a unique dynamic aperture group identifier.
             This is required and cannot be None.
         states: A list of aperture states.
 
     Properties:
-        * name
+        * identifier
         * states
     """
 
@@ -228,7 +234,7 @@ class DynamicAperture(DynamicNonAperture):
             {
                 "south_window": [
                     {
-                    "name": "clear",
+                    "identifier": "clear",
                     "default": "./south_window..default..000.rad",
                     "direct": "./south_window..direct..000.rad",
                     "black": "./south_window..black.rad",
@@ -237,7 +243,7 @@ class DynamicAperture(DynamicNonAperture):
                     "dmtx": "./south_window..mtx.rad"
                     },
                     {
-                    "name": "diffuse",
+                    "identifier": "diffuse",
                     "default": "./south_window..default..001.rad",
                     "direct": "./south_window..direct..001.rad",
                     "black": "./south_window..black.rad",
@@ -250,23 +256,31 @@ class DynamicAperture(DynamicNonAperture):
 
         """
         keys = list(input_dict.keys())
-        assert len(keys) == 1, 'There must be only one dynamic group in input dictionary.'
-        name = keys[0]
+        assert len(keys) == 1, \
+            'There must be only one dynamic group in input dictionary.'
+        identifier = keys[0]
 
-        states_dict = input_dict[name]
+        states_dict = input_dict[identifier]
         states = [ApertureState.from_dict(state) for state in states_dict]
-        return cls(name, states)
-    
+        return cls(identifier, states)
+
+    def validate(self, folder, bsdf_folder):
+        """Validate aperture group."""
+        for state in self.states:
+            state.validate(folder, bsdf_folder)
+
     def __repr__(self):
-        return 'DynamicAperture: {}'.format(self.name)
+        return 'ApertureGroup: {} (#{})'.format(self.identifier, len(self.states))
 
 
-def parse_dynamic_apertures(states_file, validate=True):
+def parse_aperture_groups(states_file, validate=True, bsdf_folder=None):
     """Parse dynamic apertures from a states.json file.
-    
+
     Args:
         states_file: Path to states JSON file.
         validate: Validate the files in states files exist in the folder.
+        bsdf_folder: Required for validation of tmtx. Not required if validate is set to
+            False.
 
     Returns:
         A list of dynamic apertures
@@ -276,24 +290,24 @@ def parse_dynamic_apertures(states_file, validate=True):
 
     with open(states_file) as inf:
         data = json.load(inf)
-    
-    apertures = [DynamicAperture.from_dict({key: value}) for key, value in data.items()]
+
+    apertures = [ApertureGroup.from_dict({key: value}) for key, value in data.items()]
 
     if validate:
         # check for the files to exist
         folder = os.path.dirname(states_file)
         for aperture in apertures:
-            aperture.validate(folder)
+            aperture.validate(folder, bsdf_folder)
 
     return apertures
 
 
-def parse_dynamic_nonapertures(states_file, validate=True):
+def parse_dynamic_scene(states_file, validate=True):
     """Parse dynamic nonaperture geometries from a state file.
-    
+
     Args:
         states_file: Path to states JSON file.
-    
+
     Returns:
         A list of dynamic nonaperture geometries
     """
@@ -303,7 +317,10 @@ def parse_dynamic_nonapertures(states_file, validate=True):
     with open(states_file) as inf:
         data = json.load(inf)
 
-    geometries = [DynamicNonAperture.from_dict({key: value}) for key, value in data.items()]
+    geometries = [
+        DynamicScene.from_dict({key: value})
+        for key, value in data.items()
+    ]
 
     if validate:
         # check for the files to exist

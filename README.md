@@ -67,10 +67,10 @@ model\static\aperture\sample_case.rad
 ```python
 # and finally get the dynamic aperture - south window in this case
 # and check each state
-for count, ap in enumerate(folder.model.dynamic_aperture(interior=False)):
-    print('dynamic aperture %d: %s' % (count + 1, ap.name))
+for count, ap in enumerate(folder.model.aperture_group(interior=False)):
+    print('dynamic aperture %d: %s' % (count + 1, ap.identifier))
     for state in ap.states:
-        print('- %s: %s' % (state.name, state.default))
+        print('- %s: %s' % (state.identifier, state.default))
 ```
 
 ```shell

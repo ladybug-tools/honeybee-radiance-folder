@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from honeybee_radiance_folder import Folder
+from honeybee_radiance_folder import ModelFolder as Folder
+import honeybee_radiance_folder.config as config
 import os
 import shutil
 
@@ -9,54 +10,85 @@ def test_writer():
     folder_path = r'./tests/assets/temp/rad_folder'
     shutil.rmtree(folder_path, ignore_errors=True)
     rad_folder = Folder(folder_path)
-    rad_folder.write()
-    
-    assert os.path.isdir(folder_path)
+    rad_folder.write(folder_type=2, overwrite=True)
+
+    assert os.path.isdir(rad_folder.folder)
+    root_folder = rad_folder.root(full=True)
+    assert os.path.isdir(root_folder)
     subfolders = [
-        f for f in os.listdir(folder_path)
-        if os.path.isdir(os.path.join(folder_path, f))
+        f for f in os.listdir(root_folder)
+        if os.path.isdir(os.path.join(root_folder, f))
     ]
 
-    assert len(subfolders) == 4
-    assert 'asset' in subfolders
-    assert 'model' in subfolders
-    assert 'output' in subfolders
-    assert 'system' in subfolders
+    cfg_names = ['GRID', 'VIEW'] + [k for k, v in config.minimal.items() if v is True]
+    expected_subfolders = [rad_folder._get_folder_name(f) for f in cfg_names]
+
+    assert len(subfolders) == len(expected_subfolders)
+    for f in expected_subfolders:
+        assert f in subfolders
 
     # try to remove the folder
     shutil.rmtree(folder_path, ignore_errors=True)
 
 
-radiance_folder = r'./tests/assets/project_folder'
+def test_reader():
+    radiance_folder = r'./tests/assets/project_folder/model'
+    rad_folder = Folder(radiance_folder)
+    assert rad_folder.root() == 'model'
+    assert rad_folder.aperture_folder() == os.path.join('model', 'aperture')
+    assert rad_folder.aperture_group_folder() == os.path.join('model', 'aperture_group')
+    assert rad_folder.aperture_group_folder(interior=True) == \
+        os.path.join('model', 'aperture_group', 'interior')
+    assert rad_folder.bsdf_folder() == os.path.join('model', 'bsdf')
+    assert rad_folder.grid_folder() == os.path.join('model', 'grid')
+    assert rad_folder.ies_folder() == os.path.join('model', 'ies')
+    assert rad_folder.scene_folder() == os.path.join('model', 'scene')
+    assert rad_folder.dynamic_scene_folder() == os.path.join('model', 'scene_dynamic')
+    assert rad_folder.dynamic_scene_folder(indoor=True) == \
+        os.path.join('model', 'scene_dynamic', 'indoor')
+    assert rad_folder.view_folder() == os.path.join('model', 'view')
 
 
-def test_static_model():
-    folder = Folder(radiance_folder)
-    files = folder.model.static_nonaperture_files(black_out=False, rel_path=True)
-    assert len(files) == 8
-    assert r'model\static\opaque\sample_case.mat'.replace('\\', os.sep) in files
-    assert r'model\static\opaque\sample_case.rad'.replace('\\', os.sep) in files
-    assert r'model\static\opaque\outdoor\context.mat'.replace('\\', os.sep) in files
-    assert r'model\static\opaque\outdoor\context.rad'.replace('\\', os.sep) in files
-    assert r'model\static\opaque\indoor\partition.mat'.replace('\\', os.sep) in files
-    assert r'model\static\opaque\indoor\partition.rad'.replace('\\', os.sep) in files
-    assert r'model\static\nonopaque\indoor\partition_glass.mat'.replace('\\', os.sep) in files
-    assert r'model\static\nonopaque\indoor\partition_glass.rad'.replace('\\', os.sep) in files
+def test_reader_files():
+    radiance_folder = r'./tests/assets/project_folder/model'
+    rad_folder = Folder(radiance_folder)
+    assert rad_folder.has_aperture_group
+    assert not rad_folder.has_dynamic_scene
+    assert rad_folder.aperture_files() == [
+        os.path.normpath(f) for f in [
+            'model/aperture/aperture.mat', 'model/aperture/aperture.rad'
+        ]
+    ]
+    assert rad_folder.aperture_files(black_out=True) == [
+        os.path.normpath(f) for f in [
+            'model/aperture/aperture.blk', 'model/aperture/aperture.rad'
+        ]
+    ]
 
+    s_files = rad_folder.scene_files()
+    e_files = [
+        os.path.normpath(f) for f in [
+            'model/scene/context.mat', 'model/scene/context.rad',
+            'model/scene/partition.mat', 'model/scene/partition.rad',
+            'model/scene/partition_glass.mat', 'model/scene/partition_glass.rad',
+            'model/scene/room_envelope.mat', 'model/scene/room_envelope.rad'
+        ]
+    ]
+    assert s_files.index(e_files[1]) - s_files.index(e_files[0]) == 1
+    assert s_files.index(e_files[3]) - s_files.index(e_files[2]) == 1
+    assert s_files.index(e_files[5]) - s_files.index(e_files[4]) == 1
+    assert s_files.index(e_files[7]) - s_files.index(e_files[6]) == 1
 
-def test_static_aperture():
-    folder = Folder(radiance_folder)
-    files = folder.model.static_aperture_files(black_out=False, rel_path=True)
-    assert r'model\static\aperture\sample_case.mat'.replace('\\', os.sep) in files
-    assert r'model\static\aperture\sample_case.rad'.replace('\\', os.sep) in files
-
-
-def test_dynamic_aperture():
-    folder = Folder(radiance_folder)
-    apertures = folder.model.dynamic_aperture(interior=False)
-    assert len(apertures) == 1
-    ap = apertures[0]
-    assert ap.states[0].name == '0_clear'
-    assert ap.states[0].default == 'south_window..default..000.rad'
-    assert ap.states[1].name == '1_diffuse'
-    assert ap.states[1].default == 'south_window..default..001.rad'
+    s_files = rad_folder.scene_files(black_out=True)
+    e_files = [
+        os.path.normpath(f) for f in [
+            'model/scene/context.blk', 'model/scene/context.rad',
+            'model/scene/partition.blk', 'model/scene/partition.rad',
+            'model/scene/partition_glass.blk', 'model/scene/partition_glass.rad',
+            'model/scene/room_envelope.blk', 'model/scene/room_envelope.rad'
+        ]
+    ]
+    assert s_files.index(e_files[1]) - s_files.index(e_files[0]) == 1
+    assert s_files.index(e_files[3]) - s_files.index(e_files[2]) == 1
+    assert s_files.index(e_files[5]) - s_files.index(e_files[4]) == 1
+    assert s_files.index(e_files[7]) - s_files.index(e_files[6]) == 1
