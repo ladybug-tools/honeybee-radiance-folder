@@ -10,10 +10,11 @@ See https://github.com/ladybug-tools/radiance-folder-structure#radiance-folder-s
 """
 import os
 import re
-import json
-from .folderutil import parse_aperture_groups, parse_dynamic_scene
-import honeybee_radiance_folder.config as config
 import shutil
+
+import honeybee_radiance_folder.config as config
+
+from .folderutil import parse_aperture_groups, parse_dynamic_scene, _nukedir
 
 try:
     from ConfigParser import SafeConfigParser as CP
@@ -440,7 +441,7 @@ class ModelFolder(_Folder):
             cfg (dict): A dictionary with folder name as key and True or False as
                 value. You can pre-defined from ``config`` module. Default is a
                 grid-based ray-tracing folder.
-            overwrite (bool): Set to True to overwrite the folder is it already exist.
+            overwrite (bool): Set to True to overwrite the folder if it already exist.
 
         Returns:
             path to folder.
@@ -460,7 +461,7 @@ class ModelFolder(_Folder):
 
         root_folder = self.model_folder(full=True)
         if overwrite:
-            shutil.rmtree(root_folder, ignore_errors=True)
+            _nukedir(root_folder)
 
         if not overwrite and os.path.isdir(root_folder):
             raise ValueError(

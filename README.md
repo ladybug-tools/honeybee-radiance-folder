@@ -6,24 +6,24 @@ Honeybee Radiance folder is a python library to read, write and validate
 # Usage
 
 ```python
-# create a Radiance folder
-from honeybee_radiance_folder import Folder
+# create a Radiance Model folder
 import os
+from honeybee_radiance_folder import ModelFolder
 
 rf = 'c:/ladybug/sample_folder'
-folder = Folder(rf)
+folder = ModelFolder(rf)
 folder.write(overwrite=True)
 
-# check the folders created in folder
-for f in os.listdir(rf):
+# check the folders and files created in model folder
+for f in os.listdir(folder.model_folder(full=True)):
     print(f)
 ```
 
 ```shell
-asset
-model
-output
-system
+aperture
+folder.cfg
+grid
+scene
 ```
 
 ```python
@@ -32,49 +32,49 @@ system
 # in this case we are loading the folder from sample folder in radiance folder repository
 # you can download it from here
 # https://github.com/ladybug-tools/radiance-folder-structure/tree/master/project_folder
-from honeybee_radiance_folder import Folder
+from honeybee_radiance_folder import ModelFolder
 
-rf = 'c:/ladybug/sample_folder'
-folder = Folder(rf)
+radiance_folder = r'./tests/assets/project_folder'
+folder = ModelFolder(radiance_folder)
 
-# get input files for static scene
-for f in folder.model.static_nonaperture_files(black_out=False, rel_path=True):
+# get input files for scene
+for f in folder.scene_files(black_out=False, rel_path=True):
     print(f)
 ```
 
 ```shell
-model\static\opaque\sample_case.mat
-model\static\opaque\sample_case.rad
-model\static\opaque\outdoor\context.mat
-model\static\opaque\outdoor\context.rad
-model\static\opaque\indoor\partition.mat
-model\static\opaque\indoor\partition.rad
-model\static\nonopaque\indoor\partition_glass.mat
-model\static\nonopaque\indoor\partition_glass.rad
+model/scene/context.mat
+model/scene/context.rad
+model/scene/partition.mat
+model/scene/partition.rad
+model/scene/partition_glass.mat
+model/scene/partition_glass.rad
+model/scene/room_envelope.mat
+model/scene/room_envelope.rad
 ```
 
 ```python
-# and static aperture
-for f in folder.model.static_aperture_files(black_out=False, rel_path=True):
+# and apertures
+for f in folder.aperture_files(black_out=False, rel_path=True):
     print(f)
 ```
 
 ```shell
-model\static\aperture\sample_case.mat
-model\static\aperture\sample_case.rad
+model\aperture\aperture.mat
+model\aperture\aperture.rad
 ```
 
 ```python
-# and finally get the dynamic aperture - south window in this case
+# and finally get aperture groups - south window in this case
 # and check each state
-for count, ap in enumerate(folder.model.aperture_group(interior=False)):
-    print('dynamic aperture %d: %s' % (count + 1, ap.identifier))
+for count, ap in enumerate(folder.aperture_groups(interior=False)):
+    print('Aperture group %d: %s' % (count + 1, ap.identifier))
     for state in ap.states:
         print('- %s: %s' % (state.identifier, state.default))
 ```
 
 ```shell
-dynamic aperture 1: south_window
-- clear: south_window..default..000.rad
-- diffuse: south_window..default..001.rad
+Aperture group 1: south_window
+- 0_clear: south_window..default..000.rad
+- 1_diffuse: south_window..default..001.rad
 ```

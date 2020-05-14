@@ -16,6 +16,7 @@ setuptools.setup(
     url="https://github.com/ladybug-tools/honeybee-radiance-folder",
     packages=setuptools.find_packages(exclude=["tests"]),
     install_requires=[],
+    include_package_data=True,
     classifiers=[
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3.6",

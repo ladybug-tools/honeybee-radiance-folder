@@ -4,8 +4,10 @@ import os
 import json
 
 
-class NonApertureState(object):
-    """A state for a dynamic non-aperture geometry from Radiance files.
+class SceneState(object):
+    """A state for a dynamic non-aperture geometry.
+
+    This object is parallels the ``ShadeState`` class in ``honeybee-radiance``.
 
     Args:
         identifier (str): Human-readable identifier for the state.
@@ -53,11 +55,14 @@ class NonApertureState(object):
             'Failed to find direct file for %s' % self.identifier
 
     def __repr__(self):
-        return 'NonApertureState: {}'.format(self.identifier)
+        return 'SceneState: {}'.format(self.identifier)
 
 
-class ApertureState(NonApertureState):
+class ApertureState(SceneState):
     """A state for a dynamic aperture from Radiance files.
+
+    This object parallels the honeybee-radiance ``SubFaceState`` in
+    ``honeybee-radiance``.
 
     Args:
         identifier (str): Optional human-readable identifier for the state. Can be None.
@@ -81,7 +86,7 @@ class ApertureState(NonApertureState):
     def __init__(
         self, identifier, default, direct, black=None, tmtx=None, vmtx=None,
             dmtx=None):
-        NonApertureState.__init__(self, identifier, default, direct)
+        SceneState.__init__(self, identifier, default, direct)
         self.black = black
         self.tmtx = tmtx
         self.vmtx = vmtx
@@ -128,7 +133,12 @@ class ApertureState(NonApertureState):
         return cls(identifier, default, direct, black, tmtx, vmtx, dmtx)
 
     def validate(self, folder, bsdf_folder):
-        """Validate files in this state."""
+        """Validate files in this state.
+
+        Args:
+            folder: Path to dynamic scene folder.
+            bsdf_folder: Path to BSDF folder.
+        """
         assert os.path.isfile(os.path.join(folder, self.default)), \
             'Failed to find default file for %s' % self.identifier
         assert os.path.isfile(os.path.join(folder, self.direct)), \
@@ -156,7 +166,7 @@ class DynamicScene(object):
     Args:
         identifier (str): Text string for a unique dynamic scene group identifier.
             This is required and cannot be None.
-        states(list[NonApertureState]): A list of scene states.
+        states(list[SceneState]): A list of scene states.
 
     Properties:
         * identifier
@@ -175,24 +185,28 @@ class DynamicScene(object):
 
     @classmethod
     def from_dict(cls, input_dict):
-        """Create a aperture group from a dictionary.
+        """Create a dynamic scene from a dictionary.
 
-        .. code-block:: python
+        Args:
+            input_dict: An input dictionary.
 
-            {
-                "ground": [
-                    {
-                    "identifier": "grass_covered",
-                    "default": "ground..summer..000.rad",
-                    "direct": "ground..direct..000.rad",
-                    },
-                    {
-                    "identifier": "snow_covered",
-                    "default": "ground..winter..001.rad",
-                    "direct": "ground..direct..000.rad"
-                    }
-                ]
-            }
+            .. code-block:: python
+
+                {
+                    "ground": [
+                        {
+                        "identifier": "grass_covered",
+                        "default": "ground..summer..000.rad",
+                        "direct": "ground..direct..000.rad",
+                        },
+                        {
+                        "identifier": "snow_covered",
+                        "default": "ground..winter..001.rad",
+                        "direct": "ground..direct..000.rad"
+                        }
+                    ]
+                }
+
         """
         keys = list(input_dict.keys())
         assert len(keys) == 1, \
@@ -200,11 +214,15 @@ class DynamicScene(object):
         identifier = keys[0]
 
         states_dict = input_dict[identifier]
-        states = [NonApertureState.from_dict(state) for state in states_dict]
+        states = [SceneState.from_dict(state) for state in states_dict]
         return cls(identifier, states)
 
     def validate(self, folder):
-        """Validate this dynamic geometry."""
+        """Validate this dynamic geometry.
+
+        Args:
+            folder: Path to dynamic scene folder.
+        """
         for state in self.states:
             state.validate(folder)
 
@@ -265,7 +283,12 @@ class ApertureGroup(DynamicScene):
         return cls(identifier, states)
 
     def validate(self, folder, bsdf_folder):
-        """Validate aperture group."""
+        """Validate aperture group.
+
+        Args:
+            folder: Path to dynamic scene folder.
+            bsdf_folder: Path to BSDF folder.
+        """
         for state in self.states:
             state.validate(folder, bsdf_folder)
 
@@ -329,3 +352,35 @@ def parse_dynamic_scene(states_file, validate=True):
             geometry.validate(folder)
 
     return geometries
+
+
+def _nukedir(target_dir, rmdir=True):
+    """Delete all the files inside target_dir.
+    Usage:
+        nukedir("c:/ladybug/libs", True)
+    """
+    d = os.path.normpath(target_dir)
+
+    if not os.path.isdir(d):
+        return
+
+    files = os.listdir(d)
+
+    for f in files:
+        if f == '.' or f == '..':
+            continue
+        path = os.path.join(d, f)
+
+        if os.path.isdir(path):
+            nukedir(path)
+        else:
+            try:
+                os.remove(path)
+            except Exception:
+                print("Failed to remove %s" % path)
+
+    if rmdir:
+        try:
+            os.rmdir(d)
+        except Exception:
+            print("Failed to remove %s" % d)
