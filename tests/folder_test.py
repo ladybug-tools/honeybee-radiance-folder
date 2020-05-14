@@ -7,13 +7,13 @@ import shutil
 
 def test_writer():
     """Test creating a new folder."""
-    folder_path = r'./tests/assets/temp/rad_folder'
+    folder_path = r'./tests/assets/temp'
     shutil.rmtree(folder_path, ignore_errors=True)
     rad_folder = Folder(folder_path)
     rad_folder.write(folder_type=2, overwrite=True)
 
     assert os.path.isdir(rad_folder.folder)
-    root_folder = rad_folder.root(full=True)
+    root_folder = rad_folder.model_folder(full=True)
     assert os.path.isdir(root_folder)
     subfolders = [
         f for f in os.listdir(root_folder)
@@ -32,9 +32,9 @@ def test_writer():
 
 
 def test_reader():
-    radiance_folder = r'./tests/assets/project_folder/model'
+    radiance_folder = r'./tests/assets/project_folder'
     rad_folder = Folder(radiance_folder)
-    assert rad_folder.root() == 'model'
+    assert rad_folder.model_folder() == 'model'
     assert rad_folder.aperture_folder() == os.path.join('model', 'aperture')
     assert rad_folder.aperture_group_folder() == os.path.join('model', 'aperture_group')
     assert rad_folder.aperture_group_folder(interior=True) == \
@@ -50,7 +50,7 @@ def test_reader():
 
 
 def test_reader_files():
-    radiance_folder = r'./tests/assets/project_folder/model'
+    radiance_folder = r'./tests/assets/project_folder'
     rad_folder = Folder(radiance_folder)
     assert rad_folder.has_aperture_group
     assert not rad_folder.has_dynamic_scene

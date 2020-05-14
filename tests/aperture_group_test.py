@@ -4,7 +4,7 @@ import os
 
 
 def test_static_aperture():
-    radiance_folder = r'./tests/assets/project_folder/model'
+    radiance_folder = r'./tests/assets/project_folder'
     folder = Folder(radiance_folder)
     files = folder.aperture_files(black_out=False, rel_path=True)
     assert os.path.normpath('model/aperture/aperture.mat') in files
@@ -12,7 +12,7 @@ def test_static_aperture():
 
 
 def test_aperture_group():
-    radiance_folder = r'./tests/assets/project_folder/model'
+    radiance_folder = r'./tests/assets/project_folder'
     folder = Folder(radiance_folder)
     apertures = folder.aperture_groups(interior=False)
     assert len(apertures) == 1

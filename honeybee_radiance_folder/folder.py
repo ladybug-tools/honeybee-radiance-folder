@@ -99,8 +99,8 @@ class ModelFolder(_Folder):
     https://www.github.com/ladybug-tools/radiance-folder-structure
 
     Args:
-        folder (str): Project folder as string. The folder will be created on write
-            if it doesn't exist already.
+        project_folder (str): Project folder as string. The folder will be created on
+            write if it doesn't exist already.
         config_file (str): Optional config file to modify the default folder names. By
             default ``folder.cfg`` in ``honeybee-radiance-folder`` will be used.
 
@@ -149,8 +149,7 @@ class ModelFolder(_Folder):
         '_dynamic_scene_load'
     )
 
-    def __init__(self, folder, config_file=None):
-        project_folder = os.path.dirname(folder)
+    def __init__(self, project_folder, config_file=None):
         _Folder.__init__(self, os.path.abspath(project_folder))
         self._config, self._config_file = self._load_config_file(config_file)
         self._validate_config()
@@ -161,7 +160,7 @@ class ModelFolder(_Folder):
         self._aperture_groups_load = True  # boolean to keep track of first load
         self._dynamic_scene_load = True  # boolean to keep track of first load
 
-    def root(self, full=False):
+    def model_folder(self, full=False):
         """Model root folder.
 
         Args:
@@ -182,7 +181,7 @@ class ModelFolder(_Folder):
         return self._config[folder_cfg_name]['path']
 
     def _get_folder(self, folder_cfg_name, full=False):
-        p = os.path.join(self.root(full), self._config[folder_cfg_name]['path'])
+        p = os.path.join(self.model_folder(full), self._config[folder_cfg_name]['path'])
         return os.path.normpath(p)
 
     def aperture_folder(self, full=False):
@@ -459,7 +458,7 @@ class ModelFolder(_Folder):
             cfg['GRID'] = True
             cfg['VIEW'] = True
 
-        root_folder = self.root(full=True)
+        root_folder = self.model_folder(full=True)
         if overwrite:
             shutil.rmtree(root_folder, ignore_errors=True)
 
