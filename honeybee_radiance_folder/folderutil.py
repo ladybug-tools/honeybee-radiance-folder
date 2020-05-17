@@ -372,7 +372,7 @@ def _nukedir(target_dir, rmdir=True):
         path = os.path.join(d, f)
 
         if os.path.isdir(path):
-            nukedir(path)
+            _nukedir(path)
         else:
             try:
                 os.remove(path)
