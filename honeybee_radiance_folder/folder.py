@@ -179,9 +179,11 @@ class ModelFolder(_Folder):
             return self._config['GLOBAL']['root']
 
     def _get_folder_name(self, folder_cfg_name):
+        """Get folder name from config using folder key."""
         return self._config[folder_cfg_name]['path']
 
     def _get_folder(self, folder_cfg_name, full=False):
+        """Get path to folder from config using folder key."""
         p = os.path.join(self.model_folder(full), self._config[folder_cfg_name]['path'])
         return os.path.normpath(p)
 
@@ -311,9 +313,9 @@ class ModelFolder(_Folder):
             self._config['APERTURE-GROUP']['states']
         )
 
+        # check for the interior aperture group
         if os.path.isfile(states_file) or os.path.isfile(states_file_interior):
             return True
-        # check for the interior aperture group
         return False
 
     @property
@@ -359,7 +361,7 @@ class ModelFolder(_Folder):
         """Return list of files for apertures.
 
         This list includes both geometry and modifier files. This method will raise a
-        ValueError if it cannot find a modifier file with the same name as the geomerty
+        ValueError if it cannot find a modifier file with the same name as the geometry
         file.
 
         Args:
@@ -397,6 +399,42 @@ class ModelFolder(_Folder):
             self.scene_folder(full=True), pattern, rel_path
         )
         return self._match_files(modifier_files, geometry_files)
+
+    def grid_files(self, rel_path=True):
+        """Return list of grid files."""
+        cfg = self._config['GRID']
+        pattern = cfg['grid_pattern']
+        grid_files = self._find_files(
+            self.grid_folder(full=True), pattern, rel_path
+        )
+        return grid_files
+
+    def grid_info_files(self, rel_path=True):
+        """Return list of grid information files."""
+        cfg = self._config['GRID']
+        pattern = cfg['info_pattern']
+        grid_info_files = self._find_files(
+            self.grid_folder(full=True), pattern, rel_path
+        )
+        return grid_info_files
+
+    def view_files(self, rel_path=True):
+        """Return list of view files."""
+        cfg = self._config['VIEW']
+        pattern = cfg['view_pattern']
+        view_files = self._find_files(
+            self.view_folder(full=True), pattern, rel_path
+        )
+        return view_files
+
+    def view_info_files(self, rel_path=True):
+        """Return list of view information files."""
+        cfg = self._config['VIEW']
+        pattern = cfg['info_pattern']
+        view_info_files = self._find_files(
+            self.view_folder(full=True), pattern, rel_path
+        )
+        return view_info_files
 
     def aperture_groups(self, interior=False, reload=False):
         """List of apertures groups.
@@ -535,4 +573,3 @@ class ModelFolder(_Folder):
         states = self._config['INDOOR-DYNAMIC-SCENE']['states']
         self._dynamic_scene_indoor = \
             parse_dynamic_scene(os.path.join(indoor_folder, states))
-
