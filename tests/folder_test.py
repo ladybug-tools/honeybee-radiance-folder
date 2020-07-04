@@ -31,6 +31,32 @@ def test_writer():
     shutil.rmtree(folder_path, ignore_errors=True)
 
 
+def test_writer_model_folder():
+    """Test creating a new folder."""
+    folder_path = r'./tests/assets/temp/rad_model'
+    shutil.rmtree(folder_path, ignore_errors=True)
+    rad_folder = Folder.from_model_folder(folder_path)
+    rad_folder.write(folder_type=2, overwrite=True)
+
+    assert os.path.isdir(rad_folder.folder)
+    root_folder = rad_folder.model_folder(full=True)
+    assert os.path.isdir(root_folder)
+    subfolders = [
+        f for f in os.listdir(root_folder)
+        if os.path.isdir(os.path.join(root_folder, f))
+    ]
+
+    cfg_names = ['GRID', 'VIEW'] + [k for k, v in config.minimal.items() if v is True]
+    expected_subfolders = [rad_folder._get_folder_name(f) for f in cfg_names]
+
+    assert len(subfolders) == len(expected_subfolders)
+    for f in expected_subfolders:
+        assert f in subfolders
+
+    # try to remove the folder
+    shutil.rmtree(folder_path, ignore_errors=True)
+
+
 def test_reader():
     radiance_folder = r'./tests/assets/project_folder'
     rad_folder = Folder(radiance_folder)

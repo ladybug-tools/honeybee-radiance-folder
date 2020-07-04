@@ -163,6 +163,19 @@ class ModelFolder(_Folder):
         self._aperture_groups_load = True  # boolean to keep track of first load
         self._dynamic_scene_load = True  # boolean to keep track of first load
 
+    @classmethod
+    def from_model_folder(cls, model_folder, config_file=None):
+        """Use model folder instead of project folder.
+
+        Args:
+            model_folder (str): Model folder as string. The folder will be created on
+            write if it doesn't exist already.
+        config_file (str): Optional config file to modify the default folder names. By
+            default ``folder.cfg`` in ``honeybee-radiance-folder`` will be used.
+        """
+        project_folder, folder_name = os.path.split(model_folder)
+        return cls(project_folder, folder_name, config_file)
+
     def model_folder(self, full=False):
         """Model root folder.
 
