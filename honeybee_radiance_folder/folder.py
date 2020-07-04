@@ -92,22 +92,23 @@ class _Folder(object):
 
 
 class ModelFolder(_Folder):
-    """Model folder.
+    """Radiance Model folder.
 
-    Model folder includes all geometry and geometry metadata including modifiers.
-    See Radiance folder structure repository for more information:
+    Radiance Model folder includes all geometry and geometry metadata including
+    modifiers. See Radiance folder structure repository for more information:
 
     https://www.github.com/ladybug-tools/radiance-folder-structure
 
     Args:
         project_folder (str): Project folder as string. The folder will be created on
             write if it doesn't exist already.
+        model_folder (str): Model folder name (default: model).
         config_file (str): Optional config file to modify the default folder names. By
             default ``folder.cfg`` in ``honeybee-radiance-folder`` will be used.
 
     .. code-block:: shell
 
-        └─model                  :: model folder
+        └─model                  :: radiance model folder
             ├───aperture         :: static apertures description
             ├───aperture_group   :: apertures groups (AKA window groups) - optional
             │   └───interior     :: interior aperture groups - optional
@@ -122,7 +123,7 @@ class ModelFolder(_Folder):
     """
     # required keys in config file
     CFG_KEYS_REQUIRED = {
-        'GLOBAL': ['root', 'static_apertures'],
+        'GLOBAL': ['static_apertures'],
         'APERTURE': ['path', 'geo_pattern', 'mod_pattern', 'blk_pattern'],
         'SCENE': ['path', 'geo_pattern', 'mod_pattern', 'blk_pattern']
     }
@@ -150,9 +151,10 @@ class ModelFolder(_Folder):
         '_dynamic_scene_load'
     )
 
-    def __init__(self, project_folder, config_file=None):
+    def __init__(self, project_folder, model_folder='model', config_file=None):
         _Folder.__init__(self, os.path.abspath(project_folder))
         self._config, self._config_file = self._load_config_file(config_file)
+        self._config['GLOBAL']['root'] = model_folder
         self._validate_config()
         self._aperture_group = None
         self._aperture_group_interior = None
