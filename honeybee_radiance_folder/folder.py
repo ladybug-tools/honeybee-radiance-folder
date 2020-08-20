@@ -129,7 +129,7 @@ class ModelFolder(_Folder):
     }
     CFG_KEYS_CHOICE = {
         'GRID': ['path', 'grid_pattern', 'info_pattern'],
-        'VIEW': ['path', 'view_pattern',  'info_pattern']
+        'VIEW': ['path', 'view_pattern', 'info_pattern']
     }
     CFG_KEYS_OPTIONAL = {
         'APERTURE-GROUP': ['path', 'states'],
@@ -487,7 +487,8 @@ class ModelFolder(_Folder):
         """Write an empty model folder.
 
         Args:
-            folder_type: An integer between 0-2.
+            folder_type: An integer between -1-2.
+                * -1: no grids or views
                 * 0: grid-based
                 * 1: view-based
                 * 2: includes both views and grids
@@ -499,16 +500,16 @@ class ModelFolder(_Folder):
         Returns:
             path to folder.
         """
-        assert 0 <= folder_type <= 2, 'folder_type must be an integer between 0-2.'
+        assert -1 <= folder_type <= 2, 'folder_type must be an integer between -1-2.'
 
-        if not cfg:
-            cfg = dict(config.minimal)
+        # always copy the input cfg to ensure it's not mutated by the folder_type
+        cfg = dict(config.minimal) if not cfg else dict(cfg)
 
         if folder_type == 0:
             cfg['GRID'] = True
         elif folder_type == 1:
             cfg['VIEW'] = True
-        else:
+        elif folder_type == 2:
             cfg['GRID'] = True
             cfg['VIEW'] = True
 
