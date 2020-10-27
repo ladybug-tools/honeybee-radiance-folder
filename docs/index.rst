@@ -1,10 +1,18 @@
-.. Honeybee Radiance Folder documentation master file, created by
-   sphinx-quickstart on Wed Mar 13 20:09:41 2019.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 Welcome to Honeybee Radiance Folder's documentation!
 ====================================================
+
+.. image:: http://www.ladybug.tools/assets/img/honeybee.png
+
+Honeybee Radiance Folder is a Python library to read, write and validate the
+`Radiance folder structure <https://github.com/ladybug-tools/radiance-folder-structure>`_.
+
+Installation
+============
+
+`pip install -U honeybee-radiance-folder`
+
+Documentation
+=============
 
 .. toctree::
    :maxdepth: 2
