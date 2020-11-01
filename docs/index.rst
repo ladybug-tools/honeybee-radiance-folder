@@ -9,10 +9,8 @@ Honeybee Radiance Folder is a Python library to read, write and validate the
 Installation
 ============
 
-`pip install -U honeybee-radiance-folder`
+``pip install -U honeybee-radiance-folder``
 
-Documentation
-=============
 
 .. toctree::
    :maxdepth: 2

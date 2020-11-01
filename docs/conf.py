@@ -13,13 +13,15 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
+import datetime
+now = datetime.datetime.now()
 import sys
 sys.path.insert(0, os.path.abspath('../'))
 
 # -- Project information -----------------------------------------------------
 
 project = 'honeybee radiance folder'
-copyright = '2019, Ladybug Tools'
+copyright = '{}, Ladybug Tools'.format(str(now.year))
 author = 'Ladybug Tools'
 
 # The full version, including alpha/beta/rc tags
