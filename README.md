@@ -1,5 +1,5 @@
 # honeybee-radiance-folder
-[![Build Status](https://travis-ci.org/ladybug-tools/honeybee-radiance-folder.svg?branch=master)](https://travis-ci.org/ladybug-tools/honeybee-radiance-folder)
+[![Build Status](https://travis-ci.com/ladybug-tools/honeybee-radiance-folder.svg?branch=master)](https://travis-ci.com/ladybug-tools/honeybee-radiance-folder)
 [![Coverage Status](https://coveralls.io/repos/github/ladybug-tools/honeybee-radiance-folder/badge.svg?branch=master)](https://coveralls.io/github/ladybug-tools/honeybee-radiance-folder)
 
 [![Python 2.7](https://img.shields.io/badge/python-2.7-green.svg)](https://www.python.org/downloads/release/python-270/)
