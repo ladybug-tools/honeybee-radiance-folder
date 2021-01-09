@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 from honeybee_radiance_folder import ModelFolder as Folder
-import os
 
 
 def test_static_aperture():
     radiance_folder = r'./tests/assets/project_folder'
     folder = Folder(radiance_folder)
     files = folder.aperture_files(black_out=False, rel_path=True)
-    assert os.path.normpath('model/aperture/aperture.mat') in files
-    assert os.path.normpath('model/aperture/aperture.rad') in files
+    assert 'model/aperture/aperture.mat' in files
+    assert 'model/aperture/aperture.rad' in files
 
 
 def test_aperture_group():

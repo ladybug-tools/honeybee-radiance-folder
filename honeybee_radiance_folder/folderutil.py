@@ -4,6 +4,10 @@ import os
 import json
 
 
+def _as_posix(path):
+    return path.replace('\\', '/')
+
+
 class SceneState(object):
     """A state for a dynamic non-aperture geometry.
 
@@ -21,8 +25,8 @@ class SceneState(object):
     """
     def __init__(self, identifier, default, direct):
         self.identifier = identifier
-        self.default = default
-        self.direct = direct
+        self.default = _as_posix(default)
+        self.direct = _as_posix(direct)
 
     @classmethod
     def from_dict(cls, input_dict):
@@ -39,8 +43,8 @@ class SceneState(object):
         for key in ['identifier', 'default', 'direct']:
             assert key in input_dict, 'State is missing required key: %s' % key
         identifier = input_dict['identifier']
-        default = os.path.normpath(input_dict['default'])
-        direct = os.path.normpath(input_dict['direct'])
+        default = _as_posix(os.path.normpath(input_dict['default']))
+        direct = _as_posix(os.path.normpath(input_dict['direct']))
         return cls(identifier, default, direct)
 
     def validate(self, folder):
@@ -87,10 +91,10 @@ class ApertureState(SceneState):
         self, identifier, default, direct, black=None, tmtx=None, vmtx=None,
             dmtx=None):
         SceneState.__init__(self, identifier, default, direct)
-        self.black = black
-        self.tmtx = tmtx
-        self.vmtx = vmtx
-        self.dmtx = dmtx
+        self.black = _as_posix(black)
+        self.tmtx = _as_posix(tmtx)
+        self.vmtx = _as_posix(vmtx)
+        self.dmtx = _as_posix(dmtx)
 
     @classmethod
     def from_dict(cls, input_dict):
@@ -112,8 +116,8 @@ class ApertureState(SceneState):
         for key in ['identifier', 'default', 'direct']:
             assert key in input_dict, 'State is missing required key: %s' % key
         identifier = input_dict['identifier']
-        default = os.path.normpath(input_dict['default'])
-        direct = os.path.normpath(input_dict['direct'])
+        default = _as_posix(os.path.normpath(input_dict['default']))
+        direct = _as_posix(os.path.normpath(input_dict['direct']))
         try:
             black = input_dict['black']
         except KeyError:
@@ -123,11 +127,11 @@ class ApertureState(SceneState):
         except KeyError:
             tmtx = None
         try:
-            vmtx = os.path.normpath(input_dict['vmtx'])
+            vmtx = _as_posix(os.path.normpath(input_dict['vmtx']))
         except KeyError:
             vmtx = None
         try:
-            dmtx = os.path.normpath(input_dict['dmtx'])
+            dmtx = _as_posix(os.path.normpath(input_dict['dmtx']))
         except KeyError:
             dmtx = None
         return cls(identifier, default, direct, black, tmtx, vmtx, dmtx)

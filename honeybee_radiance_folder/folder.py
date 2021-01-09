@@ -38,7 +38,7 @@ class _Folder(object):
     __slots__ = ('_folder',)
 
     def __init__(self, folder):
-        self._folder = os.path.normpath(folder)
+        self._folder = self._as_posix(os.path.normpath(folder))
 
     @staticmethod
     def _load_config_file(cfg_file):
@@ -54,7 +54,7 @@ class _Folder(object):
             for option in parser.options(section):
                 config[section][option] = \
                     parser.get(section, option).split('#')[0].strip()
-        return config, cfg_file
+        return config, cfg_file.replace('\\', '/')
 
     @property
     def folder(self):
@@ -71,13 +71,17 @@ class _Folder(object):
         """
         folder = os.path.join(self.folder, subfolder)
         filtered_files = [
-            os.path.normpath(os.path.join(folder, f)) for f in os.listdir(folder)
+            self._as_posix(os.path.normpath(os.path.join(folder, f)))
+            for f in os.listdir(folder)
             if re.search(pattern, f)
         ]
 
         if rel_path:
             # FIX relative path
-            return [os.path.relpath(fi, self.folder) for fi in filtered_files]
+            return [
+                self._as_posix(os.path.relpath(fi, self.folder))
+                for fi in filtered_files
+            ]
         else:
             return filtered_files
 
@@ -86,6 +90,14 @@ class _Folder(object):
         """Get file name with no extention."""
         base = os.path.basename(path)
         return os.path.splitext(base)[0]
+
+    @staticmethod
+    def _as_posix(path):
+        """Replace \\ with / in path.
+
+        Once we remove support for Python 2 we should use pathlib module instead.
+        """
+        return path.replace('\\', '/')
 
     def __repr__(self):
         return '%s: %s' % (self.__class__.__name__, self.folder)
@@ -187,20 +199,20 @@ class ModelFolder(_Folder):
             Path to folder.
         """
         if full:
-            return os.path.abspath(
+            return self._as_posix(os.path.abspath(
                 os.path.join(self.folder, self._config['GLOBAL']['root'])
-            )
+            ))
         else:
-            return self._config['GLOBAL']['root']
+            return self._as_posix(self._config['GLOBAL']['root'])
 
     def _get_folder_name(self, folder_cfg_name):
         """Get folder name from config using folder key."""
-        return self._config[folder_cfg_name]['path']
+        return self._as_posix(self._config[folder_cfg_name]['path'])
 
     def _get_folder(self, folder_cfg_name, full=False):
         """Get path to folder from config using folder key."""
         p = os.path.join(self.model_folder(full), self._config[folder_cfg_name]['path'])
-        return os.path.normpath(p)
+        return self._as_posix(os.path.normpath(p))
 
     def aperture_folder(self, full=False):
         """Aperture folder path.
@@ -534,7 +546,7 @@ class ModelFolder(_Folder):
                 raise ValueError('{} already exist.'.format(directory))
 
         shutil.copy2(self._config_file, root_folder)
-        return root_folder
+        return self._as_posix(root_folder)
 
     @staticmethod
     def _match_files(first, second):
