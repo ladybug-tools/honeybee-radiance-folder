@@ -3,6 +3,9 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
+with open('cli-requirements.txt') as f:
+    cli_requirements = f.read().splitlines()
+
 setuptools.setup(
     name="honeybee-radiance-folder",
     use_scm_version=True,
@@ -16,7 +19,11 @@ setuptools.setup(
     url="https://github.com/ladybug-tools/honeybee-radiance-folder",
     packages=setuptools.find_packages(exclude=["tests"]),
     install_requires=[],
+    extras_require={'cli': cli_requirements},
     include_package_data=True,
+    entry_points={
+        "console_scripts": ["honeybee-folder = honeybee_radiance_folder.cli:folder"]
+    },
     classifiers=[
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3.6",
