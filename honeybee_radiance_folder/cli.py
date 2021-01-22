@@ -4,8 +4,10 @@ import sys
 import logging
 import os
 import json
+import re
 
 from honeybee_radiance_folder.folder import ModelFolder as Folder
+from honeybee_radiance_folder.folderutil import _as_posix
 
 
 # command group for all radiance extension commands.
@@ -238,23 +240,30 @@ def dynamic_scene(radiance_folder, model, outdoor, log_file):
 
 @folder.command('filter')
 @click.argument(
-    'radiance-folder', type=click.Path(exists=True, file_okay=False, resolve_path=True)
+    'folder', #type=click.Path(exists=True, file_okay=False, resolve_path=True)
 )
-@click.argument('sub-folder')
 @click.argument('pattern')
-@click.option(
-    '-m', '--model', help='Optional name for model folder', default='model',
-    show_default=True
-)
 @click.option(
     '-lf', '--log-file', help='Optional log file to export the output. By default this '
     'will be printed to stdout', type=click.File('w'), default='-'
 )
-def filter_folder(radiance_folder, model, sub_folder, pattern, log_file):
-    """Filter files in a sub_folder inside Radiance folder."""
+def filter_folder(folder, pattern, log_file):
+    """Filter files in a folder.
+
+    \b
+    Args:
+        folder: path to folder.
+        pattern: a regex pattern to filter files based on. The pattern must be a raw
+            string with no quotes. The command compiles the string to a regex pattern.
+
+    """
+    pattern = re.compile("{0}".format(pattern))
     try:
-        folder = Folder(radiance_folder, model_folder=model)
-        files = folder._find_files(subfolder=sub_folder, pattern=pattern)
+        files = [
+            _as_posix(os.path.normpath(os.path.join(folder, f)))
+            for f in os.listdir(folder)
+            if re.search(pattern, f)
+        ]
         log_file.write(json.dumps(files))
     except Exception as e:
         _logger.exception('Failed to filter files inside folder.\n{}'.format(e))
@@ -262,5 +271,4 @@ def filter_folder(radiance_folder, model, sub_folder, pattern, log_file):
     else:
         sys.exit(0)
 
-# filter
 # {stem, suffix, name, parent}
