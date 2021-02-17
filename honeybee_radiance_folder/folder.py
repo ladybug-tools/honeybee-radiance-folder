@@ -427,13 +427,18 @@ class ModelFolder(_Folder):
         )
         return self._match_files(modifier_files, geometry_files)
 
-    def grid_files(self, rel_path=True):
+    def grid_files(self, rel_path=True, group=None):
         """Return list of grid files."""
         cfg = self._config['GRID']
         pattern = cfg['grid_pattern']
-        grid_files = self._find_files(
-            self.grid_folder(full=True), pattern, rel_path
-        )
+        if not group:
+            grid_files = self._find_files(
+                self.grid_folder(full=True), pattern, rel_path
+            )
+        else:
+            grid_files = self._find_files(
+                os.path.join(self.grid_folder(full=True), group), pattern, rel_path
+            )
         return grid_files
 
     def grid_info_files(self, rel_path=True):
