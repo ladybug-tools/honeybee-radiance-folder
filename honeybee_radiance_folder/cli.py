@@ -238,9 +238,9 @@ def dynamic_scene(radiance_folder, model, outdoor, log_file):
         sys.exit(0)
 
 
-@folder.command('filter')
+@folder.command('filter-folder')
 @click.argument(
-    'folder', #type=click.Path(exists=True, file_okay=False, resolve_path=True)
+    'folder', type=click.Path(exists=True, file_okay=False, resolve_path=True)
 )
 @click.argument('pattern')
 @click.option(
@@ -271,4 +271,47 @@ def filter_folder(folder, pattern, log_file):
     else:
         sys.exit(0)
 
-# {stem, suffix, name, parent}
+
+@folder.command('filter-file')
+@click.argument(
+    'input-file',
+    type=click.Path(exists=True, file_okay=True, dir_okay=False, resolve_path=True)
+)
+@click.argument('pattern', default='*:*')
+@click.option('--output-file', '-of', type=click.File(mode='w'), default='-')
+@click.option(
+    '--keep/--remove', is_flag=True, help='A flag to switch between keeping the objects '
+    'or removing them from the input list.', default=True, show_default=True
+)
+def filter_json_file(input_file, pattern, output_file, keep):
+    """Filter a list fo JSON objects based on value for a specific key.
+
+    \b
+    Args:
+        input-file: Path to input JSON file. Input JSON file should be an array of
+            JSON objects.
+        pattern: Two string values separated by a ``:``. For example group:daylight
+            will keep/remove the objects when the value for group key is set to daylight.
+
+    """
+    try:
+        key, value = [v.strip() for v in pattern.split(':')]
+
+        with open(input_file) as inf:
+            data = json.load(inf)
+
+        if key == value == '*':
+            # no filtering. pass the values as is.
+            output_file.write(json.dumps(data))
+            sys.exit(0)
+        if keep:
+            filtered_data = [obj for obj in data if obj[key] == value]
+        else:
+            filtered_data = [obj for obj in data if obj[key] != value]
+
+        output_file.write(json.dumps(filtered_data))
+    except Exception as e:
+        _logger.exception('Failed to filter objects in input file.\n{}'.format(e))
+        sys.exit(1)
+    else:
+        sys.exit(0)

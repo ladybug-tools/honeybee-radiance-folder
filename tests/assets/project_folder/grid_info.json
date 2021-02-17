@@ -1,0 +1,56 @@
+[
+  {
+    "name": "west_window",
+    "identifier": "west_window",
+    "count": 96,
+    "group": "apertures"
+  },
+  {
+    "name": "east_window",
+    "identifier": "east_window",
+    "count": 96,
+    "group": "apertures"
+  },
+  {
+    "name": "north_window",
+    "identifier": "north_window",
+    "count": 64,
+    "group": "apertures"
+  },
+  {
+    "name": "south_window",
+    "identifier": "south_window",
+    "count": 64,
+    "group": "apertures"
+  },
+  {
+    "name": "Occ_Regions_East_T3_area",
+    "identifier": "Occ_Regions_East_T3_area",
+    "count": 1436,
+    "group": "occ_regions"
+  },
+  {
+    "name": "Occ_Regions_North_area",
+    "identifier": "Occ_Regions_North_area",
+    "count": 1106,
+    "group": "occ_regions"
+  },
+  {
+    "name": "Occ_Regions_West_T3_area",
+    "identifier": "Occ_Regions_West_T3_area",
+    "count": 1146,
+    "group": "occ_regions"
+  },
+  {
+    "name": "Occ_Regions_South_T4_area",
+    "identifier": "Occ_Regions_South_T4_area",
+    "count": 906,
+    "group": "occ_regions"
+  },
+  {
+    "name": "ground_floor",
+    "identifier": "ground_floor",
+    "count": 3196,
+    "group": "daylight_grids"
+  }
+]
