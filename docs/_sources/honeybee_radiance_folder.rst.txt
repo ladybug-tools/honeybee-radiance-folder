@@ -1,0 +1,21 @@
+honeybee\_radiance\_folder package
+==================================
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   honeybee_radiance_folder.cli
+   honeybee_radiance_folder.config
+   honeybee_radiance_folder.folder
+   honeybee_radiance_folder.folderutil
+
+Module contents
+---------------
+
+.. automodule:: honeybee_radiance_folder
+   :members:
+   :undoc-members:
+   :show-inheritance:

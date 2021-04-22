@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>honeybee_radiance_folder.folder module &#8212; honeybee radiance folder  documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="honeybee_radiance_folder.folderutil module" href="honeybee_radiance_folder.folderutil.html" />
+    <link rel="prev" title="honeybee_radiance_folder.config module" href="honeybee_radiance_folder.config.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          honeybee radiance folder</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="honeybee_radiance_folder.html">honeybee_radiance_folder package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="honeybee_radiance_folder.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="honeybee_radiance_folder.cli.html">honeybee_radiance_folder.cli module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_radiance_folder.config.html">honeybee_radiance_folder.config module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">honeybee_radiance_folder.folder module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_radiance_folder.folderutil.html">honeybee_radiance_folder.folderutil module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="honeybee_radiance_folder.html#module-honeybee_radiance_folder">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="honeybee_radiance_folder.html">honeybee_radiance_folder package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="honeybee_radiance_folder.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="honeybee_radiance_folder.cli.html">honeybee_radiance_folder.cli module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_radiance_folder.config.html">honeybee_radiance_folder.config module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">honeybee_radiance_folder.folder module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_radiance_folder.folderutil.html">honeybee_radiance_folder.folderutil module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="honeybee_radiance_folder.html#module-honeybee_radiance_folder">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="honeybee_radiance_folder.config.html" title="Previous Chapter: honeybee_radiance_folder.config module"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; honeybee_radi...</span>
+    </a>
+  </li>
+  <li>
+    <a href="honeybee_radiance_folder.folderutil.html" title="Next Chapter: honeybee_radiance_folder.folderutil module"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">honeybee_radi... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/honeybee_radiance_folder.folder.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="honeybee_radiance_folder.html">honeybee_radiance_folder package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="honeybee_radiance_folder.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="honeybee_radiance_folder.cli.html">honeybee_radiance_folder.cli module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_radiance_folder.config.html">honeybee_radiance_folder.config module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">honeybee_radiance_folder.folder module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="honeybee_radiance_folder.folderutil.html">honeybee_radiance_folder.folderutil module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="honeybee_radiance_folder.html#module-honeybee_radiance_folder">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  <div class="section" id="module-honeybee_radiance_folder.folder">
+<span id="honeybee-radiance-folder-folder-module"></span><h1>honeybee_radiance_folder.folder module<a class="headerlink" href="#module-honeybee_radiance_folder.folder" title="Permalink to this headline">¶</a></h1>
+<p>Radiance folder structure module.</p>
+<p>This module includes classes for writing and reading to / from a Radiance folder
+structure.</p>
+<p>See <a class="reference external" href="https://github.com/ladybug-tools/radiance-folder-structure#radiance-folder-structure">https://github.com/ladybug-tools/radiance-folder-structure#radiance-folder-structure</a></p>
+<dl class="py class">
+<dt id="honeybee_radiance_folder.folder.ModelFolder">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">honeybee_radiance_folder.folder.</span></code><code class="sig-name descname"><span class="pre">ModelFolder</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'model'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/honeybee_radiance_folder/folder.html#ModelFolder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#honeybee_radiance_folder.folder.ModelFolder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">honeybee_radiance_folder.folder._Folder</span></code></p>
+<p>Radiance Model folder.</p>
+<p>Radiance Model folder includes all geometry and geometry metadata including
+modifiers. See Radiance folder structure repository for more information:</p>
+<p><a class="reference external" href="https://www.github.com/ladybug-tools/radiance-folder-structure">https://www.github.com/ladybug-tools/radiance-folder-structure</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>project_folder</strong> (<em>str</em>) – Project folder as string. The folder will be created on
+write if it doesn’t exist already.</p></li>
+<li><p><strong>model_folder</strong> (<em>str</em>) – Model folder name (default: model).</p></li>
+<li><p><strong>config_file</strong> (<em>str</em>) – Optional config file to modify the default folder names. By
+default <code class="docutils literal notranslate"><span class="pre">folder.cfg</span></code> in <code class="docutils literal notranslate"><span class="pre">honeybee-radiance-folder</span></code> will be used.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>└─model                  :: radiance model folder
+    ├───aperture         :: static apertures description
+    ├───aperture_group   :: apertures groups <span class="o">(</span>AKA window groups<span class="o">)</span> - optional
+    │   └───interior     :: interior aperture groups - optional
+    ├───bsdf             :: <span class="k">in</span>-model BSDF files and transmittance matrix files
+    ├───grid             :: sensor grids
+    ├───ies              :: electric lights description
+    ├───scene            :: static scene description
+    ├───scene_dynamic    :: dynamic scene description - optional
+    │   └───indoor       :: indoor dynamic scene description - optional
+    └───view             :: indoor and outdoor views
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="honeybee_radiance_folder.folder.ModelFolder.aperture_files">
+<code class="sig-name descname"><span class="pre">aperture_files</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">black_out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/honeybee_radiance_folder/folder.html#ModelFolder.aperture_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#honeybee_radiance_folder.folder.ModelFolder.aperture_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of files for apertures.</p>
+<p>This list includes both geometry and modifier files. This method will raise a
+ValueError if it cannot find a modifier file with the same name as the geometry
+file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>black_out</strong> (<em>str</em>) – Set black_out to True for “isolated” studies for aperture
+groups.</p></li>
+<li><p><strong>rel_path</strong> (<em>str</em>) – Set rel_path to False for getting full path to files. By
+default the path is relative to study folder root.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="honeybee_radiance_folder.folder.ModelFolder.aperture_folder">
+<code class="sig-name descname"><span class="pre">aperture_folder</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">full</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/honeybee_radiance_folder/folder.html#ModelFolder.aperture_folder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#honeybee_radiance_folder.folder.ModelFolder.aperture_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Aperture folder path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>full</strong> – A boolean to weather the path should be a full path or a relative path
+(default: False).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Path to folder.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="honeybee_radiance_folder.folder.ModelFolder.aperture_group_folder">
+<code class="sig-name descname"><span class="pre">aperture_group_folder</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">full</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interior</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/honeybee_radiance_folder/folder.html#ModelFolder.aperture_group_folder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#honeybee_radiance_folder.folder.ModelFolder.aperture_group_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Aperture group folder path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>full</strong> – A boolean to note if the path should be a full path or a relative path
+(default: False).</p></li>
+<li><p><strong>interior</strong> – Set to True to get the path for interior aperture group folder.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Path to folder.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="honeybee_radiance_folder.folder.ModelFolder.aperture_groups">
+<code class="sig-name descname"><span class="pre">aperture_groups</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interior</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reload</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/honeybee_radiance_folder/folder.html#ModelFolder.aperture_groups"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#honeybee_radiance_folder.folder.ModelFolder.aperture_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of apertures groups.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>interior</strong> (<em>bool</em>) – Boolean switch to return interior dynamic apertures.</p></li>
+<li><p><strong>reload</strong> (<em>bool</em>) – Dynamic geometries are loaded the first time this
+method is called. To reload the files set reload to True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of dynamic apertures.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="honeybee_radiance_folder.folder.ModelFolder.bsdf_folder">
+<code class="sig-name descname"><span class="pre">bsdf_folder</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">full</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/honeybee_radiance_folder/folder.html#ModelFolder.bsdf_folder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#honeybee_radiance_folder.folder.ModelFolder.bsdf_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>BSDF folder path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>full</strong> – A boolean to weather the path should be a full path or a relative path
+(default: False).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Path to folder.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="honeybee_radiance_folder.folder.ModelFolder.daylight_matrix_files">
+<code class="sig-name descname"><span class="pre">daylight_matrix_files</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aperture</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">receiver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/honeybee_radiance_folder/folder.html#ModelFolder.daylight_matrix_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#honeybee_radiance_folder.folder.ModelFolder.daylight_matrix_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Files to be included in daylight matrix calculation for an aperture.</p>
+<p>Target can be Sky or another aperture.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="honeybee_radiance_folder.folder.ModelFolder.dynamic_scene">
+<code class="sig-name descname"><span class="pre">dynamic_scene</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indoor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reload</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/honeybee_radiance_folder/folder.html#ModelFolder.dynamic_scene"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#honeybee_radiance_folder.folder.ModelFolder.dynamic_scene" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of dynamic non-aperture geometries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>indoor</strong> (<em>bool</em>) – A boolean to indicate if indoor dynamic scene files should be
+returned (default: False).</p></li>
+<li><p><strong>reload</strong> (<em>bool</em>) – Dynamic geometries are loaded the first time this
+method is called. To reload the files set reload to True.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="honeybee_radiance_folder.folder.ModelFolder.dynamic_scene_folder">
+<code class="sig-name descname"><span class="pre">dynamic_scene_folder</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">full</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indoor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/honeybee_radiance_folder/folder.html#ModelFolder.dynamic_scene_folder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#honeybee_radiance_folder.folder.ModelFolder.dynamic_scene_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dynamic scene folder path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>full</strong> – A boolean to note if the path should be a full path or a relative path
+(default: False).</p></li>
+<li><p><strong>indoor</strong> – Set to True to get the path for indoor dynamic scene folder.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Path to folder.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="honeybee_radiance_folder.folder.ModelFolder.from_model_folder">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_model_folder</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/honeybee_radiance_folder/folder.html#ModelFolder.from_model_folder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#honeybee_radiance_folder.folder.ModelFolder.from_model_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use model folder instead of project folder.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_folder</strong> (<em>str</em>) – Model folder as string. The folder will be created on</p></li>
+<li><p><strong>if it doesn't exist already.</strong> (<em>write</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>config_file (str): Optional config file to modify the default folder names. By</dt><dd><p>default <code class="docutils literal notranslate"><span class="pre">folder.cfg</span></code> in <code class="docutils literal notranslate"><span class="pre">honeybee-radiance-folder</span></code> will be used.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="honeybee_radiance_folder.folder.ModelFolder.grid_files">
+<code class="sig-name descname"><span class="pre">grid_files</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rel_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/honeybee_radiance_folder/folder.html#ModelFolder.grid_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#honeybee_radiance_folder.folder.ModelFolder.grid_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of grid files.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="honeybee_radiance_folder.folder.ModelFolder.grid_folder">
+<code class="sig-name descname"><span class="pre">grid_folder</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">full</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/honeybee_radiance_folder/folder.html#ModelFolder.grid_folder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#honeybee_radiance_folder.folder.ModelFolder.grid_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sensor grids folder path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>full</strong> – A boolean to weather the path should be a full path or a relative path
+(default: False).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Path to folder.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="honeybee_radiance_folder.folder.ModelFolder.grid_info_files">
+<code class="sig-name descname"><span class="pre">grid_info_files</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rel_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/honeybee_radiance_folder/folder.html#ModelFolder.grid_info_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#honeybee_radiance_folder.folder.ModelFolder.grid_info_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of grid information files.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="honeybee_radiance_folder.folder.ModelFolder.ies_folder">
+<code class="sig-name descname"><span class="pre">ies_folder</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">full</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/honeybee_radiance_folder/folder.html#ModelFolder.ies_folder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#honeybee_radiance_folder.folder.ModelFolder.ies_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>IES folder path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>full</strong> – A boolean to weather the path should be a full path or a relative path
+(default: False).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Path to folder.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="honeybee_radiance_folder.folder.ModelFolder.model_folder">
+<code class="sig-name descname"><span class="pre">model_folder</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">full</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/honeybee_radiance_folder/folder.html#ModelFolder.model_folder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#honeybee_radiance_folder.folder.ModelFolder.model_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Model root folder.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>full</strong> – A boolean to weather the path should be a full path or a relative path
+(default: False).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Path to folder.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="honeybee_radiance_folder.folder.ModelFolder.scene_files">
+<code class="sig-name descname"><span class="pre">scene_files</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">black_out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/honeybee_radiance_folder/folder.html#ModelFolder.scene_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#honeybee_radiance_folder.folder.ModelFolder.scene_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of files for scene.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>black_out</strong> (<em>str</em>) – Set black_out to True for direct sunlight studies.</p></li>
+<li><p><strong>rel_path</strong> (<em>str</em>) – Set rel_path to False for getting full path to files. By
+default the path is relative to study folder root.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="honeybee_radiance_folder.folder.ModelFolder.scene_folder">
+<code class="sig-name descname"><span class="pre">scene_folder</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">full</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/honeybee_radiance_folder/folder.html#ModelFolder.scene_folder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#honeybee_radiance_folder.folder.ModelFolder.scene_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scene folder path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>full</strong> – A boolean to weather the path should be a full path or a relative path
+(default: False).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Path to folder.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="honeybee_radiance_folder.folder.ModelFolder.view_files">
+<code class="sig-name descname"><span class="pre">view_files</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rel_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/honeybee_radiance_folder/folder.html#ModelFolder.view_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#honeybee_radiance_folder.folder.ModelFolder.view_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of view files.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="honeybee_radiance_folder.folder.ModelFolder.view_folder">
+<code class="sig-name descname"><span class="pre">view_folder</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">full</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/honeybee_radiance_folder/folder.html#ModelFolder.view_folder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#honeybee_radiance_folder.folder.ModelFolder.view_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>View folder path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>full</strong> – A boolean to weather the path should be a full path or a relative path
+(default: False).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Path to folder.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="honeybee_radiance_folder.folder.ModelFolder.view_info_files">
+<code class="sig-name descname"><span class="pre">view_info_files</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rel_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/honeybee_radiance_folder/folder.html#ModelFolder.view_info_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#honeybee_radiance_folder.folder.ModelFolder.view_info_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of view information files.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="honeybee_radiance_folder.folder.ModelFolder.view_matrix_files">
+<code class="sig-name descname"><span class="pre">view_matrix_files</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aperture</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/honeybee_radiance_folder/folder.html#ModelFolder.view_matrix_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#honeybee_radiance_folder.folder.ModelFolder.view_matrix_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Files to be included in view matrix calculation for an aperture.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="honeybee_radiance_folder.folder.ModelFolder.write">
+<code class="sig-name descname"><span class="pre">write</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cfg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/honeybee_radiance_folder/folder.html#ModelFolder.write"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#honeybee_radiance_folder.folder.ModelFolder.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write an empty model folder.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>folder_type</strong> – An integer between -1-2.
+* -1: no grids or views
+* 0: grid-based
+* 1: view-based
+* 2: includes both views and grids</p></li>
+<li><p><strong>cfg</strong> (<em>dict</em>) – A dictionary with folder name as key and True or False as
+value. You can pre-defined from <code class="docutils literal notranslate"><span class="pre">config</span></code> module. Default is a
+grid-based ray-tracing folder.</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em>) – Set to True to overwrite the folder if it already exist.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>path to folder.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="honeybee_radiance_folder.folder.ModelFolder.CFG_KEYS">
+<code class="sig-name descname"><span class="pre">CFG_KEYS</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'APERTURE':</span> <span class="pre">['path',</span> <span class="pre">'geo_pattern',</span> <span class="pre">'mod_pattern',</span> <span class="pre">'blk_pattern'],</span> <span class="pre">'APERTURE-GROUP':</span> <span class="pre">['path',</span> <span class="pre">'states'],</span> <span class="pre">'BSDF':</span> <span class="pre">['path',</span> <span class="pre">'bsdf_pattern'],</span> <span class="pre">'DYNAMIC-SCENE':</span> <span class="pre">['path',</span> <span class="pre">'states'],</span> <span class="pre">'GLOBAL':</span> <span class="pre">['static_apertures'],</span> <span class="pre">'GRID':</span> <span class="pre">['path',</span> <span class="pre">'grid_pattern',</span> <span class="pre">'info_pattern'],</span> <span class="pre">'IES':</span> <span class="pre">['path',</span> <span class="pre">'ies_pattern'],</span> <span class="pre">'INDOOR-DYNAMIC-SCENE':</span> <span class="pre">['path',</span> <span class="pre">'states'],</span> <span class="pre">'INTERIOR-APERTURE-GROUP':</span> <span class="pre">['path',</span> <span class="pre">'states'],</span> <span class="pre">'SCENE':</span> <span class="pre">['path',</span> <span class="pre">'geo_pattern',</span> <span class="pre">'mod_pattern',</span> <span class="pre">'blk_pattern'],</span> <span class="pre">'VIEW':</span> <span class="pre">['path',</span> <span class="pre">'view_pattern',</span> <span class="pre">'info_pattern']}</span></em><a class="headerlink" href="#honeybee_radiance_folder.folder.ModelFolder.CFG_KEYS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="honeybee_radiance_folder.folder.ModelFolder.CFG_KEYS_CHOICE">
+<code class="sig-name descname"><span class="pre">CFG_KEYS_CHOICE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'GRID':</span> <span class="pre">['path',</span> <span class="pre">'grid_pattern',</span> <span class="pre">'info_pattern'],</span> <span class="pre">'VIEW':</span> <span class="pre">['path',</span> <span class="pre">'view_pattern',</span> <span class="pre">'info_pattern']}</span></em><a class="headerlink" href="#honeybee_radiance_folder.folder.ModelFolder.CFG_KEYS_CHOICE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="honeybee_radiance_folder.folder.ModelFolder.CFG_KEYS_OPTIONAL">
+<code class="sig-name descname"><span class="pre">CFG_KEYS_OPTIONAL</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'APERTURE-GROUP':</span> <span class="pre">['path',</span> <span class="pre">'states'],</span> <span class="pre">'BSDF':</span> <span class="pre">['path',</span> <span class="pre">'bsdf_pattern'],</span> <span class="pre">'DYNAMIC-SCENE':</span> <span class="pre">['path',</span> <span class="pre">'states'],</span> <span class="pre">'IES':</span> <span class="pre">['path',</span> <span class="pre">'ies_pattern'],</span> <span class="pre">'INDOOR-DYNAMIC-SCENE':</span> <span class="pre">['path',</span> <span class="pre">'states'],</span> <span class="pre">'INTERIOR-APERTURE-GROUP':</span> <span class="pre">['path',</span> <span class="pre">'states']}</span></em><a class="headerlink" href="#honeybee_radiance_folder.folder.ModelFolder.CFG_KEYS_OPTIONAL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="honeybee_radiance_folder.folder.ModelFolder.CFG_KEYS_REQUIRED">
+<code class="sig-name descname"><span class="pre">CFG_KEYS_REQUIRED</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{'APERTURE':</span> <span class="pre">['path',</span> <span class="pre">'geo_pattern',</span> <span class="pre">'mod_pattern',</span> <span class="pre">'blk_pattern'],</span> <span class="pre">'GLOBAL':</span> <span class="pre">['static_apertures'],</span> <span class="pre">'SCENE':</span> <span class="pre">['path',</span> <span class="pre">'geo_pattern',</span> <span class="pre">'mod_pattern',</span> <span class="pre">'blk_pattern']}</span></em><a class="headerlink" href="#honeybee_radiance_folder.folder.ModelFolder.CFG_KEYS_REQUIRED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="honeybee_radiance_folder.folder.ModelFolder.has_aperture_group">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">has_aperture_group</span></code><a class="headerlink" href="#honeybee_radiance_folder.folder.ModelFolder.has_aperture_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if model has at least one aperture group.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="honeybee_radiance_folder.folder.ModelFolder.has_dynamic_scene">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">has_dynamic_scene</span></code><a class="headerlink" href="#honeybee_radiance_folder.folder.ModelFolder.has_dynamic_scene" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if model has dynamic scene.</p>
+<p>This check does not include aperture groups. Use <code class="docutils literal notranslate"><span class="pre">has_aperture_group</span></code> instead.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ladybug Tools.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
