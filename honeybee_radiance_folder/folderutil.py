@@ -2,6 +2,7 @@
 """Utilities for Radiance folder structure."""
 import os
 import json
+import re
 
 
 def _as_posix(path):
@@ -356,6 +357,42 @@ def parse_dynamic_scene(states_file, validate=True):
             geometry.validate(folder)
 
     return geometries
+
+
+def add_output_spec_to_receiver(receiver_file, output_spec, output_file=None):
+    """Add output spec to a receiver file.
+
+    Args:
+        receiver_file: Path to a receiver file. You can find these files under the
+            ``aperture_group`` subfolder.
+        output_spec: A string for receiver output spec.
+        output_file: An optional output file to write the modified receiver. By default
+            this function overwrites the original file.
+    """
+    # find and replace
+    if not os.path.isfile(receiver_file):
+        raise ValueError('Failed to find %s' % receiver_file)
+
+    with open(receiver_file, 'r') as f:
+        content = f.read()
+    try:
+        value = re.search(r'^#@rfluxmtx[\s\S].*$', content, re.MULTILINE).group(0)
+    except AttributeError:
+        raise ValueError(
+            '%s is not a valid receiver file with '
+            'RfluxmtxControlParameters.' % receiver_file
+        )
+
+    if 'o=' in value:
+        raise ValueError('%s already has output_spec' % value)
+
+    ctrl_params = value.strip() + ' o=%s' % output_spec
+
+    updated_content = re.sub(value, ctrl_params, content)
+
+    out_file = output_file or receiver_file
+    with open(out_file, 'w') as outf:
+        outf.write(updated_content)
 
 
 def _nukedir(target_dir, rmdir=True):

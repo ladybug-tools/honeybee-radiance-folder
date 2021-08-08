@@ -7,7 +7,7 @@ import json
 import re
 
 from honeybee_radiance_folder.folder import ModelFolder as Folder
-from honeybee_radiance_folder.folderutil import _as_posix
+from honeybee_radiance_folder.folderutil import _as_posix, add_output_spec_to_receiver
 
 
 # command group for all radiance extension commands.
@@ -204,6 +204,35 @@ def aperture_groups(radiance_folder, model, exterior, log_file):
         log_file.write(json.dumps(aperture_groups))
     except Exception as e:
         _logger.exception('Failed to retrieve view files.\n{}'.format(e))
+        sys.exit(1)
+    else:
+        sys.exit(0)
+
+
+@folder.command('add-output-spec')
+@click.argument(
+    'receiver-file', type=click.Path(exists=True, file_okay=True, resolve_path=False)
+)
+@click.argument('output-spec', type=click.STRING)
+@click.option(
+    '-o', '--output-file', help='Optional path for an output file. By default this '
+    'command modifies the input receiver file.', default=None, show_default=True
+)
+def add_output_spec(receiver_file, output_spec, output_file):
+    """Add output spec to a receiver file.
+    
+    Args:
+        receiver_file: Path to a receiver file. You can find these files under the
+            ``aperture_group`` subfolder.
+        output_spec: A string for receiver output spec.
+    """
+    try:
+        add_output_spec_to_receiver(
+            receiver_file=receiver_file, output_spec=output_spec,
+            output_file=output_file
+        )
+    except Exception as e:
+        _logger.exception('Failed to add output spec to receiver.\n{}'.format(e))
         sys.exit(1)
     else:
         sys.exit(0)
