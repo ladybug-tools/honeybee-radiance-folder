@@ -98,6 +98,7 @@ def distribute_sensors(
     if not os.path.isdir(output_folder):
         os.mkdir(output_folder)
 
+    extra_sensors = False
     out_grid_info = []
     outf_index = 0
     outf = get_target_file(outf_index)
@@ -129,6 +130,7 @@ def distribute_sensors(
                 if outf_index == grid_count:
                     # This was the last file and more sensors are left.
                     # Add the remainder of the sensors to this file and close the file.
+                    extra_sensors = True
                     counter = 0
                     for line in inf:
                         counter += 1
@@ -150,6 +152,16 @@ def distribute_sensors(
         if 'end_ln' not in dist_info[i]['dist_info'][-1]:
             dist_info[i]['dist_info'][-1]['end_ln'] = line_out_count - 1
         inf.close()
+    if not extra_sensors:
+        # add the information for the last sensor grid
+        out_data = {
+            'name': str(outf_index),
+            'identifier': str(outf_index),
+            'full_id': str(outf_index),
+            'group': '',
+            'count': line_out_count
+        }
+        out_grid_info.append(out_data)
 
     dist_info_file = os.path.join(output_folder, '_dist_info.json')
     with open(dist_info_file, 'w') as dist_out_file:
