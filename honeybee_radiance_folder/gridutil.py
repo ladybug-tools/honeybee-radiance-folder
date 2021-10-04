@@ -3,17 +3,17 @@ import os
 import json
 
 
-def distribute_sensors(
+def redistribute_sensors(
         input_folder, output_folder, grid_count, min_sensor_count=2000, verbose=False
     ):
-    """Create new sensor grids folder with evenly distribute sensors.
+    """Create new sensor grids folder with evenly distributed sensors.
 
     This function creates a new folder with evenly distributed sensor grids. The folder
-    will include a ``_dist_info.json`` file which has the information to recreate the
+    will include a ``_redist_info.json`` file which has the information to recreate the
     original input files from this folder and the results generated based on the grids
     in this folder.
 
-    ``_dist_info.json`` file includes an array of JSON objects. Each object has the
+    ``_redist_info.json`` file includes an array of JSON objects. Each object has the
     ``id`` or the original file and the distribution information. The distribution
     information includes the id of the new files that the sensors has been distributed
     to and the start and end line in the target file.
@@ -47,7 +47,8 @@ def distribute_sensors(
             the simulations in parallel.
         min_sensor_count: Minimum number of sensors in each output grid. Use this number
             to ensure the number of sensors in output grids never gets very small. To
-            ignore this limitation set the value to 1. Default: 2000.
+            ignore this limitation set the value to 1. This value always takes precedence
+            over grid_count. Default: 2000.
         verbose: Set to True to get verbose reporting. Default: False.
 
     Returns:
@@ -163,7 +164,7 @@ def distribute_sensors(
         }
         out_grid_info.append(out_data)
 
-    dist_info_file = os.path.join(output_folder, '_dist_info.json')
+    dist_info_file = os.path.join(output_folder, '_redist_info.json')
     with open(dist_info_file, 'w') as dist_out_file:
         json.dump(dist_info, dist_out_file, indent=2)
 
@@ -179,9 +180,9 @@ def distribute_sensors(
     return grid_count, sensor_per_grid
 
 
-def restructure_distributed_data(
+def restore_original_distribution(
         input_folder, output_folder, extension='pts', dist_info=None):
-    """Restructure files based on the distribution info.
+    """Restructure files to the original distribution based on the distribution info.
 
     Args:
         input_folder: Path to input folder.
@@ -190,17 +191,17 @@ def restructure_distributed_data(
             sensor files. Another common extension is ``ill`` for the results of daylight
             studies.
         dist_info: Path to dist_info.json file. If not provided the function will try
-            to load ``_dist_info.json`` file from inside the input_folder. Default: None
+            to load ``_redist_info.json`` file from inside the input_folder. Default: None
 
     """
     if not dist_info:
-        _dist_info_file = os.path.join(input_folder, '_dist_info.json')
+        _redist_info_file = os.path.join(input_folder, '_redist_info.json')
     else:
-        _dist_info_file = dist_info
+        _redist_info_file = dist_info
 
-    assert os.path.isfile(_dist_info_file), 'Failed to find %s' % _dist_info_file
+    assert os.path.isfile(_redist_info_file), 'Failed to find %s' % _redist_info_file
 
-    with open(_dist_info_file) as inf:
+    with open(_redist_info_file) as inf:
         data = json.load(inf)
 
     # create output folder
