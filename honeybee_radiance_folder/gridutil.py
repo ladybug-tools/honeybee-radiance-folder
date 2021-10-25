@@ -4,8 +4,8 @@ import json
 
 
 def redistribute_sensors(
-        input_folder, output_folder, grid_count, min_sensor_count=2000, verbose=False
-    ):
+    input_folder, output_folder, grid_count, min_sensor_count=2000, verbose=False
+):
     """Create new sensor grids folder with evenly distributed sensors.
 
     This function creates a new folder with evenly distributed sensor grids. The folder
@@ -72,7 +72,7 @@ def redistribute_sensors(
     sensor_per_grid = int(round(total_count / grid_count)) or 1
     if sensor_per_grid < min_sensor_count:
         # re-calculate based on minimum sensor counts
-        grid_count = int(round(total_count / min_sensor_count))
+        grid_count = int(round(total_count / min_sensor_count)) or 1
         sensor_per_grid = int(round(total_count / grid_count))
 
     # collect data from original folder
@@ -190,8 +190,8 @@ def restore_original_distribution(
         extention: Extension of the files to collect data from. Default is ``pts`` for
             sensor files. Another common extension is ``ill`` for the results of daylight
             studies.
-        dist_info: Path to dist_info.json file. If not provided the function will try
-            to load ``_redist_info.json`` file from inside the input_folder. Default: None
+        dist_info: Path to dist_info.json file. If None, the function will try to load
+            ``_redist_info.json`` file from inside the input_folder. (Default: None).
 
     """
     if not dist_info:
