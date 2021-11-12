@@ -92,10 +92,10 @@ class ApertureState(SceneState):
         self, identifier, default, direct, black=None, tmtx=None, vmtx=None,
             dmtx=None):
         SceneState.__init__(self, identifier, default, direct)
-        self.black = _as_posix(black)
-        self.tmtx = _as_posix(tmtx)
-        self.vmtx = _as_posix(vmtx)
-        self.dmtx = _as_posix(dmtx)
+        self.black = _as_posix(black) if black is not None else None
+        self.tmtx = _as_posix(tmtx) if tmtx is not None else None
+        self.vmtx = _as_posix(vmtx) if vmtx is not None else None
+        self.dmtx = _as_posix(dmtx) if dmtx is not None else None
 
     @classmethod
     def from_dict(cls, input_dict):
