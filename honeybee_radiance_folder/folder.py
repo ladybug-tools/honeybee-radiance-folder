@@ -15,6 +15,7 @@ import shutil
 import honeybee_radiance_folder.config as config
 
 from .folderutil import parse_aperture_groups, parse_dynamic_scene, _nukedir
+from .gridutil import parse_grid_info, parse_grid_json
 
 try:
     from ConfigParser import SafeConfigParser as CP
@@ -44,8 +45,10 @@ class _Folder(object):
     def _load_config_file(cfg_file):
         """Load a folder config file and return it as JSON."""
 
-        cfg_file = cfg_file or os.path.join(os.path.dirname(__file__), 'folder.cfg')
-        assert os.path.isfile(cfg_file), 'Failed to find config file at: %s' % cfg_file
+        cfg_file = cfg_file or os.path.join(os.path.dirname(__file__),
+                                            'folder.cfg')
+        assert os.path.isfile(
+            cfg_file), 'Failed to find config file at: %s' % cfg_file
         parser = CP()
         parser.read(cfg_file)
         config = {}
@@ -158,7 +161,8 @@ class ModelFolder(_Folder):
     }
 
     __slots__ = (
-        '_config', '_config_file', '_aperture_group_interior', '_aperture_group',
+        '_config', '_config_file', '_aperture_group_interior',
+        '_aperture_group',
         '_aperture_groups_load', '_dynamic_scene', '_dynamic_scene_indoor',
         '_dynamic_scene_load'
     )
@@ -211,7 +215,8 @@ class ModelFolder(_Folder):
 
     def _get_folder(self, folder_cfg_name, full=False):
         """Get path to folder from config using folder key."""
-        p = os.path.join(self.model_folder(full), self._config[folder_cfg_name]['path'])
+        p = os.path.join(self.model_folder(full),
+                         self._config[folder_cfg_name]['path'])
         return self._as_posix(os.path.normpath(p))
 
     def aperture_folder(self, full=False):
@@ -437,7 +442,8 @@ class ModelFolder(_Folder):
             )
         else:
             grid_files = self._find_files(
-                os.path.join(self.grid_folder(full=True), group), pattern, rel_path
+                os.path.join(self.grid_folder(full=True), group), pattern,
+                rel_path
             )
         return grid_files
 
@@ -500,6 +506,66 @@ class ModelFolder(_Folder):
         return self._dynamic_scene_indoor if indoor \
             else self._dynamic_scene
 
+    def grid_info_from_input(self):
+        """Return the list containing information about sensor grids that
+        are written to the folder after model export"""
+
+        infoJson = os.path.join(self.grid_folder(full=True), "_info.json")
+        return parse_grid_info(infoJson, validate=True)
+
+    def grid_info_from_model(self):
+        """Return the list containing information about sensor grids that
+           are extracted from the model after running the simulation."""
+
+        infoJson = os.path.join(self.grid_folder(full=True),
+                                "_model_grids_info.json")
+        return parse_grid_info(infoJson, validate=True)
+
+    def _grid_data_from_info_json(self, info_type):
+        """
+        This is an internal function that for a specified info_json,
+        returns the consolidated grid data ,that includes grid names,counts
+        and identifiers, as a single dictionary.
+        Args:
+            info_type: Can be 'model' or 'input'. If specified as 'model',
+            then the '_info.json' file will be parsed. If specified as 'input'
+            then then the '_model_grids_info.json' will be parsed.
+
+        Returns:
+            A dictionary containing consolidated grid data.
+
+        """
+
+        info_data = {'input': self.grid_info_from_input,
+                     'model': self.grid_info_from_model}[info_type]
+
+        grid_info = info_data()
+
+        grid_folder = self.grid_folder(full=True)
+
+        grid_data_dict = {}
+        if grid_info:
+            for grid in grid_info:
+                grid_id = grid.pop('full_id')
+                grid_data_dict[grid_id] = parse_grid_json(
+                    os.path.join(grid_folder, grid_id + '.json'))
+                grid_data_dict[grid_id].update(grid)
+            return grid_data_dict
+        else:
+            return None
+
+    def grid_data_all_from_model(self):
+        """After parsing _model_grids_info.json, return the consolidated grid
+        data for the entire project as a single dictionary """
+
+        return self._grid_data_from_info_json(info_type='model')
+
+    def grid_data_all_from_input(self):
+        """After parsing _info.json, return the consolidated grid
+        data for the entire project as a single dictionary """
+
+        return self._grid_data_from_info_json(info_type='input')
+
     def write(self, folder_type=0, cfg=None, overwrite=False):
         """Write an empty model folder.
 
@@ -544,7 +610,8 @@ class ModelFolder(_Folder):
                 continue
             if not cfg[category]:
                 continue
-            directory = os.path.join(root_folder, self._config[category]['path'])
+            directory = os.path.join(root_folder,
+                                     self._config[category]['path'])
             if not os.path.exists(directory):
                 os.makedirs(directory)
             elif not overwrite:
@@ -571,7 +638,8 @@ class ModelFolder(_Folder):
             try:
                 index = second_no_ext.index(f)
             except IndexError:
-                raise ValueError('Failed to find matching modifier for %s' % first[c])
+                raise ValueError(
+                    'Failed to find matching modifier for %s' % first[c])
             combined.append(first[c])
             combined.append(second[index])
         return combined
