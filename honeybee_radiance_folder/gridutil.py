@@ -218,9 +218,20 @@ def restore_original_distribution(
                 st = src_info['st_ln']
                 end = src_info['end_ln']
                 with open(src_file) as srf:
-                    # go to start line
+                    # remove the header if it is there
+                    first_line = next(srf)
+                    if first_line[:10] == '#?RADIANCE':
+                        for line in srf:
+                            if line[:7] == 'FORMAT=':
+                                # pass next empty line
+                                next(srf)
+                                first_line = next(srf)
+                                break
+                            continue
+                    # go to the start line and write it
                     for _ in range(st):
-                        next(srf)
-                    # write the lines to the output file
-                    for _ in range(end - st + 1):
+                        first_line = next(srf)
+                    outf.write(first_line)
+                    # write the other lines to the output file
+                    for _ in range(end - st):
                         outf.write(next(srf))
