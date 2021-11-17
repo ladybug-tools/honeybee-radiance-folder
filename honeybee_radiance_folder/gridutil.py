@@ -4,8 +4,7 @@ import json
 
 
 def redistribute_sensors(
-        input_folder, output_folder, grid_count, min_sensor_count=2000,
-        verbose=False
+    input_folder, output_folder, grid_count, min_sensor_count=2000, verbose=False
 ):
     """Create new sensor grids folder with evenly distributed sensors.
 
@@ -176,7 +175,7 @@ def redistribute_sensors(
     print(
         'Distributed %d sensors among %d grids with %d senseors each.' % (
             total_count, grid_count, sensor_per_grid
-        )
+            )
     )
     return grid_count, sensor_per_grid
 
@@ -188,7 +187,7 @@ def restore_original_distribution(
     Args:
         input_folder: Path to input folder.
         output_folder: Path to the new restructured folder
-        extension: Extension of the files to collect data from. Default is ``pts`` for
+        extention: Extension of the files to collect data from. Default is ``pts`` for
             sensor files. Another common extension is ``ill`` for the results of daylight
             studies.
         dist_info: Path to dist_info.json file. If None, the function will try to load
@@ -200,8 +199,7 @@ def restore_original_distribution(
     else:
         _redist_info_file = dist_info
 
-    assert os.path.isfile(
-        _redist_info_file), 'Failed to find %s' % _redist_info_file
+    assert os.path.isfile(_redist_info_file), 'Failed to find %s' % _redist_info_file
 
     with open(_redist_info_file) as inf:
         data = json.load(inf)
@@ -211,8 +209,7 @@ def restore_original_distribution(
         os.mkdir(output_folder)
 
     for f in data:
-        out_file = os.path.join(output_folder,
-                                '%s.%s' % (f['identifier'], extension))
+        out_file = os.path.join(output_folder, '%s.%s' % (f['identifier'], extension))
         with open(out_file, 'w') as outf:
             for src_info in f['dist_info']:
                 src_file = os.path.join(
@@ -229,20 +226,13 @@ def restore_original_distribution(
                         outf.write(next(srf))
 
 
-def parse_grid_info(
-        info_file, validate=True,
-        validation_keys=('name', 'identifier', 'count', 'group', 'full_id')):
+def parse_grid_info(info_file):
     """Parse sensor grid information from a info json file. This information
     typically contains full_id, name, identifier, group and count. In the case
     of _model_grids_info json, it will also contain the starting line (start_ln)
 
     Args:
         info_file: Path to the grid info file.
-        validate: If set to True, check if the grid_info contains all the
-            necessary keys to define the grid. The necessary keys are specified
-            through the input validation_keys.
-        validation_keys: The minimum subset of dict keys that each constituent
-        dictionary in the grid_info list should have.
 
     Returns:
         A list containing the information about sensor grids.
@@ -251,17 +241,7 @@ def parse_grid_info(
         return []
 
     with open(info_file) as inf:
-        grid_info = json.load(inf)
-
-    if validate and grid_info:
-        for grid_info_dict in grid_info:
-            grid_info_keys = grid_info_dict.keys()
-            for key in validation_keys:
-                assert key in grid_info_keys, \
-                    'Did not find the key %s in the grid_info parsed from %s' % (
-                        key, info_file)
-
-    return grid_info
+        return json.load(inf)
 
 
 def parse_grid_json(grid_json_file):
