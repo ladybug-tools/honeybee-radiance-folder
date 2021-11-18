@@ -57,7 +57,7 @@ def redistribute_sensors(
         - grid_count: Number of output sensor grids. Keep in mind that this number can
           be adjusted based on the min_sensor_count.
 
-        - sensor_per_grid: Number of sensors in each newely created sensor grid.
+        - sensor_per_grid: Number of sensors in each newly created sensor grid.
 
     """
     info_file = os.path.join(input_folder, '_info.json')
@@ -173,7 +173,7 @@ def redistribute_sensors(
         json.dump(out_grid_info, dist_out_file, indent=2)
 
     print(
-        'Distributed %d sensors among %d grids with %d senseors each.' % (
+        'Distributed %d sensors among %d grids with %d sensors each.' % (
             total_count, grid_count, sensor_per_grid
             )
     )
@@ -187,7 +187,7 @@ def restore_original_distribution(
     Args:
         input_folder: Path to input folder.
         output_folder: Path to the new restructured folder
-        extention: Extension of the files to collect data from. Default is ``pts`` for
+        extension: Extension of the files to collect data from. Default is ``pts`` for
             sensor files. Another common extension is ``ill`` for the results of daylight
             studies.
         dist_info: Path to dist_info.json file. If None, the function will try to load
