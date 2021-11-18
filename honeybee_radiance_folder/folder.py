@@ -501,20 +501,21 @@ class ModelFolder(_Folder):
         return self._dynamic_scene_indoor if indoor \
             else self._dynamic_scene
 
-    def grid_info(self, info_type_is_model=False):
+    def grid_info(self, is_model=False):
         """Parse the appropriate grids_info file to return high level information about
         the sensor grids contained in the model folder.
 
         Args:
-            info_type_is_model: If set to True, the _model_grids_info.json, which is
-            written out after simulations will be parsed. Else the _info.json will be
-            parsed. Defaults to False as the _info.json file is always expected to be
-            present.
+            is_model: If set to True, the _model_grids_info.json, which is
+                written out after simulations will be parsed. Else the _info.json will be
+                parsed. Defaults to False as the _info.json file is always expected to be
+                present.
+
         Returns:
             The list containing information about sensor grids that are written to the
-            folder after model export.
+                folder after model export.
         """
-        if info_type_is_model:
+        if is_model:
             info_json = os.path.join(self.grid_folder(full=True),
                                      '_model_grids_info.json')
         else:
@@ -536,7 +537,7 @@ class ModelFolder(_Folder):
             A dictionary containing consolidated grid data for the entire folder.
         """
 
-        grid_info = self.grid_info(info_type_is_model=info_from_model)
+        grid_info = self.grid_info(is_model=info_from_model)
         grid_folder = self.grid_folder(full=True)
 
         grid_data_dict = {}
