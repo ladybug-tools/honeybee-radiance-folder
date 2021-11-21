@@ -395,6 +395,46 @@ def add_output_spec_to_receiver(receiver_file, output_spec, output_file=None):
         outf.write(updated_content)
 
 
+def parse_states(states_file):
+    """Parse states information from a json file. This information typically contains 
+    the various rad files for each state such as 'default', 'black', 'direct', as well as
+    matrix files such as 'vmtx', 'tmtx', and 'dmtx'.
+    Args:
+        states_file: Path to the states file.
+    Returns:
+        A list containing the information about states.
+    """
+    if not os.path.isfile(states_file):
+        return []
+
+    with open(states_file) as inf:
+        return json.load(inf)
+
+
+def combined_receiver(grid_name, apt_group_folder, apt_groups, target_folder):
+    """Write combined receiver file for a grid and aperture groups.
+    
+    Arg:
+        grid_name: A string of the grid name (identifier).
+        apt_group_folder: Path to aperture group folder.
+        apt_groups: A list of aperture groups to include in the combined receiver.
+        target_folder: A path of the target folder to write files to.
+    """
+    file_name = '%s..receiver.rad' % grid_name
+    apt_group_folder = apt_group_folder.replace('\\', '/')
+    content = []
+    content.append('# %s\n' % file_name)  # add header
+    for apt in apt_groups:
+        # I'm not sure how do we handle cases where there is more then one
+        # aperture. I think we can keep that for later
+        content.append('#@rfluxmtx o=%s..%s.vmx' % (apt, grid_name))
+        content.append('!xform ./%s/%s..mtx.rad\n' % (apt_group_folder, apt))
+    
+    out_file = os.path.join(target_folder, file_name)
+    with open(out_file, 'w') as outf:
+        outf.write('\n'.join(content))
+
+
 def _nukedir(target_dir, rmdir=True):
     """Delete all the files inside target_dir.
     Usage:

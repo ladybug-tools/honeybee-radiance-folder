@@ -14,7 +14,8 @@ import shutil
 
 import honeybee_radiance_folder.config as config
 
-from .folderutil import parse_aperture_groups, parse_dynamic_scene, _nukedir
+from .folderutil import (parse_aperture_groups, parse_dynamic_scene, parse_states, 
+    combined_receiver, _nukedir)
 from .gridutil import parse_grid_info, parse_grid_json
 
 try:
@@ -485,6 +486,51 @@ class ModelFolder(_Folder):
 
         self._aperture_groups_load = False
         return self._aperture_group_interior if interior else self._aperture_group
+
+    def aperture_groups_states(self, full=False, interior=False):
+        """Return states information for aperture groups.
+        Arg:
+            full: A boolean to note if the path should be a full path or a relative path
+                (default: False).
+            interior: Set to True to get the path for interior aperture group folder.
+        """
+        apt_group_folder = self.aperture_group_folder(full=full, interior=interior)
+        if interior:
+            states_file = os.path.join(
+                apt_group_folder, self._config['INTERIOR-APERTURE-GROUP']['states'])
+        else:
+            states_file = os.path.join(
+                apt_group_folder, self._config['APERTURE-GROUP']['states'])
+        return parse_states(states_file)
+
+    def combined_receivers(self, folder='receivers'):
+        """Write combined receiver files to folder.
+        Arg:
+            folder: A path of the target folder to write files to (default: 'receivers').
+        """
+        grids = self.grid_data_all()
+        apt_group_folder = self.aperture_group_folder(full=False)
+
+        states = self.aperture_groups_states()
+
+        if not os.path.isdir(folder):
+            os.mkdir(folder)
+
+        # find the light_path for each grid
+        for grid in grids.values():
+            light_path = grid['light_path']
+            # remove the static windows
+            # another way is to check for the ones which has a mtx file.
+            aperture_groups = [
+                p[0] for p in light_path if p[0] in states and 'vmtx' in states[p[0]][0]
+            ]
+            # write combined receiver for grid
+            combined_receiver(
+                grid['identifier'],
+                apt_group_folder,
+                aperture_groups,
+                folder
+            )
 
     def dynamic_scene(self, indoor=False, reload=False):
         """List of dynamic non-aperture geometries.
