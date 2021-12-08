@@ -492,7 +492,8 @@ class ModelFolder(_Folder):
         Arg:
             full: A boolean to note if the path should be a full path or a relative path
                 (default: False).
-            interior: Set to True to get the path for interior aperture group folder.
+            interior: Set to True to get the states information for the interior aperture 
+                groups.
         """
         apt_group_folder = self.aperture_group_folder(full=full, interior=interior)
         if interior:
@@ -505,6 +506,15 @@ class ModelFolder(_Folder):
 
     def combined_receivers(self, folder='receivers'):
         """Write combined receiver files to folder.
+
+        This function writes a combined receiver file of the aperture groups for all
+        grids in the folder. It will look for the light paths (aperture groups) of the 
+        grid and include only aperture groups that has a mtx file. This is intended for 
+        matrix-based daylight simulations, e.g. 3-phase, in which a view matrix is 
+        calculated. The combined receiver file allow multiple view matrices to be 
+        calculated at once, while still saving the result of each aperture group in a 
+        unique view matrix file.
+
         Arg:
             folder: A path of the target folder to write files to (default: 'receivers').
         """

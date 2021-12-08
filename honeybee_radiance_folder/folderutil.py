@@ -413,7 +413,10 @@ def parse_states(states_file):
 
 def combined_receiver(grid_name, apt_group_folder, apt_groups, target_folder):
     """Write combined receiver file for a grid and aperture groups.
-    
+
+    The aperture group folder must be a relative path. Otherwise xform will fail when
+    using the combined receiver file in simulations.
+
     Arg:
         grid_name: A string of the grid name (identifier).
         apt_group_folder: Path to aperture group folder.
@@ -425,8 +428,6 @@ def combined_receiver(grid_name, apt_group_folder, apt_groups, target_folder):
     content = []
     content.append('# %s\n' % file_name)  # add header
     for apt in apt_groups:
-        # I'm not sure how do we handle cases where there is more then one
-        # aperture. I think we can keep that for later
         content.append('#@rfluxmtx o=%s..%s.vmx' % (apt, grid_name))
         content.append('!xform ./%s/%s..mtx.rad\n' % (apt_group_folder, apt))
     
