@@ -430,11 +430,12 @@ def combined_receiver(grid_name, apt_group_folder, apt_groups, target_folder):
     for apt in apt_groups:
         content.append('#@rfluxmtx o=%s..%s.vmx' % (apt, grid_name))
         content.append('!xform ./%s/%s..mtx.rad\n' % (apt_group_folder, apt))
-    
+
     out_file = os.path.join(target_folder, file_name)
     with open(out_file, 'w') as outf:
         outf.write('\n'.join(content))
 
+    return out_file
 
 def _nukedir(target_dir, rmdir=True):
     """Delete all the files inside target_dir.

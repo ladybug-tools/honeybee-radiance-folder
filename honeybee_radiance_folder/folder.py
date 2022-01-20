@@ -526,6 +526,8 @@ class ModelFolder(_Folder):
         if not os.path.isdir(folder):
             os.mkdir(folder)
 
+        receiver_list = []
+
         # find the light_path for each grid
         for grid in grids.values():
             light_path = grid['light_path']
@@ -535,12 +537,16 @@ class ModelFolder(_Folder):
                 p[0] for p in light_path if p[0] in states and 'vmtx' in states[p[0]][0]
             ]
             # write combined receiver for grid
-            combined_receiver(
+            receiver_file = combined_receiver(
                 grid['identifier'],
                 apt_group_folder,
                 aperture_groups,
                 folder
             )
+
+            receiver_list.append(receiver_file)
+
+        return receiver_list
 
     def dynamic_scene(self, indoor=False, reload=False):
         """List of dynamic non-aperture geometries.
