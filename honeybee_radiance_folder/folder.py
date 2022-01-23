@@ -504,7 +504,7 @@ class ModelFolder(_Folder):
                 apt_group_folder, self._config['APERTURE-GROUP']['states'])
         return parse_states(states_file)
 
-    def combined_receivers(self, folder='receivers'):
+    def combined_receivers(self, folder='receivers', auto_mtx_path=True):
         """Write combined receiver files to folder.
 
         This function writes a combined receiver file of the aperture groups for all
@@ -517,6 +517,8 @@ class ModelFolder(_Folder):
 
         Arg:
             folder: A path of the target folder to write files to (default: 'receivers').
+            auto_mtx_path: If set to True, then the path of the view matrices will be
+                specified automatically.
         """
         grids = self.grid_data_all()
         apt_group_folder = self.aperture_group_folder(full=False)
@@ -541,8 +543,7 @@ class ModelFolder(_Folder):
                 grid['identifier'],
                 apt_group_folder,
                 aperture_groups,
-                folder
-            )
+                folder, add_output_header=auto_mtx_path)
 
             receiver_list.append(receiver_file)
 

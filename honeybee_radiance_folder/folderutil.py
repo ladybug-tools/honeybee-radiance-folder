@@ -411,7 +411,8 @@ def parse_states(states_file):
         return json.load(inf)
 
 
-def combined_receiver(grid_name, apt_group_folder, apt_groups, target_folder):
+def combined_receiver(grid_name, apt_group_folder, apt_groups, target_folder,
+                      add_output_header=True):
     """Write combined receiver file for a grid and aperture groups.
 
     The aperture group folder must be a relative path. Otherwise xform will fail when
@@ -422,13 +423,16 @@ def combined_receiver(grid_name, apt_group_folder, apt_groups, target_folder):
         apt_group_folder: Path to aperture group folder.
         apt_groups: A list of aperture groups to include in the combined receiver.
         target_folder: A path of the target folder to write files to.
+        add_output_header: If set to True, a header will be added to redirect the
+            generated view matrix to the path specified through the "o= .." option.
     """
     file_name = '%s..receiver.rad' % grid_name
     apt_group_folder = apt_group_folder.replace('\\', '/')
     content = []
     content.append('# %s\n' % file_name)  # add header
     for apt in apt_groups:
-        content.append('#@rfluxmtx o=%s..%s.vmx' % (apt, grid_name))
+        if add_output_header:
+            content.append('#@rfluxmtx o=%s..%s.vmx' % (apt, grid_name))
         content.append('!xform ./%s/%s..mtx.rad\n' % (apt_group_folder, apt))
 
     out_file = os.path.join(target_folder, file_name)
