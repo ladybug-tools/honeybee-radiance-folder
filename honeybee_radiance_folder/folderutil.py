@@ -425,6 +425,8 @@ def combined_receiver(grid_name, apt_group_folder, apt_groups, target_folder,
         target_folder: A path of the target folder to write files to.
         add_output_header: If set to True, a header will be added to redirect the
             generated view matrix to the path specified through the "o= .." option.
+    Returns:
+        The path of the file that was written out as the combined receiver.
     """
     file_name = '%s..receiver.rad' % grid_name
     apt_group_folder = apt_group_folder.replace('\\', '/')

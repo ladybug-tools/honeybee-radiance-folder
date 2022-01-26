@@ -519,6 +519,9 @@ class ModelFolder(_Folder):
             folder: A path of the target folder to write files to (default: 'receivers').
             auto_mtx_path: If set to True, then the path of the view matrices will be
                 specified automatically.
+        Returns:
+            A dictionary containing grid identifiers as keys and the receiver rad files
+            as values.
         """
         grids = self.grid_data_all()
         apt_group_folder = self.aperture_group_folder(full=False)
