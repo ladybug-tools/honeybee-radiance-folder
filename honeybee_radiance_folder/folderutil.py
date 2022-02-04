@@ -24,6 +24,7 @@ class SceneState(object):
         * default
         * direct
     """
+
     def __init__(self, identifier, default, direct):
         self.identifier = identifier
         self.default = _as_posix(default)
@@ -319,7 +320,8 @@ def parse_aperture_groups(states_file, validate=True, bsdf_folder=None):
     with open(states_file) as inf:
         data = json.load(inf)
 
-    apertures = [ApertureGroup.from_dict({key: value}) for key, value in data.items()]
+    apertures = [ApertureGroup.from_dict(
+        {key: value}) for key, value in data.items()]
 
     if validate:
         # check for the files to exist
@@ -376,7 +378,8 @@ def add_output_spec_to_receiver(receiver_file, output_spec, output_file=None):
     with open(receiver_file, 'r') as f:
         content = f.read()
     try:
-        value = re.search(r'^#@rfluxmtx[\s\S].*$', content, re.MULTILINE).group(0)
+        value = re.search(r'^#@rfluxmtx[\s\S].*$',
+                          content, re.MULTILINE).group(0)
     except AttributeError:
         raise ValueError(
             '%s is not a valid receiver file with '
@@ -429,6 +432,7 @@ def combined_receiver(grid_name, apt_group_folder, apt_groups, target_folder,
         The path of the file that was written out as the combined receiver.
     """
     file_name = '%s..receiver.rad' % grid_name
+
     apt_group_folder = apt_group_folder.replace('\\', '/')
     content = []
     content.append('# %s\n' % file_name)  # add header
@@ -441,7 +445,8 @@ def combined_receiver(grid_name, apt_group_folder, apt_groups, target_folder,
     with open(out_file, 'w') as outf:
         outf.write('\n'.join(content))
 
-    return out_file
+    return file_name
+
 
 def _nukedir(target_dir, rmdir=True):
     """Delete all the files inside target_dir.

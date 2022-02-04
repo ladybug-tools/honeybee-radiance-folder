@@ -8,6 +8,7 @@ structure.
 See https://github.com/ladybug-tools/radiance-folder-structure#radiance-folder-structure
 
 """
+import json
 import os
 import re
 import shutil
@@ -524,17 +525,21 @@ class ModelFolder(_Folder):
             as values.
         """
         grids = self.grid_data_all()
+
         apt_group_folder = self.aperture_group_folder(full=False)
 
         states = self.aperture_groups_states(full=True)
+        states = {d['identifier']: d['states'] for d in states}
+        rec_folder = os.path.join(
+            self.model_folder(True), folder
+        )
+        if not os.path.isdir(rec_folder):
+            os.mkdir(rec_folder)
 
-        if not os.path.isdir(folder):
-            os.mkdir(folder)
-
-        receiver_dict = dict()
+        receivers_info = []
 
         # find the light_path for each grid
-        for grid in grids.values():
+        for grid in grids:
             light_path = grid['light_path']
             # remove the static windows
             # another way is to check for the ones which has a mtx file.
@@ -546,11 +551,21 @@ class ModelFolder(_Folder):
                 grid['identifier'],
                 apt_group_folder,
                 aperture_groups,
-                folder, add_output_header=auto_mtx_path)
+                rec_folder, add_output_header=auto_mtx_path
+            )
+            receivers_info.append(
+                {
+                    'identifier': grid['identifier'],
+                    'path': receiver_file
+                }
+            )
+        
+        receivers_info_file = os.path.join(rec_folder, 'receivers_info.json')
 
-            receiver_dict[grid['identifier']] = receiver_file
+        with open(receivers_info_file, 'w') as outf:
+            outf.write(json.dumps(receivers_info))
 
-        return receiver_dict
+        return receivers_info
 
     def dynamic_scene(self, indoor=False, reload=False):
         """List of dynamic non-aperture geometries.
@@ -604,19 +619,13 @@ class ModelFolder(_Folder):
         """
 
         grid_info = self.grid_info(is_model=info_from_model)
-        grid_folder = self.grid_folder(full=True)
-
-        grid_data_dict = {}
 
         if not grid_info:
             return None
         else:
             for grid in grid_info:
-                grid_id = grid.pop('full_id')
-                grid_data_dict[grid_id] = parse_grid_json(
-                    os.path.join(grid_folder, grid_id + '.json'))
-                grid_data_dict[grid_id].update(grid)
-            return grid_data_dict
+                grid.pop('full_id')
+            return grid_info
 
     def write(self, folder_type=0, cfg=None, overwrite=False):
         """Write an empty model folder.
