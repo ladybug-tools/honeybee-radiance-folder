@@ -505,7 +505,7 @@ class ModelFolder(_Folder):
                 apt_group_folder, self._config['APERTURE-GROUP']['states'])
         return parse_states(states_file)
 
-    def combined_receivers(self, folder='receivers', auto_mtx_path=True):
+    def combined_receivers(self, folder='receivers', auto_mtx_path=False):
         """Write combined receiver files to folder.
 
         This function writes a combined receiver file of the aperture groups for all
@@ -560,7 +560,7 @@ class ModelFolder(_Folder):
                 }
             )
         
-        receivers_info_file = os.path.join(rec_folder, 'receivers_info.json')
+        receivers_info_file = os.path.join(rec_folder, 'receivers.json')
 
         with open(receivers_info_file, 'w') as outf:
             outf.write(json.dumps(receivers_info))
