@@ -321,6 +321,18 @@ class ModelFolder(_Folder):
         """
         return self._get_folder('VIEW', full)
 
+    def receiver_folder(self, full=False):
+        """Receiver folder path.
+
+        Args:
+            full: A boolean to weather the path should be a full path or a relative path
+                (default: False).
+
+        Returns:
+            Path to folder.
+        """
+        return self._get_folder('RECEIVER', full)
+
     def _validate_config(self):
         """Validate config dictionary."""
         for k, v in self.CFG_KEYS.items():
@@ -471,6 +483,24 @@ class ModelFolder(_Folder):
         )
         return view_info_files
 
+    def receiver_files(self, rel_path=True):
+        """Return list of receiver files."""
+        cfg = self._config['RECEIVER']
+        pattern = cfg['receiver_pattern']
+        receiver_files = self._find_files(
+            self.receiver_folder(full=True), pattern, rel_path
+        )
+        return receiver_files
+
+    def receiver_info_file(self, rel_path=True):
+        """Return the receiver information file."""
+        cfg = self._config['RECEIVER']
+        pattern = cfg['info_pattern']
+        receiver_info_file = self._find_files(
+            self.receiver_folder(full=True), pattern, rel_path
+        )
+        return receiver_info_file[0]
+
     def aperture_groups(self, interior=False, reload=False):
         """List of apertures groups.
 
@@ -556,11 +586,12 @@ class ModelFolder(_Folder):
             receivers_info.append(
                 {
                     'identifier': grid['identifier'],
+                    'count': grid['count'],
                     'path': receiver_file,
                     'aperture_groups': aperture_groups
                 }
             )
-        
+
         receivers_info_file = os.path.join(rec_folder, '_info.json')
 
         with open(receivers_info_file, 'w') as outf:

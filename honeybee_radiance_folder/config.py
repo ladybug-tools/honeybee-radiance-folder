@@ -9,7 +9,8 @@ minimal = {
     'BSDF': False,
     'IES': False,
     'DYNAMIC-SCENE': False,
-    'INDOOR-DYNAMIC-SCENE': False
+    'INDOOR-DYNAMIC-SCENE': False,
+    'RECEIVER': False
 }
 
 """ Config for model with aperture groups."""
@@ -23,7 +24,8 @@ aperture_groups = {
     'BSDF': False,
     'IES': False,
     'DYNAMIC-SCENE': False,
-    'INDOOR-DYNAMIC-SCENE': False
+    'INDOOR-DYNAMIC-SCENE': False,
+    'RECEIVER': True
 }
 
 """Full folder with all subfolders."""
