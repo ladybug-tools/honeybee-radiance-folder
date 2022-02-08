@@ -559,7 +559,6 @@ class ModelFolder(_Folder):
         apt_group_folder = self.aperture_group_folder(full=False)
 
         states = self.aperture_groups_states(full=True)
-        states = {d['identifier']: d['states'] for d in states}
         rec_folder = os.path.join(
             self.model_folder(True), folder
         )
