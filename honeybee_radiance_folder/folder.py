@@ -427,25 +427,25 @@ class ModelFolder(_Folder):
         """Return list of files for black aperture groups.
 
         Args:
-            exclude: Identifier of aperture group to exclude from the list of black
+            exclude: Identifier of aperture groups to exclude from the list of black
                 aperture groups files. This input can be either a single aperture group
                 identifier or a list of aperture group identifiers.
-            rel_path (str): Set rel_path to True for getting full path to files. By
+            rel_path: Set rel_path to True for getting full path to files. By
                 default the path is relative to study folder root.
         """
-        if exclude:
-            if not isinstance(exclude, (list, tuple)):
-                exclude = [exclude]
+        if exclude and not isinstance(exclude, (list, tuple)):
+            exclude = [exclude]
         else:
             exclude = []
         
         states = self.aperture_groups_states(full=True)
         blk_files = []
         for aperture_group, ap_states in states.items():
-            if not aperture_group in exclude:
-                blk_file = os.path.normpath(ap_states[0]['black'])
-                blk_file = os.path.join(self.aperture_group_folder(full=rel_path), blk_file)
-                blk_files.append(self._as_posix(blk_file))
+            if aperture_group in exclude:
+                continue
+            blk_file = os.path.normpath(ap_states[0]['black'])
+            blk_file = os.path.join(self.aperture_group_folder(full=rel_path), blk_file)
+            blk_files.append(self._as_posix(blk_file))
 
         return blk_files
 
