@@ -423,28 +423,30 @@ class ModelFolder(_Folder):
         )
         return self._match_files(modifier_files, geometry_files)
 
-    def aperture_group_files_black(self, exclude=None, rel_path=True):
+    def aperture_group_files_black(self, exclude=None, rel_path=False):
         """Return list of files for black aperture groups.
 
         Args:
             exclude: Identifier of aperture group to exclude from the list of black
                 aperture groups files. This input can be either a single aperture group
                 identifier or a list of aperture group identifiers.
-            rel_path (str): Set rel_path to False for getting full path to files. By
+            rel_path (str): Set rel_path to True for getting full path to files. By
                 default the path is relative to study folder root.
         """
         if exclude:
             if not isinstance(exclude, (list, tuple)):
                 exclude = [exclude]
-            if len(exclude) == 1:
-                pattern = '(?!%s)^.*\..black.rad$' % exclude[0]
-            else:
-                pattern = '(?!%s)^.*\..black.rad$' % '|'.join(exclude)
         else:
-            pattern = '^.*\..black.rad$'
-        blk_files = self._find_files(
-            self.aperture_group_folder(full=True), pattern, rel_path
-        )
+            exclude = []
+        
+        states = self.aperture_groups_states(full=True)
+        blk_files = []
+        for aperture_group, ap_states in states.items():
+            if not aperture_group in exclude:
+                blk_file = os.path.normpath(ap_states[0]['black'])
+                blk_file = os.path.join(self.aperture_group_folder(full=rel_path), blk_file)
+                blk_files.append(self._as_posix(blk_file))
+
         return blk_files
 
     def scene_files(self, black_out=False, rel_path=True):
@@ -622,33 +624,41 @@ class ModelFolder(_Folder):
 
         return receivers_info
 
-    def two_phase_octree_mapping(self):
+    def octree_scene_mapping(self):
         """List of rad files for each state for aperture groups without transmission
         matrix. These files can be used to create the octree for each specific state."""
 
-        two_phase_mapping = []
-        # add default 2 phase files
+        scene_mapping = []
         # TODO: we should probably check if 2 phase is possible, i.e., check if there are
         #       static apertures and non-BSDF aperture groups.
-        two_phase_mapping.append(
+        # static apertures
+        scene_mapping.append(
             {
-                'identifier': '2_phase_default',
+                'identifier': '__static_apertures__',
                 'scene_files': self.scene_files() + self.aperture_files() + \
+                    self.aperture_group_files_black(),
+                'scene_files_direct': self.scene_files(black_out=True) + \
+                    self.aperture_files() + \
                     self.aperture_group_files_black()
             }
         )
 
         states = self.aperture_groups_states(full=True)
-        # add 2 phase for each state. Static apertures and all other aperture groups will
-        # be black
+        # add scene files for each state. Static apertures and all other aperture groups 
+        # will be black
         for aperture_group, ap_states in states.items():
             for state in ap_states:
                 if not 'tmtx' in state:
                     pattern = '%s$' % state['default'].replace('./', '')
-                    two_phase_mapping.append(
+                    scene_mapping.append(
                         {
                             'identifier': state['identifier'],
                             'scene_files': self.scene_files() + \
+                                self.aperture_files(black_out=True) + \
+                                self._find_files(self.aperture_group_folder(full=True), 
+                                    pattern) + \
+                                self.aperture_group_files_black(exclude=aperture_group),
+                            'scene_files_direct': self.scene_files(black_out=True) + \
                                 self.aperture_files(black_out=True) + \
                                 self._find_files(self.aperture_group_folder(full=True), 
                                     pattern) + \
@@ -656,12 +666,12 @@ class ModelFolder(_Folder):
                         }
                     )
 
-        matrix_mapping_file = os.path.join(self.folder, 'matrix_mapping.json')
+        scene_mapping_file = os.path.join(self.folder, 'scene_mapping.json')
 
-        with open(matrix_mapping_file, 'w') as outf:
-            outf.write(json.dumps(two_phase_mapping, indent=2))
+        with open(scene_mapping_file, 'w') as outf:
+            outf.write(json.dumps(scene_mapping, indent=2))
 
-        return two_phase_mapping
+        return scene_mapping
 
     def dynamic_scene(self, indoor=False, reload=False):
         """List of dynamic non-aperture geometries.
