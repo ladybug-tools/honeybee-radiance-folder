@@ -343,6 +343,17 @@ class ModelFolder(_Folder):
                     '{} option is missing from {} section.'.format(i, k)
 
     @property
+    def has_aperture(self):
+        """Returns true if model has at least one aperture."""
+        # get aperture files
+        aperture_files = self.aperture_files()
+
+        # check if aperture files is empty
+        if aperture_files:
+            return True
+        return False
+
+    @property
     def has_aperture_group(self):
         """Returns true if model has at least one aperture group."""
         # check if states file exist
@@ -632,16 +643,17 @@ class ModelFolder(_Folder):
         # TODO: we should probably check if 2 phase is possible, i.e., check if there are
         #       static apertures and non-BSDF aperture groups.
         # static apertures
-        scene_mapping.append(
-            {
-                'identifier': '__static_apertures__',
-                'scene_files': self.scene_files() + self.aperture_files() + \
-                    self.aperture_group_files_black(),
-                'scene_files_direct': self.scene_files(black_out=True) + \
-                    self.aperture_files() + \
-                    self.aperture_group_files_black()
-            }
-        )
+        if self.has_aperture:
+            scene_mapping.append(
+                {
+                    'identifier': '__static_apertures__',
+                    'scene_files': self.scene_files() + self.aperture_files() + \
+                        self.aperture_group_files_black(),
+                    'scene_files_direct': self.scene_files(black_out=True) + \
+                        self.aperture_files() + \
+                        self.aperture_group_files_black()
+                }
+            )
 
         states = self.aperture_groups_states(full=True)
         # add scene files for each state. Static apertures and all other aperture groups 
