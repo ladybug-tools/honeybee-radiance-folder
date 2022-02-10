@@ -640,11 +640,12 @@ class ModelFolder(_Folder):
         matrix. These files can be used to create the octree for each specific state."""
 
         scene_mapping = []
-        # TODO: we should probably check if 2 phase is possible, i.e., check if there are
-        #       static apertures and non-BSDF aperture groups.
+        two_phase, three_phase, five_phase = [], [], []
+
+        # two phase
         # static apertures
         if self.has_aperture:
-            scene_mapping.append(
+            two_phase.append(
                 {
                     'identifier': '__static_apertures__',
                     'scene_files': self.scene_files() + self.aperture_files() + \
@@ -662,7 +663,7 @@ class ModelFolder(_Folder):
             for state in ap_states:
                 if not 'tmtx' in state:
                     pattern = '%s$' % state['default'].replace('./', '')
-                    scene_mapping.append(
+                    two_phase.append(
                         {
                             'identifier': state['identifier'],
                             'scene_files': self.scene_files() + \
@@ -677,6 +678,37 @@ class ModelFolder(_Folder):
                                 self.aperture_group_files_black(exclude=aperture_group)
                         }
                     )
+                else:
+                    # five phase
+                    pattern = '%s$' % state['direct'].replace('./', '')
+                    five_phase.append(
+                        {
+                        'identifier': state['identifier'],
+                        'scene_files_direct': self.scene_files(black_out=True) + \
+                            self.aperture_files(black_out=True) + \
+                            self._find_files(self.aperture_group_folder(full=True),
+                                pattern) + \
+                            self.aperture_group_files_black(exclude=aperture_group)
+                        }
+                    )
+
+        # three phase
+        three_phase.append(
+            {
+            'identifier': 'default',
+            'scene_files': self.scene_files() + self.aperture_files(),
+            'scene_files_direct': self.scene_files(black_out=True) + \
+                self.aperture_files(black_out=True)
+            }
+        )
+
+        scene_mapping.extend(
+            [
+            {'two-phase': two_phase},
+            {'three-phase': three_phase},
+            {'five-phase': five_phase}
+            ]
+        )
 
         scene_mapping_file = os.path.join(self.folder, 'scene_mapping.json')
 
