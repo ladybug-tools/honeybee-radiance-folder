@@ -639,7 +639,6 @@ class ModelFolder(_Folder):
         """List of rad files for each state for aperture groups without transmission
         matrix. These files can be used to create the octree for each specific state."""
 
-        scene_mapping = []
         two_phase, three_phase, five_phase = [], [], []
 
         # two phase
@@ -695,20 +694,18 @@ class ModelFolder(_Folder):
         # three phase
         three_phase.append(
             {
-            'identifier': 'default',
+            'identifier': '__three_phase__',
             'scene_files': self.scene_files() + self.aperture_files(),
             'scene_files_direct': self.scene_files(black_out=True) + \
                 self.aperture_files(black_out=True)
             }
         )
 
-        scene_mapping.extend(
-            [
-            {'two-phase': two_phase},
-            {'three-phase': three_phase},
-            {'five-phase': five_phase}
-            ]
-        )
+        scene_mapping = {
+            'two_phase': two_phase,
+            'three_phase': three_phase,
+            'five_phase': five_phase
+        }
 
         scene_mapping_file = os.path.join(self.folder, 'scene_mapping.json')
 
