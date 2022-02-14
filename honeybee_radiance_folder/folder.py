@@ -9,6 +9,7 @@ See https://github.com/ladybug-tools/radiance-folder-structure#radiance-folder-s
 
 """
 import json
+import warnings
 import os
 import re
 import shutil
@@ -591,7 +592,7 @@ class ModelFolder(_Folder):
             A dictionary containing grid identifiers as keys and the receiver rad files
             as values.
         """
-        grids = self.grid_data_all()
+        grids = self.grid_data_all() or []
 
         apt_group_folder = self.aperture_group_folder(full=False)
 
@@ -606,6 +607,14 @@ class ModelFolder(_Folder):
 
         # find the light_path for each grid
         for grid in grids:
+            if not 'light_path' in grid:
+                # The light-path for this grid is not set
+                # This grid will be ignored for 3/5 phase studies
+                warnings.warn(
+                    '%s sensor grid has no light-path. It will not be included in three '
+                    'or five phase studies.' % grid['name']
+                )
+                continue
             light_path = grid['light_path']
             # remove the static windows
             # another way is to check for the ones which has a mtx file.
