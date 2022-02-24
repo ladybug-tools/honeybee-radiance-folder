@@ -607,7 +607,7 @@ class ModelFolder(_Folder):
 
         # find the light_path for each grid
         for grid in grids:
-            if not 'light_path' in grid:
+            if not 'light_path' in grid or not grid['light_path']:
                 # The light-path for this grid is not set
                 # This grid will be ignored for 3/5 phase studies
                 warnings.warn(
@@ -616,11 +616,18 @@ class ModelFolder(_Folder):
                 )
                 continue
             light_path = grid['light_path']
-            # remove the static windows
-            # another way is to check for the ones which has a mtx file.
+            # remove the static windows and non-bsdf groups
             aperture_groups = [
                 p[0] for p in light_path if p[0] in states and 'vmtx' in states[p[0]][0]
             ]
+            if not aperture_groups:
+                # The light-path for this grid is static or
+                # non-bsdf groups
+                warnings.warn(
+                    '%s sensor grid has no view matrix receiver. It will not be '
+                    'included in three or five phase studies.' % grid['name']
+                )
+                continue
             # write combined receiver for grid
             receiver_file = combined_receiver(
                 grid['identifier'],
@@ -640,7 +647,7 @@ class ModelFolder(_Folder):
         receivers_info_file = os.path.join(rec_folder, '_info.json')
 
         with open(receivers_info_file, 'w') as outf:
-            outf.write(json.dumps(receivers_info))
+            outf.write(json.dumps(receivers_info, indent=2))
 
         return receivers_info
 
