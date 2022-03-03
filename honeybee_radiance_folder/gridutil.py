@@ -147,9 +147,6 @@ def redistribute_sensors(
                 out_grid_info.append(out_data)
                 # open a new file
                 outf = get_target_file(outf_index)
-                dist_info[i]['dist_info'].append(
-                    {'identifier': outf_index, 'st_ln': line_out_count}
-                )
         if 'end_ln' not in dist_info[i]['dist_info'][-1]:
             dist_info[i]['dist_info'][-1]['end_ln'] = line_out_count - 1
         inf.close()
