@@ -1,0 +1,30 @@
+[
+  {
+    "count": 900,
+    "name": "GRID_W",
+    "identifier": "GRID_W",
+    "group": "",
+    "full_id": "GRID_W"
+  },
+  {
+    "count": 900,
+    "name": "GRID_S",
+    "identifier": "GRID_S",
+    "group": "",
+    "full_id": "GRID_S"
+  },
+  {
+    "count": 900,
+    "name": "GRID_E",
+    "identifier": "GRID_E",
+    "group": "",
+    "full_id": "GRID_E"
+  },
+  {
+    "count": 900,
+    "name": "GRID_N",
+    "identifier": "GRID_N",
+    "group": "",
+    "full_id": "GRID_N"
+  }
+]

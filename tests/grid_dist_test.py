@@ -41,3 +41,26 @@ def test_rebuild_grids():
             os.path.join(original_folder, f), os.path.join(output_folder, f)
         )
     _nukedir(output_folder, False)
+
+def test_dist_grids_split():
+    input_folder = r'./tests/assets/grids_split'
+    output_folder = r'./tests/assets/temp'
+    _nukedir(output_folder, False)
+    redistribute_sensors(
+        input_folder, output_folder, grid_count=4, min_sensor_count=200
+    )
+    files = list(os.listdir(output_folder))
+    assert len(files) == 6
+    assert '_info.json' in files
+    assert '_redist_info.json' in files
+    with open(os.path.join(output_folder, '_info.json')) as inf:
+        data = json.load(inf)
+    assert len(data) == 4
+    counts = [d['count'] for d in data]
+    assert counts == [900, 900, 900, 900]
+    with open(os.path.join(output_folder, '_redist_info.json')) as inf:
+        data = json.load(inf)
+    for i in range(len(data)):
+        for j in range(len(data[i]['dist_info'])):
+            assert data[i]['dist_info'][j]['end_ln'] != -1
+    _nukedir(output_folder, False)
