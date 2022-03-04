@@ -107,6 +107,9 @@ def redistribute_sensors(
     for i in range(len(input_grid_files)):
         # get an input sensor grid
         inf = get_next_input_grid()
+        # set the input grid count and line count for input grid
+        input_grid_count = data[i]['count']
+        line_grid_count = 0
         # set the information for output file index and start line
         dist_info[i]['dist_info'].append(
             {'identifier': outf_index, 'st_ln': line_out_count}
@@ -116,6 +119,7 @@ def redistribute_sensors(
         for line in inf:
             outf.write(line)
             line_out_count += 1
+            line_grid_count += 1
             if line_out_count == sensor_per_grid:
                 # the current file is full. add end line for input file
                 dist_info[i]['dist_info'][-1]['end_ln'] = sensor_per_grid - 1
@@ -147,6 +151,10 @@ def redistribute_sensors(
                 out_grid_info.append(out_data)
                 # open a new file
                 outf = get_target_file(outf_index)
+                if not line_grid_count == input_grid_count:
+                    dist_info[i]['dist_info'].append(
+                        {'identifier': outf_index, 'st_ln': line_out_count}
+                    )
         if 'end_ln' not in dist_info[i]['dist_info'][-1]:
             dist_info[i]['dist_info'][-1]['end_ln'] = line_out_count - 1
         inf.close()
