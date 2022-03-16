@@ -730,6 +730,78 @@ class ModelFolder(_Folder):
 
         return scene_mapping
 
+    def grid_mapping(self):
+        """List of grids for each light path. The light paths are grouped as two phase,
+        three phase, and five phase. Two phase consist of static apertures and aperture
+        groups without a tmtx key in their states. The rest, aperture groups with a tmtx
+        key in their states, are added to three phase. Five phase is a copy of three
+        phase."""
+
+        two_phase, three_phase = [], []
+
+        grid_info = self.grid_info()
+        grid_dict = dict()
+
+        states = self.aperture_groups_states(full=True)
+        mtx_groups = []
+        non_mtx_groups = []
+        # get list of mtx groups and non-mtx groups
+        for aperture_group, ap_states in states.items():
+            for state in ap_states:
+                if aperture_group in mtx_groups or aperture_group in non_mtx_groups:
+                    continue
+                if 'tmtx' in state:
+                    mtx_groups.append(aperture_group)
+                else:
+                    non_mtx_groups.append(aperture_group)
+
+        # get grids for each light path
+        for grid in grid_info:
+            for light_path in grid['light_path']:
+                if light_path[0] in grid_dict:
+                    grid_dict[light_path[0]].append(grid['identifier'])
+                else:
+                    grid_dict[light_path[0]] = [grid['identifier']]
+
+        if self.has_aperture:
+            two_phase.append(
+                {
+                    'identifier': 'static_apertures',
+                    'grid': grid_dict['static_apertures']
+                }
+            )
+            # pop static apertures to avoid double counting below
+            grid_dict.pop('static_apertures')
+        
+        for light_path, grids in grid_dict.items():
+            if light_path in non_mtx_groups:
+                two_phase.append(
+                    {
+                        'identifier': light_path,
+                        'grid': grids
+                    }
+                )
+            else:
+                three_phase.append(
+                    {
+                        'identifier': light_path,
+                        'grid': grids
+                    }
+                )
+
+        grid_mapping = {
+            'two_phase': two_phase,
+            'three_phase': three_phase,
+            'five_phase': three_phase # same as three phase
+        }
+
+        grid_mapping_file = os.path.join(self.folder, 'grid_mapping.json')
+
+        with open(grid_mapping_file, 'w') as outf:
+            outf.write(json.dumps(grid_mapping, indent=2))
+
+        return grid_mapping
+
     def dynamic_scene(self, indoor=False, reload=False):
         """List of dynamic non-aperture geometries.
 
