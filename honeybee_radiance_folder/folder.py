@@ -740,7 +740,6 @@ class ModelFolder(_Folder):
         two_phase, three_phase = [], []
 
         grid_info = self.grid_info()
-        grid_dict = dict()
 
         states = self.aperture_groups_states(full=True)
         mtx_groups = []
@@ -755,33 +754,38 @@ class ModelFolder(_Folder):
                 else:
                     non_mtx_groups.append(aperture_group)
 
-        # get grids for each light path
-        for grid in grid_info:
-            for light_path in grid['light_path']:
-                if light_path[0] in grid_dict:
-                    grid_dict[light_path[0]].append(grid['identifier'])
-                else:
-                    grid_dict[light_path[0]] = [grid['identifier']]
+        two_phase_dict = dict()
+        three_phase_dict = dict()
 
-        if self.has_aperture:
-            two_phase.append(
-                {
-                    'identifier': 'static_apertures',
-                    'grid': grid_dict['static_apertures']
-                }
-            )
-            # pop static apertures to avoid double counting below
-            grid_dict.pop('static_apertures')
+        for grid in grid_info:
+            light_paths = grid['light_path']
+            for light_path in light_paths:
+                light_path = light_path[0]
+                if light_path in non_mtx_groups:
+                    if light_path in two_phase_dict:
+                        two_phase_dict[light_path].append(grid)
+                    else:
+                        two_phase_dict[light_path] = [grid]
+                elif light_path in mtx_groups:
+                    if light_path in three_phase_dict:
+                        three_phase_dict[light_path].append(grid)
+                    else:
+                        three_phase_dict[light_path] = [grid]
+                else:
+                    # static apertures
+                    if light_path in two_phase_dict:
+                        two_phase_dict[light_path].append(grid)
+                    else:
+                        two_phase_dict[light_path] = [grid]
         
-        for light_path, grids in grid_dict.items():
-            if light_path in non_mtx_groups:
+        for light_path, grids in two_phase_dict.items():
                 two_phase.append(
                     {
                         'identifier': light_path,
                         'grid': grids
                     }
                 )
-            else:
+        for light_path, grids in three_phase_dict.items():
                 three_phase.append(
                     {
                         'identifier': light_path,
@@ -795,10 +799,15 @@ class ModelFolder(_Folder):
             'five_phase': three_phase # same as three phase
         }
 
-        grid_mapping_file = os.path.join(self.folder, 'grid_mapping.json')
+        grid_mapping_files = {
+            'two_phase': os.path.join(self.folder, '_info_two_phase.json'),
+            'three_phase': os.path.join(self.folder, '_info_three_phase.json'),
+            'five_phase': os.path.join(self.folder, '_info_five_phase.json')
+            }
 
-        with open(grid_mapping_file, 'w') as outf:
-            outf.write(json.dumps(grid_mapping, indent=2))
+        for phase, file in grid_mapping_files.items():
+            with open(file, 'w') as outf:
+                outf.write(json.dumps(grid_mapping[phase], indent=2))
 
         return grid_mapping
 
