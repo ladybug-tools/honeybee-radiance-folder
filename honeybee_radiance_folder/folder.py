@@ -662,6 +662,7 @@ class ModelFolder(_Folder):
         if self.has_aperture:
             two_phase.append(
                 {
+                    'light_path': '__static_apertures__',
                     'identifier': '__static_apertures__',
                     'scene_files': self.scene_files() + self.aperture_files() + \
                         self.aperture_group_files_black(),
@@ -680,6 +681,7 @@ class ModelFolder(_Folder):
                     pattern = '%s$' % state['default'].replace('./', '')
                     two_phase.append(
                         {
+                            'light_path': aperture_group,
                             'identifier': state['identifier'],
                             'scene_files': self.scene_files() + \
                                 self.aperture_files(black_out=True) + \
@@ -698,6 +700,7 @@ class ModelFolder(_Folder):
                     pattern = '%s$' % state['direct'].replace('./', '')
                     five_phase.append(
                         {
+                        'light_path': aperture_group,
                         'identifier': state['identifier'],
                         'scene_files_direct': self.scene_files(black_out=True) + \
                             self.aperture_files(black_out=True) + \
@@ -710,6 +713,7 @@ class ModelFolder(_Folder):
         # three phase
         three_phase.append(
             {
+            'light_path': None,
             'identifier': '__three_phase__',
             'scene_files': self.scene_files() + self.aperture_files(),
             'scene_files_direct': self.scene_files(black_out=True) + \
@@ -773,10 +777,10 @@ class ModelFolder(_Folder):
                         three_phase_dict[light_path] = [grid]
                 else:
                     # static apertures
-                    if light_path in two_phase_dict:
-                        two_phase_dict[light_path].append(grid)
+                    if '__static_apertures__' in two_phase_dict:
+                        two_phase_dict['__static_apertures__'].append(grid)
                     else:
-                        two_phase_dict[light_path] = [grid]
+                        two_phase_dict['__static_apertures__'] = [grid]
         
         for light_path, grids in two_phase_dict.items():
                 two_phase.append(
@@ -799,15 +803,10 @@ class ModelFolder(_Folder):
             'five_phase': three_phase # same as three phase
         }
 
-        grid_mapping_files = {
-            'two_phase': os.path.join(self.folder, '_info_two_phase.json'),
-            'three_phase': os.path.join(self.folder, '_info_three_phase.json'),
-            'five_phase': os.path.join(self.folder, '_info_five_phase.json')
-            }
+        grid_mapping_file = os.path.join(self.folder, 'grid_mapping.json')
 
-        for phase, file in grid_mapping_files.items():
-            with open(file, 'w') as outf:
-                outf.write(json.dumps(grid_mapping[phase], indent=2))
+        with open(grid_mapping_file, 'w') as outf:
+            outf.write(json.dumps(grid_mapping, indent=2))
 
         return grid_mapping
 

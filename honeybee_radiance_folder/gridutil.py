@@ -5,7 +5,7 @@ import json
 
 def redistribute_sensors(
     input_folder, output_folder, grid_count, min_sensor_count=2000,
-    extension='pts', verbose=False
+    extension='pts', grid_info=None, return_out_grid_info=False, verbose=False
 ):
     """Create new sensor grids folder with evenly distributed sensors.
 
@@ -52,6 +52,10 @@ def redistribute_sensors(
             over grid_count. Default: 2000.
         extension: Extension of the files to collect data from. Default is ``pts`` for
             sensor files. Another common extension is ``csv`` for generic data sets.
+        grid_info: Optional list of dictionaries with grid information. Use this instead
+            of the expected _info.json file in the input_folder.
+        return_out_grid_info: Boolean switch to return output grid information. 
+            Default: False
         verbose: Set to True to get verbose reporting. Default: False.
 
     Returns:
@@ -62,15 +66,20 @@ def redistribute_sensors(
 
         - sensor_per_grid: Number of sensors in each newly created sensor grid.
 
+        If return_out_grid_info is True the function returns an additional element
+
+        - out_grid_info: Grid information of the redistributed grid(s).
     """
-    info_file = os.path.join(input_folder, '_info.json')
-
-    assert os.path.isfile(info_file), \
-        'Failed to find the _info.json file. This file should be located inside the ' \
-        'input folder.'
-
-    with open(info_file) as inf:
-        data = json.load(inf)
+    if grid_info is None:
+        info_file = os.path.join(input_folder, '_info.json')
+        assert os.path.isfile(info_file), \
+            'Failed to find the _info.json file. This file should be located inside the ' \
+            'input folder.'
+        with open(info_file) as inf:
+            data = json.load(inf)
+    else:
+        #TODO: add check that validates grid_info
+        data = grid_info
     total_count = sum(grid['count'] for grid in data)
     sensor_per_grid = int(round(total_count / grid_count)) or 1
     if sensor_per_grid < min_sensor_count:
@@ -185,7 +194,10 @@ def redistribute_sensors(
             total_count, grid_count, sensor_per_grid
             )
     )
-    return grid_count, sensor_per_grid
+    if return_out_grid_info:
+        return grid_count, sensor_per_grid, out_grid_info
+    else:
+        return grid_count, sensor_per_grid
 
 
 def restore_original_distribution(
