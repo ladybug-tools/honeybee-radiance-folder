@@ -4,7 +4,8 @@ import json
 
 
 def redistribute_sensors(
-    input_folder, output_folder, grid_count, min_sensor_count=2000, verbose=False
+    input_folder, output_folder, grid_count, min_sensor_count=2000,
+    extension='pts', verbose=False
 ):
     """Create new sensor grids folder with evenly distributed sensors.
 
@@ -49,6 +50,8 @@ def redistribute_sensors(
             to ensure the number of sensors in output grids never gets very small. To
             ignore this limitation set the value to 1. This value always takes precedence
             over grid_count. Default: 2000.
+        extension: Extension of the files to collect data from. Default is ``pts`` for
+            sensor files. Another common extension is ``csv`` for generic data sets.
         verbose: Set to True to get verbose reporting. Default: False.
 
     Returns:
@@ -84,13 +87,13 @@ def redistribute_sensors(
     input_grids_iter = iter(input_grid_files)
 
     def get_next_input_grid():
-        id_ = next(input_grids_iter) + '.pts'
+        id_ = next(input_grids_iter) + '.' + extension
         if verbose:
             print('Started reading from %s' % id_)
         return open(id_)
 
     def get_target_file(index):
-        outf = os.path.join(output_folder, '%d.pts' % index)
+        outf = os.path.join(output_folder, '{}.{}'.format(index, extension))
         if verbose:
             print('Started writing to %s' % outf)
         return open(outf, 'w')
