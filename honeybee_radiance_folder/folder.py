@@ -762,7 +762,7 @@ class ModelFolder(_Folder):
         three_phase_dict = dict()
 
         for grid in grid_info:
-            light_paths = grid['light_path']
+            light_paths = grid.get('light_path', [])
             for light_path in light_paths:
                 light_path = light_path[0]
                 if light_path in non_mtx_groups:

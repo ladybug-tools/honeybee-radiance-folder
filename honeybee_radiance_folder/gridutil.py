@@ -5,7 +5,7 @@ import json
 
 def redistribute_sensors(
     input_folder, output_folder, grid_count, min_sensor_count=2000,
-    extension='pts', grid_info=None, return_out_grid_info=False, verbose=False
+    extension='pts', grid_info=None, verbose=False
 ):
     """Create new sensor grids folder with evenly distributed sensors.
 
@@ -54,21 +54,17 @@ def redistribute_sensors(
             sensor files. Another common extension is ``csv`` for generic data sets.
         grid_info: Optional list of dictionaries with grid information. Use this instead
             of the expected _info.json file in the input_folder.
-        return_out_grid_info: Boolean switch to return output grid information. 
-            Default: False
         verbose: Set to True to get verbose reporting. Default: False.
 
     Returns:
-        A tuple with two elements
+        A tuple with three elements
 
         - grid_count: Number of output sensor grids. Keep in mind that this number can
           be adjusted based on the min_sensor_count.
 
         - sensor_per_grid: Number of sensors in each newly created sensor grid.
 
-        If return_out_grid_info is True the function returns an additional element
-
-        - out_grid_info: Grid information of the redistributed grid(s).
+        - out_grid_info: Grid information as written to _info.json.
     """
     if grid_info is None:
         info_file = os.path.join(input_folder, '_info.json')
@@ -194,10 +190,8 @@ def redistribute_sensors(
             total_count, grid_count, sensor_per_grid
             )
     )
-    if return_out_grid_info:
-        return grid_count, sensor_per_grid, out_grid_info
-    else:
-        return grid_count, sensor_per_grid
+
+    return grid_count, sensor_per_grid, out_grid_info
 
 
 def restore_original_distribution(
