@@ -148,6 +148,8 @@ def redistribute_sensors(
                     dist_info[i]['dist_info'][-1]['end_ln'] += counter
                     out_data['count'] += counter
                     out_grid_info.append(out_data)
+                    line_out_count += counter
+                    outf_index -= 1
                     break
                 line_out_count = 0
                 outf.close()
@@ -158,6 +160,11 @@ def redistribute_sensors(
                     dist_info[i]['dist_info'].append(
                         {'identifier': outf_index, 'st_ln': line_out_count}
                     )
+            # special case if outf_index == grid_count before all input grids have been
+            # redistributed
+            if extra_sensors and line_grid_count == input_grid_count:
+                # adjust the counter in the last grid
+                out_grid_info[-1]['count'] += line_grid_count
         if 'end_ln' not in dist_info[i]['dist_info'][-1]:
             dist_info[i]['dist_info'][-1]['end_ln'] = line_out_count - 1
         inf.close()

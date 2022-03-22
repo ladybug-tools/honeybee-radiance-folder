@@ -64,3 +64,26 @@ def test_dist_grids_split():
         for j in range(len(data[i]['dist_info'])):
             assert data[i]['dist_info'][j]['end_ln'] != -1
     _nukedir(output_folder, False)
+
+def test_dist_grids_outf_index():
+    input_folder = r'./tests/assets/grids_sample_model'
+    output_folder = r'./tests/assets/temp'
+    _nukedir(output_folder, False)
+    redistribute_sensors(
+        input_folder, output_folder, grid_count=50, min_sensor_count=1
+    )
+    files = list(os.listdir(output_folder))
+    assert len(files) == 52
+    assert '_info.json' in files
+    assert '_redist_info.json' in files
+    with open(os.path.join(output_folder, '_info.json')) as inf:
+        data = json.load(inf)
+    assert len(data) == 50
+    counts = [d['count'] for d in data]
+    assert counts == [20]*49 + [40] 
+    with open(os.path.join(output_folder, '_redist_info.json')) as inf:
+        data = json.load(inf)
+    for i in range(len(data)):
+        for j in range(len(data[i]['dist_info'])):
+            assert data[i]['dist_info'][j]['identifier'] < 50
+    _nukedir(output_folder, False)

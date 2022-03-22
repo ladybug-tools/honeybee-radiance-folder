@@ -1,0 +1,162 @@
+[
+  {
+    "count": 260,
+    "name": "Kitchen & Dining 101",
+    "identifier": "Room_e6ac360b-aaed-4c3b-a130-36b4c2ac9d13-000d14bf",
+    "group": "",
+    "full_id": "Room_e6ac360b-aaed-4c3b-a130-36b4c2ac9d13-000d14bf",
+    "light_path": [
+      [
+        "static_apertures"
+      ]
+    ]
+  },
+  {
+    "count": 20,
+    "name": "Laundry 104",
+    "identifier": "Room_e6ac360b-aaed-4c3b-a130-36b4c2ac9d13-000d14cc",
+    "group": "",
+    "full_id": "Room_e6ac360b-aaed-4c3b-a130-36b4c2ac9d13-000d14cc",
+    "light_path": []
+  },
+  {
+    "count": 9,
+    "name": "Bath 103",
+    "identifier": "Room_e6ac360b-aaed-4c3b-a130-36b4c2ac9d13-000d1502",
+    "group": "",
+    "full_id": "Room_e6ac360b-aaed-4c3b-a130-36b4c2ac9d13-000d1502",
+    "light_path": []
+  },
+  {
+    "count": 90,
+    "name": "Hall 105",
+    "identifier": "Room_e6ac360b-aaed-4c3b-a130-36b4c2ac9d13-000d15c9",
+    "group": "",
+    "full_id": "Room_e6ac360b-aaed-4c3b-a130-36b4c2ac9d13-000d15c9",
+    "light_path": [
+      [
+        "static_apertures"
+      ]
+    ]
+  },
+  {
+    "count": 276,
+    "name": "Living 106",
+    "identifier": "Room_e6ac360b-aaed-4c3b-a130-36b4c2ac9d13-000d15d0",
+    "group": "",
+    "full_id": "Room_e6ac360b-aaed-4c3b-a130-36b4c2ac9d13-000d15d0",
+    "light_path": [
+      [
+        "static_apertures"
+      ]
+    ]
+  },
+  {
+    "count": 6,
+    "name": "Mech. 102",
+    "identifier": "Room_b3a4a465-08e5-441a-bd3e-d967e546d52e-000dd6aa",
+    "group": "",
+    "full_id": "Room_b3a4a465-08e5-441a-bd3e-d967e546d52e-000dd6aa",
+    "light_path": []
+  },
+  {
+    "count": 97,
+    "name": "Master Bedroom 206",
+    "identifier": "Room_e6ac360b-aaed-4c3b-a130-36b4c2ac9d13-000d1467",
+    "group": "",
+    "full_id": "Room_e6ac360b-aaed-4c3b-a130-36b4c2ac9d13-000d1467",
+    "light_path": [
+      [
+        "static_apertures"
+      ]
+    ]
+  },
+  {
+    "count": 24,
+    "name": "Master Bath 207",
+    "identifier": "Room_e6ac360b-aaed-4c3b-a130-36b4c2ac9d13-000d146a",
+    "group": "",
+    "full_id": "Room_e6ac360b-aaed-4c3b-a130-36b4c2ac9d13-000d146a",
+    "light_path": [
+      [
+        "static_apertures"
+      ]
+    ]
+  },
+  {
+    "count": 48,
+    "name": "Bedroom 204",
+    "identifier": "Room_e6ac360b-aaed-4c3b-a130-36b4c2ac9d13-000d146d",
+    "group": "",
+    "full_id": "Room_e6ac360b-aaed-4c3b-a130-36b4c2ac9d13-000d146d",
+    "light_path": [
+      [
+        "static_apertures"
+      ]
+    ]
+  },
+  {
+    "count": 12,
+    "name": "Bath 1 203",
+    "identifier": "Room_e6ac360b-aaed-4c3b-a130-36b4c2ac9d13-000d1470",
+    "group": "",
+    "full_id": "Room_e6ac360b-aaed-4c3b-a130-36b4c2ac9d13-000d1470",
+    "light_path": [
+      [
+        "static_apertures"
+      ]
+    ]
+  },
+  {
+    "count": 12,
+    "name": "Bath 2 205",
+    "identifier": "Room_e6ac360b-aaed-4c3b-a130-36b4c2ac9d13-000d1473",
+    "group": "",
+    "full_id": "Room_e6ac360b-aaed-4c3b-a130-36b4c2ac9d13-000d1473",
+    "light_path": [
+      [
+        "static_apertures"
+      ]
+    ]
+  },
+  {
+    "count": 49,
+    "name": "Bedroom 1 202",
+    "identifier": "Room_e6ac360b-aaed-4c3b-a130-36b4c2ac9d13-000d1476",
+    "group": "",
+    "full_id": "Room_e6ac360b-aaed-4c3b-a130-36b4c2ac9d13-000d1476",
+    "light_path": [
+      [
+        "static_apertures"
+      ]
+    ]
+  },
+  {
+    "count": 108,
+    "name": "Entry Hall 201",
+    "identifier": "Room_e6ac360b-aaed-4c3b-a130-36b4c2ac9d13-000d1479",
+    "group": "",
+    "full_id": "Room_e6ac360b-aaed-4c3b-a130-36b4c2ac9d13-000d1479",
+    "light_path": [
+      [
+        "static_apertures"
+      ]
+    ]
+  },
+  {
+    "count": 4,
+    "name": "Linen 208",
+    "identifier": "Room_bac06658-19d8-494b-b87a-559081499f8f-000e5925",
+    "group": "",
+    "full_id": "Room_bac06658-19d8-494b-b87a-559081499f8f-000e5925",
+    "light_path": []
+  },
+  {
+    "count": 5,
+    "name": "Shaft 214",
+    "identifier": "Room_ae4e6261-f1ae-40d7-8032-737f3b639dd8-00111315",
+    "group": "",
+    "full_id": "Room_ae4e6261-f1ae-40d7-8032-737f3b639dd8-00111315",
+    "light_path": []
+  }
+]
