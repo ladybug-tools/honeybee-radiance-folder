@@ -231,6 +231,10 @@ def restore_original_distribution(
 
     for f in data:
         out_file = os.path.join(output_folder, '%s.%s' % (f['identifier'], extension))
+        # ensure the new folder is created. in case the identifier has a subfolder
+        parent_folder = os.path.dirname(out_file)
+        if not os.path.isdir(parent_folder):
+            os.mkdir(parent_folder)
         with open(out_file, 'w') as outf:
             for src_info in f['dist_info']:
                 src_file = os.path.join(
