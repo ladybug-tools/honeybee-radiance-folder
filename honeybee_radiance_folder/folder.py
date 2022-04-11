@@ -788,18 +788,19 @@ class ModelFolder(_Folder):
 
         grid_info = self.grid_info()
 
-        states = self.aperture_groups_states(full=True)
         mtx_groups = []
         non_mtx_groups = []
-        # get list of mtx groups and non-mtx groups
-        for aperture_group, ap_states in states.items():
-            for state in ap_states:
-                if aperture_group in mtx_groups or aperture_group in non_mtx_groups:
-                    continue
-                if 'tmtx' in state:
-                    mtx_groups.append(aperture_group)
-                else:
-                    non_mtx_groups.append(aperture_group)
+        if self.has_aperture_group:
+            states = self.aperture_groups_states(full=True)
+            # get list of mtx groups and non-mtx groups
+            for aperture_group, ap_states in states.items():
+                for state in ap_states:
+                    if aperture_group in mtx_groups or aperture_group in non_mtx_groups:
+                        continue
+                    if 'tmtx' in state:
+                        mtx_groups.append(aperture_group)
+                    else:
+                        non_mtx_groups.append(aperture_group)
 
         two_phase_dict = dict()
         three_phase_dict = dict()
