@@ -651,81 +651,112 @@ class ModelFolder(_Folder):
 
         return receivers_info
 
-    def octree_scene_mapping(self):
-        """List of rad files for each state for aperture groups without transmission
-        matrix. These files can be used to create the octree for each specific state."""
+    def octree_scene_mapping(self, exclude_static=True, phase='2'):
+        """List of rad files for each state of aperture groups. These files can be used
+        to create the octree for each specific state for dynamic daylight simulations.
 
+        Arg:
+            exclude_static: A boolean to note whether static apertures are included. If
+                True static apertures will be treated as a state, and a list of scene
+                files for static apertures will be created.
+            phase: A string or integer to note which multiphase study to generate the
+                list of grids for. Chose between 2, 3, and 5."""
+
+        phase = str(phase)
+        # check if phase is valid
+        if not phase in ['2', '3', '5']:
+            raise ValueError(
+                '%s is not a valid phase. Must be 2, 3 or 5.' % phase
+            )
         two_phase, three_phase, five_phase = [], [], []
 
-        # two phase
-        # static apertures
-        if self.has_aperture:
+        # two phase static apertures
+        if self.has_aperture and not exclude_static:
+            scene_files = self.scene_files() + self.aperture_files()
+            scene_files_direct = self.scene_files(black_out=True) + self.aperture_files()
+            if self.has_aperture_group:
+                # add black aperture groups if any
+                scene_files.append(self.aperture_group_files_black())
+                scene_files_direct.append(self.aperture_group_files_black())
+
             two_phase.append(
                 {
                     'light_path': '__static_apertures__',
                     'identifier': '__static_apertures__',
-                    'scene_files': self.scene_files() + self.aperture_files() + \
-                        self.aperture_group_files_black(),
-                    'scene_files_direct': self.scene_files(black_out=True) + \
-                        self.aperture_files() + \
-                        self.aperture_group_files_black()
+                    'scene_files': scene_files,
+                    'scene_files_direct': scene_files_direct
                 }
             )
 
-        states = self.aperture_groups_states(full=True)
-        # add scene files for each state. Static apertures and all other aperture groups 
-        # will be black
-        for aperture_group, ap_states in states.items():
-            for state in ap_states:
-                if not 'tmtx' in state:
-                    pattern = '%s$' % state['default'].replace('./', '')
-                    two_phase.append(
-                        {
+        if self.has_aperture_group:
+            states = self.aperture_groups_states(full=True)
+            # add scene files for each state. Static apertures and all other aperture
+            # groups will be black
+            for aperture_group, ap_states in states.items():
+                for state in ap_states:
+                    if not 'tmtx' in state or ('tmtx' in state and phase == '2'):
+                        pattern = '%s$' % state['default'].replace('./', '')
+
+                        scene_files = self.scene_files() + \
+                            self.aperture_files(black_out=True) + \
+                            self._find_files(
+                                self.aperture_group_folder(full=True), pattern) + \
+                            self.aperture_group_files_black(exclude=aperture_group)
+                        scene_files_direct = self.scene_files(black_out=True) + \
+                            self.aperture_files(black_out=True) + \
+                            self._find_files(
+                                self.aperture_group_folder(full=True), pattern) + \
+                            self.aperture_group_files_black(exclude=aperture_group)
+
+                        two_phase.append(
+                            {
+                                'light_path': aperture_group,
+                                'identifier': state['identifier'],
+                                'scene_files': scene_files,
+                                'scene_files_direct': scene_files_direct
+                            }
+                        )
+                    else:
+                        # five phase
+                        pattern = '%s$' % state['direct'].replace('./', '')
+                        five_phase.append(
+                            {
                             'light_path': aperture_group,
                             'identifier': state['identifier'],
-                            'scene_files': self.scene_files() + \
-                                self.aperture_files(black_out=True) + \
-                                self._find_files(self.aperture_group_folder(full=True), 
-                                    pattern) + \
-                                self.aperture_group_files_black(exclude=aperture_group),
                             'scene_files_direct': self.scene_files(black_out=True) + \
                                 self.aperture_files(black_out=True) + \
-                                self._find_files(self.aperture_group_folder(full=True), 
+                                self._find_files(self.aperture_group_folder(full=True),
                                     pattern) + \
                                 self.aperture_group_files_black(exclude=aperture_group)
-                        }
-                    )
-                else:
-                    # five phase
-                    pattern = '%s$' % state['direct'].replace('./', '')
-                    five_phase.append(
-                        {
-                        'light_path': aperture_group,
-                        'identifier': state['identifier'],
-                        'scene_files_direct': self.scene_files(black_out=True) + \
-                            self.aperture_files(black_out=True) + \
-                            self._find_files(self.aperture_group_folder(full=True),
-                                pattern) + \
-                            self.aperture_group_files_black(exclude=aperture_group)
-                        }
-                    )
+                            }
+                        )
 
-        # three phase
-        three_phase.append(
-            {
-            'light_path': None,
-            'identifier': '__three_phase__',
-            'scene_files': self.scene_files() + self.aperture_files(),
-            'scene_files_direct': self.scene_files(black_out=True) + \
-                self.aperture_files(black_out=True)
+            # three phase
+            three_phase.append(
+                {
+                'light_path': None,
+                'identifier': '__three_phase__',
+                'scene_files': self.scene_files() + self.aperture_files(),
+                'scene_files_direct': self.scene_files(black_out=True) + \
+                    self.aperture_files(black_out=True)
+                }
+            )
+
+        if phase == '2':
+            scene_mapping = {
+                'two_phase': two_phase
             }
-        )
-
-        scene_mapping = {
-            'two_phase': two_phase,
-            'three_phase': three_phase,
-            'five_phase': five_phase
-        }
+        if phase == '3':
+            scene_mapping = {
+                'two_phase': two_phase,
+                'three_phase': three_phase
+            }
+        if phase == '5':
+            scene_mapping = {
+                'two_phase': two_phase,
+                'three_phase': three_phase,
+                'five_phase': five_phase
+            }
 
         scene_mapping_file = os.path.join(self.folder, 'scene_mapping.json')
 
