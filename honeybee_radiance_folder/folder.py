@@ -734,12 +734,24 @@ class ModelFolder(_Folder):
 
         return scene_mapping
 
-    def grid_mapping(self):
+    def grid_mapping(self, exclude_static=True, phase='2'):
         """List of grids for each light path. The light paths are grouped as two phase,
-        three phase, and five phase. Two phase consist of static apertures and aperture
-        groups without a tmtx key in their states. The rest, aperture groups with a tmtx
-        key in their states, are added to three phase. Five phase is a copy of three
-        phase."""
+        three phase, and five phase. Aperture groups with a tmtx key in their states will
+        be added to three phase unless the selected phase is 2. In this case the groups
+        will be added to two phase. Five phase is a copy of three phase.
+        
+        Arg:
+            exclude_static: A boolean to note whether static apertures are included. If
+                True a list of grids for static apertures will be created.
+            phase: A string or integer to note which multiphase study to generate the
+                list of grids for. Chose between 2, 3, and 5."""
+
+        phase = str(phase)
+        # check if phase is valid
+        if not phase in ['2', '3', '5']:
+            raise ValueError(
+                '%s is not a valid phase. Must be 2, 3 or 5.' % phase
+            )
 
         two_phase, three_phase = [], []
 
@@ -771,17 +783,23 @@ class ModelFolder(_Folder):
                     else:
                         two_phase_dict[light_path] = [grid]
                 elif light_path in mtx_groups:
-                    if light_path in three_phase_dict:
+                    if phase == '2':
+                        # if two phase mtx groups are added to two phase
+                        if light_path in two_phase_dict:
+                            two_phase_dict[light_path].append(grid)
+                        else:
+                            two_phase_dict[light_path] = [grid]
+                    elif light_path in three_phase_dict:
                         three_phase_dict[light_path].append(grid)
                     else:
                         three_phase_dict[light_path] = [grid]
-                else:
+                elif not exclude_static:
                     # static apertures
                     if '__static_apertures__' in two_phase_dict:
                         two_phase_dict['__static_apertures__'].append(grid)
                     else:
                         two_phase_dict['__static_apertures__'] = [grid]
-        
+
         for light_path, grids in two_phase_dict.items():
                 two_phase.append(
                     {
@@ -797,11 +815,21 @@ class ModelFolder(_Folder):
                     }
                 )
 
-        grid_mapping = {
-            'two_phase': two_phase,
-            'three_phase': three_phase,
-            'five_phase': three_phase # same as three phase
-        }
+        if phase == '2':
+            grid_mapping = {
+                'two_phase': two_phase
+            }
+        if phase == '3':
+            grid_mapping = {
+                'two_phase': two_phase,
+                'three_phase': three_phase
+            }
+        if phase == '5':
+            grid_mapping = {
+                'two_phase': two_phase,
+                'three_phase': three_phase,
+                'five_phase': three_phase # same as three phase
+            }
 
         grid_mapping_file = os.path.join(self.folder, 'grid_mapping.json')
 
