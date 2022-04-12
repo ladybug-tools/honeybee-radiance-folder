@@ -676,8 +676,8 @@ class ModelFolder(_Folder):
             scene_files_direct = self.scene_files(black_out=True) + self.aperture_files()
             if self.has_aperture_group:
                 # add black aperture groups if any
-                scene_files.append(self.aperture_group_files_black())
-                scene_files_direct.append(self.aperture_group_files_black())
+                scene_files += self.aperture_group_files_black()
+                scene_files_direct += self.aperture_group_files_black()
 
             two_phase.append(
                 {
