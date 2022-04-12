@@ -1,0 +1,26 @@
+[
+  {
+    "count": 72,
+    "name": "class_room",
+    "identifier": "class_room",
+    "group": "",
+    "full_id": "class_room",
+    "light_path": [
+      [
+        "static_apertures"
+      ]
+    ]
+  },
+  {
+    "count": 54,
+    "name": "office",
+    "identifier": "office",
+    "group": "",
+    "full_id": "office",
+    "light_path": [
+      [
+        "static_apertures"
+      ]
+    ]
+  }
+]
