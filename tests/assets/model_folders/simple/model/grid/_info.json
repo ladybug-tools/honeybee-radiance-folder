@@ -1,0 +1,38 @@
+[
+  {
+    "count": 72,
+    "name": "class_room",
+    "identifier": "class_room",
+    "group": "",
+    "full_id": "class_room",
+    "light_path": [
+      [
+        "skylight_2"
+      ],
+      [
+        "east_window_classroom"
+      ],
+      [
+        "static_apertures"
+      ],
+      [
+        "skylight_1"
+      ]
+    ]
+  },
+  {
+    "count": 54,
+    "name": "office",
+    "identifier": "office",
+    "group": "",
+    "full_id": "office",
+    "light_path": [
+      [
+        "Electrochromic_Windows"
+      ],
+      [
+        "east_window_office"
+      ]
+    ]
+  }
+]

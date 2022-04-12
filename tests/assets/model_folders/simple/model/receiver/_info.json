@@ -1,0 +1,20 @@
+[
+  {
+    "identifier": "class_room",
+    "count": 72,
+    "path": "class_room..receiver.rad",
+    "aperture_groups": [
+      "skylight_2",
+      "east_window_classroom",
+      "skylight_1"
+    ]
+  },
+  {
+    "identifier": "office",
+    "count": 54,
+    "path": "office..receiver.rad",
+    "aperture_groups": [
+      "east_window_office"
+    ]
+  }
+]

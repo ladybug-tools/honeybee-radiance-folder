@@ -1,0 +1,7 @@
+# class_room..receiver.rad
+
+!xform ./model/aperture_group/skylight_2..mtx.rad
+
+!xform ./model/aperture_group/east_window_classroom..mtx.rad
+
+!xform ./model/aperture_group/skylight_1..mtx.rad
