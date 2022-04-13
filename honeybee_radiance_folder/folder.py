@@ -659,8 +659,8 @@ class ModelFolder(_Folder):
             exclude_static: A boolean to note whether static apertures are included. If
                 True static apertures will be treated as a state, and a list of scene
                 files for static apertures will be created.
-            phase: A string or integer to note which multiphase study to generate the
-                list of grids for. Chose between 2, 3, and 5."""
+            phase: An integer to note which multiphase study to generate the list of
+                grids for. Chose between 2, 3, and 5."""
 
         # check if phase is valid
         if not phase in [2, 3, 5]:
@@ -693,7 +693,7 @@ class ModelFolder(_Folder):
             # groups will be black
             for aperture_group, ap_states in states.items():
                 for state in ap_states:
-                    if not 'tmtx' in state or ('tmtx' in state and phase == '2'):
+                    if not 'tmtx' in state or ('tmtx' in state and phase == 2):
                         pattern = '%s$' % state['default'].replace('./', '')
 
                         scene_files = self.scene_files() + \
@@ -773,8 +773,8 @@ class ModelFolder(_Folder):
         Arg:
             exclude_static: A boolean to note whether static apertures are included. If
                 True a list of grids for static apertures will be created.
-            phase: A string or integer to note which multiphase study to generate the
-                list of grids for. Chose between 2, 3, and 5."""
+            phase: An integer to note which multiphase study to generate the list of
+                grids for. Chose between 2, 3, and 5."""
 
         # check if phase is valid
         if not phase in [2, 3, 5]:
@@ -813,7 +813,7 @@ class ModelFolder(_Folder):
                     else:
                         two_phase_dict[light_path] = [grid]
                 elif light_path in mtx_groups:
-                    if phase == '2':
+                    if phase == 2:
                         # if two phase mtx groups are added to two phase
                         if light_path in two_phase_dict:
                             two_phase_dict[light_path].append(grid)
