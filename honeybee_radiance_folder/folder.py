@@ -651,7 +651,7 @@ class ModelFolder(_Folder):
 
         return receivers_info
 
-    def octree_scene_mapping(self, exclude_static=True, phase='2'):
+    def octree_scene_mapping(self, exclude_static=True, phase=2):
         """List of rad files for each state of aperture groups. These files can be used
         to create the octree for each specific state for dynamic daylight simulations.
 
@@ -662,9 +662,8 @@ class ModelFolder(_Folder):
             phase: A string or integer to note which multiphase study to generate the
                 list of grids for. Chose between 2, 3, and 5."""
 
-        phase = str(phase)
         # check if phase is valid
-        if not phase in ['2', '3', '5']:
+        if not phase in [2, 3, 5]:
             raise ValueError(
                 '%s is not a valid phase. Must be 2, 3 or 5.' % phase
             )
@@ -742,16 +741,16 @@ class ModelFolder(_Folder):
                 }
             )
 
-        if phase == '2':
+        if phase == 2:
             scene_mapping = {
                 'two_phase': two_phase
             }
-        if phase == '3':
+        if phase == 3:
             scene_mapping = {
                 'two_phase': two_phase,
                 'three_phase': three_phase
             }
-        if phase == '5':
+        if phase == 5:
             scene_mapping = {
                 'two_phase': two_phase,
                 'three_phase': three_phase,
@@ -765,7 +764,7 @@ class ModelFolder(_Folder):
 
         return scene_mapping
 
-    def grid_mapping(self, exclude_static=True, phase='2'):
+    def grid_mapping(self, exclude_static=True, phase=2):
         """List of grids for each light path. The light paths are grouped as two phase,
         three phase, and five phase. Aperture groups with a tmtx key in their states will
         be added to three phase unless the selected phase is 2. In this case the groups
@@ -777,9 +776,8 @@ class ModelFolder(_Folder):
             phase: A string or integer to note which multiphase study to generate the
                 list of grids for. Chose between 2, 3, and 5."""
 
-        phase = str(phase)
         # check if phase is valid
-        if not phase in ['2', '3', '5']:
+        if not phase in [2, 3, 5]:
             raise ValueError(
                 '%s is not a valid phase. Must be 2, 3 or 5.' % phase
             )
@@ -847,16 +845,16 @@ class ModelFolder(_Folder):
                     }
                 )
 
-        if phase == '2':
+        if phase == 2:
             grid_mapping = {
                 'two_phase': two_phase
             }
-        if phase == '3':
+        if phase == 3:
             grid_mapping = {
                 'two_phase': two_phase,
                 'three_phase': three_phase
             }
-        if phase == '5':
+        if phase == 5:
             grid_mapping = {
                 'two_phase': two_phase,
                 'three_phase': three_phase,
