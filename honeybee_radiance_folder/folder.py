@@ -663,7 +663,7 @@ class ModelFolder(_Folder):
                 grids for. Chose between 2, 3, and 5."""
 
         # check if phase is valid
-        if not phase in [2, 3, 5]:
+        if phase not in [2, 3, 5]:
             raise ValueError(
                 '%s is not a valid phase. Must be 2, 3 or 5.' % phase
             )
