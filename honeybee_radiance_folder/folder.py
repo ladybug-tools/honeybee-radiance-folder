@@ -803,32 +803,32 @@ class ModelFolder(_Folder):
         two_phase_dict = dict()
         three_phase_dict = dict()
 
+        def _update_dict(dict, key, value):
+            """Append value to list if key exists. Else set the value."""
+            if key in dict:
+                dict[key].append(value)
+            else:
+                dict[key] = [value]
+
         for grid in grid_info:
             light_paths = grid.get('light_path', [])
             for light_path in light_paths:
                 light_path = light_path[0]
                 if light_path in non_mtx_groups:
-                    if light_path in two_phase_dict:
-                        two_phase_dict[light_path].append(grid)
-                    else:
-                        two_phase_dict[light_path] = [grid]
+                    _update_dict(two_phase_dict, light_path, grid)
                 elif light_path in mtx_groups:
                     if phase == 2:
-                        # if two phase mtx groups are added to two phase
-                        if light_path in two_phase_dict:
-                            two_phase_dict[light_path].append(grid)
-                        else:
-                            two_phase_dict[light_path] = [grid]
-                    elif light_path in three_phase_dict:
-                        three_phase_dict[light_path].append(grid)
+                        # if 2 phase mtx groups are added to two phase
+                        _update_dict(two_phase_dict, light_path, grid)
                     else:
-                        three_phase_dict[light_path] = [grid]
+                        # else added to three phase
+                        _update_dict(three_phase_dict, light_path, grid)
                 elif not exclude_static:
                     # static apertures
-                    if '__static_apertures__' in two_phase_dict:
-                        two_phase_dict['__static_apertures__'].append(grid)
-                    else:
-                        two_phase_dict['__static_apertures__'] = [grid]
+                    _update_dict(two_phase_dict, '__static_apertures__', grid)
+            if not light_paths:
+                # no light path, put grid in static, might be an exterior grid
+                _update_dict(two_phase_dict, '__static_apertures__', grid)             
 
         for light_path, grids in two_phase_dict.items():
                 two_phase.append(
