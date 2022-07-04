@@ -7,7 +7,7 @@
     "full_id": "class_room",
     "light_path": [
       [
-        "static_apertures"
+        "__static_apertures__"
       ]
     ]
   },
@@ -19,7 +19,7 @@
     "full_id": "office",
     "light_path": [
       [
-        "static_apertures"
+        "__static_apertures__"
       ]
     ]
   }

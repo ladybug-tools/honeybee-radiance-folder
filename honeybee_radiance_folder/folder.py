@@ -91,7 +91,7 @@ class _Folder(object):
 
     @staticmethod
     def _get_file_name(path):
-        """Get file name with no extention."""
+        """Get file name with no extension."""
         base = os.path.basename(path)
         return os.path.splitext(base)[0]
 
@@ -828,7 +828,7 @@ class ModelFolder(_Folder):
                     _update_dict(two_phase_dict, '__static_apertures__', grid)
             if not light_paths:
                 # no light path, put grid in static, might be an exterior grid
-                _update_dict(two_phase_dict, '__static_apertures__', grid)             
+                _update_dict(two_phase_dict, '__static_apertures__', grid)
 
         for light_path, grids in two_phase_dict.items():
                 two_phase.append(
