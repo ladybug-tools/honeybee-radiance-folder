@@ -681,7 +681,7 @@ class ModelFolder(_Folder):
             two_phase.append(
                 {
                     'light_path': '__static_apertures__',
-                    'identifier': '__static_apertures__',
+                    'identifier': 'default',
                     'scene_files': scene_files,
                     'scene_files_direct': scene_files_direct
                 }
