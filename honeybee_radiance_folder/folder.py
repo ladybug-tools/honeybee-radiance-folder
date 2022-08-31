@@ -670,9 +670,12 @@ class ModelFolder(_Folder):
         two_phase, three_phase, five_phase = [], [], []
 
         # two phase static apertures
-        if self.has_aperture and not exclude_static:
+        if not exclude_static:
             scene_files = self.scene_files() + self.aperture_files()
             scene_files_direct = self.scene_files(black_out=True) + self.aperture_files()
+            if self.has_aperture:
+                scene_files += self.aperture_files()
+                scene_files_direct += self.aperture_files()
             if self.has_aperture_group:
                 # add black aperture groups if any
                 scene_files += self.aperture_group_files_black()
