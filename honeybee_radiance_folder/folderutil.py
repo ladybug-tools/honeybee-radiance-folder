@@ -399,9 +399,12 @@ def add_output_spec_to_receiver(receiver_file, output_spec, output_file=None):
 
 
 def parse_states(states_file):
-    """Parse states information from a json file. This information typically contains 
-    the various rad files for each state such as 'default', 'black', 'direct', as well as
-    matrix files such as 'vmtx', 'tmtx', and 'dmtx'.
+    """Parse states information from a json file.
+    
+    This information typically contains the various rad files for each state
+    such as 'default', 'black', 'direct', as well as matrix files such as
+    'vmtx', 'tmtx', and 'dmtx'.
+
     Args:
         states_file: Path to the states file.
     Returns:
@@ -428,6 +431,7 @@ def combined_receiver(grid_name, apt_group_folder, apt_groups, target_folder,
         target_folder: A path of the target folder to write files to.
         add_output_header: If set to True, a header will be added to redirect the
             generated view matrix to the path specified through the "o= .." option.
+
     Returns:
         The path of the file that was written out as the combined receiver.
     """

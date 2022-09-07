@@ -558,6 +558,7 @@ class ModelFolder(_Folder):
 
     def aperture_groups_states(self, full=False, interior=False):
         """Return states information for aperture groups.
+
         Arg:
             full: A boolean to note if the path should be a full path or a relative path
                 (default: False).
@@ -651,7 +652,7 @@ class ModelFolder(_Folder):
 
         return receivers_info
 
-    def octree_scene_mapping(self, exclude_static=True, phase=2):
+    def octree_scene_mapping(self, exclude_static=True, phase=2, default_states=False):
         """List of rad files for each state of aperture groups. These files can be used
         to create the octree for each specific state for dynamic daylight simulations.
 
@@ -660,7 +661,10 @@ class ModelFolder(_Folder):
                 True static apertures will be treated as a state, and a list of scene
                 files for static apertures will be created.
             phase: An integer to note which multiphase study to generate the list of
-                grids for. Chose between 2, 3, and 5."""
+                grids for. Chose between 2, 3, and 5.
+            default_states: A boolean to note whether to get the rad files for only
+                default states or all states of the aperture groups.
+        """
 
         # check if phase is valid
         if phase not in [2, 3, 5]:
@@ -695,6 +699,9 @@ class ModelFolder(_Folder):
             # add scene files for each state. Static apertures and all other aperture
             # groups will be black
             for aperture_group, ap_states in states.items():
+                if default_states:
+                    # select only the first state
+                    ap_states = [ap_states[0]]
                 for state in ap_states:
                     if not 'tmtx' in state or ('tmtx' in state and phase == 2):
                         pattern = '%s$' % state['default'].replace('./', '')
@@ -777,7 +784,8 @@ class ModelFolder(_Folder):
             exclude_static: A boolean to note whether static apertures are included. If
                 True a list of grids for static apertures will be created.
             phase: An integer to note which multiphase study to generate the list of
-                grids for. Chose between 2, 3, and 5."""
+                grids for. Chose between 2, 3, and 5.
+        """
 
         # check if phase is valid
         if not phase in [2, 3, 5]:
