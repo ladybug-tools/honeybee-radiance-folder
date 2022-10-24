@@ -74,11 +74,14 @@ class _Folder(object):
             rel_path (bool): Return relative path to root folder.
         """
         folder = os.path.join(self.folder, subfolder)
-        filtered_files = [
-            self._as_posix(os.path.normpath(os.path.join(folder, f)))
-            for f in os.listdir(folder)
-            if re.search(pattern, f)
-        ]
+        if os.path.isdir(folder):
+            filtered_files = [
+                self._as_posix(os.path.normpath(os.path.join(folder, f)))
+                for f in os.listdir(folder)
+                if re.search(pattern, f)
+            ]
+        else:
+            filtered_files = []
 
         if rel_path:
             # FIX relative path
