@@ -634,7 +634,7 @@ class ModelFolder(_Folder):
                 continue
             # write combined receiver for grid
             receiver_file = combined_receiver(
-                grid['identifier'],
+                grid['full_id'],
                 apt_group_folder,
                 aperture_groups,
                 rec_folder, add_output_header=auto_mtx_path
@@ -642,6 +642,7 @@ class ModelFolder(_Folder):
             receivers_info.append(
                 {
                     'identifier': grid['identifier'],
+                    'full_id': grid['full_id'],
                     'count': grid['count'],
                     'path': receiver_file,
                     'aperture_groups': aperture_groups
@@ -921,7 +922,7 @@ class ModelFolder(_Folder):
 
     def grid_data_all(self, info_from_model=False):
         """ This is an internal function that for a specified info_json, returns the
-        consolidated grid data ,that includes grid names,counts and identifiers, as a
+        consolidated grid data, that includes grid names,counts and identifiers, as a
         single dictionary.
 
         Args:
@@ -938,8 +939,6 @@ class ModelFolder(_Folder):
         if not grid_info:
             return None
         else:
-            for grid in grid_info:
-                grid.pop('full_id')
             return grid_info
 
     def write(self, folder_type=0, cfg=None, overwrite=False):
