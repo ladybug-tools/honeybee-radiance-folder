@@ -679,8 +679,8 @@ class ModelFolder(_Folder):
 
         # two phase static apertures
         if not exclude_static:
-            scene_files = self.scene_files() + self.aperture_files()
-            scene_files_direct = self.scene_files(black_out=True) + self.aperture_files()
+            scene_files = self.scene_files()
+            scene_files_direct = self.scene_files(black_out=True)
             if self.has_aperture:
                 scene_files += self.aperture_files()
                 scene_files_direct += self.aperture_files()
