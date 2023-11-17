@@ -9,7 +9,6 @@ See https://github.com/ladybug-tools/radiance-folder-structure#radiance-folder-s
 
 """
 import json
-import warnings
 import os
 import re
 import shutil
@@ -18,7 +17,7 @@ import honeybee_radiance_folder.config as config
 
 from .folderutil import (parse_aperture_groups, parse_dynamic_scene, parse_states, 
     combined_receiver, _nukedir)
-from .gridutil import parse_grid_info, parse_grid_json
+from .gridutil import parse_grid_info
 
 try:
     from ConfigParser import SafeConfigParser as CP
@@ -614,10 +613,6 @@ class ModelFolder(_Folder):
             if not 'light_path' in grid or not grid['light_path']:
                 # The light-path for this grid is not set
                 # This grid will be ignored for 3/5 phase studies
-                warnings.warn(
-                    '%s sensor grid has no light-path. It will not be included in three '
-                    'or five phase studies.' % grid['name']
-                )
                 continue
             light_path = grid['light_path']
             # remove the static windows and non-bsdf groups
@@ -627,10 +622,6 @@ class ModelFolder(_Folder):
             if not aperture_groups:
                 # The light-path for this grid is static or
                 # non-bsdf groups
-                warnings.warn(
-                    '%s sensor grid has no view matrix receiver. It will not be '
-                    'included in three or five phase studies.' % grid['name']
-                )
                 continue
             # write combined receiver for grid
             receiver_file = combined_receiver(
