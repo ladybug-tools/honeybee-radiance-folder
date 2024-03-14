@@ -819,19 +819,19 @@ class ModelFolder(_Folder):
         for grid in grid_info:
             light_paths = grid.get('light_path', [])
             for light_path in light_paths:
-                light_path = light_path[0]
-                if light_path in non_mtx_groups:
-                    _update_dict(two_phase_dict, light_path, grid)
-                elif light_path in mtx_groups:
-                    if phase == 2:
-                        # if 2 phase mtx groups are added to two phase
-                        _update_dict(two_phase_dict, light_path, grid)
-                    else:
-                        # else added to three phase
-                        _update_dict(three_phase_dict, light_path, grid)
-                elif not exclude_static:
-                    # static apertures
-                    _update_dict(two_phase_dict, '__static_apertures__', grid)
+                for elem in light_path:
+                    if elem in non_mtx_groups:
+                        _update_dict(two_phase_dict, elem, grid)
+                    elif elem in mtx_groups:
+                        if phase == 2:
+                            # if 2 phase mtx groups are added to two phase
+                            _update_dict(two_phase_dict, elem, grid)
+                        else:
+                            # else added to three phase
+                            _update_dict(three_phase_dict, elem, grid)
+                    elif not exclude_static:
+                        # static apertures
+                        _update_dict(two_phase_dict, '__static_apertures__', grid)
             if not light_paths:
                 # no light path, put grid in static, might be an exterior grid
                 _update_dict(two_phase_dict, '__static_apertures__', grid)
