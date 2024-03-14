@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>main &#8212; honeybee radiance folder  documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="honeybee_radiance_folder package" href="../honeybee_radiance_folder.html" />
+    <link rel="prev" title="CLI" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          honeybee radiance folder</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">CLI</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#commands">Commands</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">main</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#honeybee-radiance-folder">honeybee-radiance-folder</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#honeybee-radiance-folder-aperture-files">aperture-files</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#honeybee-radiance-folder-scene-files">scene-files</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#honeybee-radiance-folder-grid-files">grid-files</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#honeybee-radiance-folder-grid-info-files">grid-info-files</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#honeybee-radiance-folder-view-files">view-files</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#honeybee-radiance-folder-view-info-files">view-info-files</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#honeybee-radiance-folder-aperture-groups">aperture-groups</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#honeybee-radiance-folder-add-output-spec">add-output-spec</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#honeybee-radiance-folder-dynamic-scene">dynamic-scene</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#honeybee-radiance-folder-filter-folder">filter-folder</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#honeybee-radiance-folder-filter-file">filter-file</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../honeybee_radiance_folder.html">honeybee_radiance_folder package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../honeybee_radiance_folder.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../honeybee_radiance_folder.cli.html">honeybee_radiance_folder.cli module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../honeybee_radiance_folder.config.html">honeybee_radiance_folder.config module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../honeybee_radiance_folder.folder.html">honeybee_radiance_folder.folder module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../honeybee_radiance_folder.folderutil.html">honeybee_radiance_folder.folderutil module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../honeybee_radiance_folder.gridutil.html">honeybee_radiance_folder.gridutil module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../honeybee_radiance_folder.html#module-honeybee_radiance_folder">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">CLI</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#commands">Commands</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">main</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#honeybee-radiance-folder">honeybee-radiance-folder</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#honeybee-radiance-folder-aperture-files">aperture-files</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#honeybee-radiance-folder-scene-files">scene-files</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#honeybee-radiance-folder-grid-files">grid-files</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#honeybee-radiance-folder-grid-info-files">grid-info-files</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#honeybee-radiance-folder-view-files">view-files</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#honeybee-radiance-folder-view-info-files">view-info-files</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#honeybee-radiance-folder-aperture-groups">aperture-groups</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#honeybee-radiance-folder-add-output-spec">add-output-spec</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#honeybee-radiance-folder-dynamic-scene">dynamic-scene</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#honeybee-radiance-folder-filter-folder">filter-folder</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#honeybee-radiance-folder-filter-file">filter-file</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../honeybee_radiance_folder.html">honeybee_radiance_folder package</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="index.html" title="Previous Chapter: CLI"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; CLI</span>
+    </a>
+  </li>
+  <li>
+    <a href="../honeybee_radiance_folder.html" title="Next Chapter: honeybee_radiance_folder package"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">honeybee_radi... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="../_sources/cli/main.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-4">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">CLI</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#commands">Commands</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">main</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#honeybee-radiance-folder">honeybee-radiance-folder</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#honeybee-radiance-folder-aperture-files">aperture-files</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#honeybee-radiance-folder-scene-files">scene-files</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#honeybee-radiance-folder-grid-files">grid-files</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#honeybee-radiance-folder-grid-info-files">grid-info-files</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#honeybee-radiance-folder-view-files">view-files</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#honeybee-radiance-folder-view-info-files">view-info-files</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#honeybee-radiance-folder-aperture-groups">aperture-groups</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#honeybee-radiance-folder-add-output-spec">add-output-spec</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#honeybee-radiance-folder-dynamic-scene">dynamic-scene</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#honeybee-radiance-folder-filter-folder">filter-folder</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#honeybee-radiance-folder-filter-file">filter-file</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../honeybee_radiance_folder.html">honeybee_radiance_folder package</a></li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-8 content" role="main">
+      
+  <section id="main">
+<h1>main<a class="headerlink" href="#main" title="Permalink to this headline">¶</a></h1>
+<section id="honeybee-radiance-folder">
+<h2>honeybee-radiance-folder<a class="headerlink" href="#honeybee-radiance-folder" title="Permalink to this headline">¶</a></h2>
+<p>honeybee folder commands.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>honeybee-radiance-folder<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>COMMAND<span class="w"> </span><span class="o">[</span>ARGS<span class="o">]</span>...
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-version">
+<code class="sig-name descname">--version</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show the version and exit.</p>
+</dd></dl>
+
+<section id="honeybee-radiance-folder-aperture-files">
+<h3>aperture-files<a class="headerlink" href="#honeybee-radiance-folder-aperture-files" title="Permalink to this headline">¶</a></h3>
+<p>Return aperture files.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>honeybee-radiance-folder<span class="w"> </span>aperture-files<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>RADIANCE_FOLDER
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-aperture-files-m">
+<span id="cmdoption-honeybee-radiance-folder-aperture-files-model"></span><code class="sig-name descname">-m</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--model</code><code class="sig-prename descclassname"> &lt;model&gt;</code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-aperture-files-m" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional name for model folder</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">model</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-aperture-files-default">
+<span id="cmdoption-honeybee-radiance-folder-aperture-files-black"></span><code class="sig-name descname">--default</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--black</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-aperture-files-default" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flag to note whether black material files must be returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-aperture-files-lf">
+<span id="cmdoption-honeybee-radiance-folder-aperture-files-log-file"></span><code class="sig-name descname">-lf</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--log-file</code><code class="sig-prename descclassname"> &lt;log_file&gt;</code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-aperture-files-lf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional log file to export the output. By default this will be printed to stdout</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-aperture-files-arg-RADIANCE_FOLDER">
+<span id="cmdoption-honeybee-radiance-folder-aperture-files-arg-radiance-folder"></span><code class="sig-name descname">RADIANCE_FOLDER</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-aperture-files-arg-RADIANCE_FOLDER" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
+<section id="honeybee-radiance-folder-scene-files">
+<h3>scene-files<a class="headerlink" href="#honeybee-radiance-folder-scene-files" title="Permalink to this headline">¶</a></h3>
+<p>Return scene files.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>honeybee-radiance-folder<span class="w"> </span>scene-files<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>RADIANCE_FOLDER
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-scene-files-m">
+<span id="cmdoption-honeybee-radiance-folder-scene-files-model"></span><code class="sig-name descname">-m</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--model</code><code class="sig-prename descclassname"> &lt;model&gt;</code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-scene-files-m" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional name for model folder</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">model</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-scene-files-default">
+<span id="cmdoption-honeybee-radiance-folder-scene-files-black"></span><code class="sig-name descname">--default</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--black</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-scene-files-default" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flag to note whether black material files must be returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-scene-files-lf">
+<span id="cmdoption-honeybee-radiance-folder-scene-files-log-file"></span><code class="sig-name descname">-lf</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--log-file</code><code class="sig-prename descclassname"> &lt;log_file&gt;</code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-scene-files-lf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional log file to export the output. By default this will be printed to stdout</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-scene-files-arg-RADIANCE_FOLDER">
+<span id="cmdoption-honeybee-radiance-folder-scene-files-arg-radiance-folder"></span><code class="sig-name descname">RADIANCE_FOLDER</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-scene-files-arg-RADIANCE_FOLDER" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
+<section id="honeybee-radiance-folder-grid-files">
+<h3>grid-files<a class="headerlink" href="#honeybee-radiance-folder-grid-files" title="Permalink to this headline">¶</a></h3>
+<p>Return grid files.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>honeybee-radiance-folder<span class="w"> </span>grid-files<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>RADIANCE_FOLDER
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-grid-files-m">
+<span id="cmdoption-honeybee-radiance-folder-grid-files-model"></span><code class="sig-name descname">-m</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--model</code><code class="sig-prename descclassname"> &lt;model&gt;</code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-grid-files-m" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional name for model folder</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">model</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-grid-files-lf">
+<span id="cmdoption-honeybee-radiance-folder-grid-files-log-file"></span><code class="sig-name descname">-lf</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--log-file</code><code class="sig-prename descclassname"> &lt;log_file&gt;</code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-grid-files-lf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional log file to export the output. By default this will be printed to stdout</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-grid-files-arg-RADIANCE_FOLDER">
+<span id="cmdoption-honeybee-radiance-folder-grid-files-arg-radiance-folder"></span><code class="sig-name descname">RADIANCE_FOLDER</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-grid-files-arg-RADIANCE_FOLDER" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
+<section id="honeybee-radiance-folder-grid-info-files">
+<h3>grid-info-files<a class="headerlink" href="#honeybee-radiance-folder-grid-info-files" title="Permalink to this headline">¶</a></h3>
+<p>Return grid information files.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>honeybee-radiance-folder<span class="w"> </span>grid-info-files<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>RADIANCE_FOLDER
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-grid-info-files-m">
+<span id="cmdoption-honeybee-radiance-folder-grid-info-files-model"></span><code class="sig-name descname">-m</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--model</code><code class="sig-prename descclassname"> &lt;model&gt;</code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-grid-info-files-m" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional name for model folder</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">model</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-grid-info-files-lf">
+<span id="cmdoption-honeybee-radiance-folder-grid-info-files-log-file"></span><code class="sig-name descname">-lf</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--log-file</code><code class="sig-prename descclassname"> &lt;log_file&gt;</code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-grid-info-files-lf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional log file to export the output. By default this will be printed to stdout</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-grid-info-files-arg-RADIANCE_FOLDER">
+<span id="cmdoption-honeybee-radiance-folder-grid-info-files-arg-radiance-folder"></span><code class="sig-name descname">RADIANCE_FOLDER</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-grid-info-files-arg-RADIANCE_FOLDER" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
+<section id="honeybee-radiance-folder-view-files">
+<h3>view-files<a class="headerlink" href="#honeybee-radiance-folder-view-files" title="Permalink to this headline">¶</a></h3>
+<p>Return view files.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>honeybee-radiance-folder<span class="w"> </span>view-files<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>RADIANCE_FOLDER
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-view-files-m">
+<span id="cmdoption-honeybee-radiance-folder-view-files-model"></span><code class="sig-name descname">-m</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--model</code><code class="sig-prename descclassname"> &lt;model&gt;</code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-view-files-m" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional name for model folder</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">model</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-view-files-lf">
+<span id="cmdoption-honeybee-radiance-folder-view-files-log-file"></span><code class="sig-name descname">-lf</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--log-file</code><code class="sig-prename descclassname"> &lt;log_file&gt;</code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-view-files-lf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional log file to export the output. By default this will be printed to stdout</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-view-files-arg-RADIANCE_FOLDER">
+<span id="cmdoption-honeybee-radiance-folder-view-files-arg-radiance-folder"></span><code class="sig-name descname">RADIANCE_FOLDER</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-view-files-arg-RADIANCE_FOLDER" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
+<section id="honeybee-radiance-folder-view-info-files">
+<h3>view-info-files<a class="headerlink" href="#honeybee-radiance-folder-view-info-files" title="Permalink to this headline">¶</a></h3>
+<p>Return view information files.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>honeybee-radiance-folder<span class="w"> </span>view-info-files<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>RADIANCE_FOLDER
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-view-info-files-m">
+<span id="cmdoption-honeybee-radiance-folder-view-info-files-model"></span><code class="sig-name descname">-m</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--model</code><code class="sig-prename descclassname"> &lt;model&gt;</code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-view-info-files-m" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional name for model folder</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">model</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-view-info-files-lf">
+<span id="cmdoption-honeybee-radiance-folder-view-info-files-log-file"></span><code class="sig-name descname">-lf</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--log-file</code><code class="sig-prename descclassname"> &lt;log_file&gt;</code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-view-info-files-lf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional log file to export the output. By default this will be printed to stdout</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-view-info-files-arg-RADIANCE_FOLDER">
+<span id="cmdoption-honeybee-radiance-folder-view-info-files-arg-radiance-folder"></span><code class="sig-name descname">RADIANCE_FOLDER</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-view-info-files-arg-RADIANCE_FOLDER" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
+<section id="honeybee-radiance-folder-aperture-groups">
+<h3>aperture-groups<a class="headerlink" href="#honeybee-radiance-folder-aperture-groups" title="Permalink to this headline">¶</a></h3>
+<p>Return aperture groups.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>honeybee-radiance-folder<span class="w"> </span>aperture-groups<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>RADIANCE_FOLDER
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-aperture-groups-m">
+<span id="cmdoption-honeybee-radiance-folder-aperture-groups-model"></span><code class="sig-name descname">-m</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--model</code><code class="sig-prename descclassname"> &lt;model&gt;</code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-aperture-groups-m" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional name for model folder</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">model</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-aperture-groups-exterior">
+<span id="cmdoption-honeybee-radiance-folder-aperture-groups-interior"></span><code class="sig-name descname">--exterior</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--interior</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-aperture-groups-exterior" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flag to note whether interior or exterior aperture groups must be returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-aperture-groups-lf">
+<span id="cmdoption-honeybee-radiance-folder-aperture-groups-log-file"></span><code class="sig-name descname">-lf</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--log-file</code><code class="sig-prename descclassname"> &lt;log_file&gt;</code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-aperture-groups-lf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional log file to export the output. By default this will be printed to stdout</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-aperture-groups-arg-RADIANCE_FOLDER">
+<span id="cmdoption-honeybee-radiance-folder-aperture-groups-arg-radiance-folder"></span><code class="sig-name descname">RADIANCE_FOLDER</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-aperture-groups-arg-RADIANCE_FOLDER" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
+<section id="honeybee-radiance-folder-add-output-spec">
+<h3>add-output-spec<a class="headerlink" href="#honeybee-radiance-folder-add-output-spec" title="Permalink to this headline">¶</a></h3>
+<p>Add output spec to a receiver file.</p>
+<dl>
+<dt>Args:</dt><dd><dl class="simple">
+<dt>receiver_file: Path to a receiver file. You can find these files under the</dt><dd><p><code class="docutils literal notranslate"><span class="pre">aperture_group</span></code> subfolder.</p>
+</dd>
+</dl>
+<p>output_spec: A string for receiver output spec.</p>
+</dd>
+</dl>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>honeybee-radiance-folder<span class="w"> </span>add-output-spec<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>RECEIVER_FILE<span class="w"> </span>OUTPUT_SPEC
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-add-output-spec-o">
+<span id="cmdoption-honeybee-radiance-folder-add-output-spec-output-file"></span><code class="sig-name descname">-o</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--output-file</code><code class="sig-prename descclassname"> &lt;output_file&gt;</code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-add-output-spec-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional path for an output file. By default this command modifies the input receiver file.</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-add-output-spec-arg-RECEIVER_FILE">
+<span id="cmdoption-honeybee-radiance-folder-add-output-spec-arg-receiver-file"></span><code class="sig-name descname">RECEIVER_FILE</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-add-output-spec-arg-RECEIVER_FILE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-add-output-spec-arg-OUTPUT_SPEC">
+<span id="cmdoption-honeybee-radiance-folder-add-output-spec-arg-output-spec"></span><code class="sig-name descname">OUTPUT_SPEC</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-add-output-spec-arg-OUTPUT_SPEC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
+<section id="honeybee-radiance-folder-dynamic-scene">
+<h3>dynamic-scene<a class="headerlink" href="#honeybee-radiance-folder-dynamic-scene" title="Permalink to this headline">¶</a></h3>
+<p>Return dynamic scene.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>honeybee-radiance-folder<span class="w"> </span>dynamic-scene<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>RADIANCE_FOLDER
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-dynamic-scene-m">
+<span id="cmdoption-honeybee-radiance-folder-dynamic-scene-model"></span><code class="sig-name descname">-m</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--model</code><code class="sig-prename descclassname"> &lt;model&gt;</code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-dynamic-scene-m" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional name for model folder</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">model</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-dynamic-scene-outdoor">
+<span id="cmdoption-honeybee-radiance-folder-dynamic-scene-indoor"></span><code class="sig-name descname">--outdoor</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--indoor</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-dynamic-scene-outdoor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flag to note whether indoor or outdoor dynamic scene must be returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-dynamic-scene-lf">
+<span id="cmdoption-honeybee-radiance-folder-dynamic-scene-log-file"></span><code class="sig-name descname">-lf</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--log-file</code><code class="sig-prename descclassname"> &lt;log_file&gt;</code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-dynamic-scene-lf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional log file to export the output. By default this will be printed to stdout</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-dynamic-scene-arg-RADIANCE_FOLDER">
+<span id="cmdoption-honeybee-radiance-folder-dynamic-scene-arg-radiance-folder"></span><code class="sig-name descname">RADIANCE_FOLDER</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-dynamic-scene-arg-RADIANCE_FOLDER" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
+<section id="honeybee-radiance-folder-filter-folder">
+<h3>filter-folder<a class="headerlink" href="#honeybee-radiance-folder-filter-folder" title="Permalink to this headline">¶</a></h3>
+<p>Filter files in a folder.</p>
+<div class="line-block">
+<div class="line">Args:</div>
+<div class="line-block">
+<div class="line">folder: path to folder.</div>
+<div class="line">pattern: a regex pattern to filter files based on. The pattern must be a raw</div>
+<div class="line-block">
+<div class="line">string with no quotes. The command compiles the string to a regex pattern.</div>
+</div>
+</div>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>honeybee-radiance-folder<span class="w"> </span>filter-folder<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>FOLDER<span class="w"> </span>PATTERN
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-filter-folder-lf">
+<span id="cmdoption-honeybee-radiance-folder-filter-folder-log-file"></span><code class="sig-name descname">-lf</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--log-file</code><code class="sig-prename descclassname"> &lt;log_file&gt;</code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-filter-folder-lf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional log file to export the output. By default this will be printed to stdout</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-filter-folder-arg-FOLDER">
+<span id="cmdoption-honeybee-radiance-folder-filter-folder-arg-folder"></span><code class="sig-name descname">FOLDER</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-filter-folder-arg-FOLDER" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-filter-folder-arg-PATTERN">
+<span id="cmdoption-honeybee-radiance-folder-filter-folder-arg-pattern"></span><code class="sig-name descname">PATTERN</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-filter-folder-arg-PATTERN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
+<section id="honeybee-radiance-folder-filter-file">
+<h3>filter-file<a class="headerlink" href="#honeybee-radiance-folder-filter-file" title="Permalink to this headline">¶</a></h3>
+<p>Filter a list fo JSON objects based on value for a specific key.</p>
+<div class="line-block">
+<div class="line">Args:</div>
+<div class="line-block">
+<div class="line">input-file: Path to input JSON file. Input JSON file should be an array of</div>
+<div class="line-block">
+<div class="line">JSON objects.</div>
+</div>
+<div class="line">pattern: Two string values separated by a <code class="docutils literal notranslate"><span class="pre">:</span></code>. For example group:daylight</div>
+<div class="line-block">
+<div class="line">will keep/remove the objects when the value for group key is set to daylight.</div>
+</div>
+</div>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>honeybee-radiance-folder<span class="w"> </span>filter-file<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>INPUT_FILE<span class="w"> </span><span class="o">[</span>PATTERN<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-filter-file-of">
+<span id="cmdoption-honeybee-radiance-folder-filter-file-output-file"></span><code class="sig-name descname">-of</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--output-file</code><code class="sig-prename descclassname"> &lt;output_file&gt;</code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-filter-file-of" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-filter-file-keep">
+<span id="cmdoption-honeybee-radiance-folder-filter-file-remove"></span><code class="sig-name descname">--keep</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--remove</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-filter-file-keep" title="Permalink to this definition">¶</a></dt>
+<dd><p>A flag to switch between keeping the objects or removing them from the input list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-filter-file-arg-INPUT_FILE">
+<span id="cmdoption-honeybee-radiance-folder-filter-file-arg-input-file"></span><code class="sig-name descname">INPUT_FILE</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-filter-file-arg-INPUT_FILE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+<dl class="std option">
+<dt id="cmdoption-honeybee-radiance-folder-filter-file-arg-PATTERN">
+<span id="cmdoption-honeybee-radiance-folder-filter-file-arg-pattern"></span><code class="sig-name descname">PATTERN</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-honeybee-radiance-folder-filter-file-arg-PATTERN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional argument</p>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2024, Ladybug Tools.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.3.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
