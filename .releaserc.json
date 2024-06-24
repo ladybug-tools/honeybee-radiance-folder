@@ -2,9 +2,18 @@
     "plugins": [
         "@semantic-release/commit-analyzer",
         "@semantic-release/release-notes-generator",
-        "@semantic-release/github",
-        ["@semantic-release/exec", {
-            "publishCmd": "bash deploy.sh ${nextRelease.version}"
-        }]
+        [
+            "@semantic-release/github",
+            {
+                "successComment": false,
+                "failTitle": false
+            }
+        ],
+        [
+            "@semantic-release/exec",
+            {
+                "publishCmd": "bash deploy.sh"
+            }
+        ]
     ]
 }
