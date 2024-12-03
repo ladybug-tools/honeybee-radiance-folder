@@ -829,7 +829,7 @@ class ModelFolder(_Folder):
                         else:
                             # else added to three phase
                             _update_dict(three_phase_dict, elem, grid)
-                    elif not exclude_static:
+                    elif not exclude_static and len(light_path) == 1:
                         # static apertures
                         _update_dict(two_phase_dict, '__static_apertures__', grid)
             if not light_paths:
