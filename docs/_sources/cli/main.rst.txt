@@ -1,0 +1,7 @@
+main
+====
+
+.. click:: honeybee_radiance_folder.cli:folder
+   :prog: honeybee-radiance-folder
+   :show-nested:
+   :commands: aperture-files ,scene-files ,grid-files ,grid-info-files ,view-files ,view-info-files ,aperture-groups ,add-output-spec ,dynamic-scene ,filter-folder ,filter-file
