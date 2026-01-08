@@ -482,6 +482,25 @@ class ModelFolder(_Folder):
         )
         return self._match_files(modifier_files, geometry_files)
 
+    def ies_files(self, rel_path=True):
+        """Return list of RAD files in the IES folder matching rad_pattern.
+
+        Args:
+            rel_path (str): Set rel_path to False for getting full path to files. By
+                default the path is relative to study folder root.
+        """
+        cfg = self._config['IES']
+        pattern = cfg['rad_pattern']
+
+        if not pattern:
+            return []
+
+        return self._find_files(
+            self.ies_folder(full=True),
+            pattern,
+            rel_path
+        )
+
     def grid_files(self, rel_path=True, group=None):
         """Return list of grid files."""
         cfg = self._config['GRID']
@@ -750,12 +769,12 @@ class ModelFolder(_Folder):
             scene_mapping = {
                 'two_phase': two_phase
             }
-        if phase == 3:
+        elif phase == 3:
             scene_mapping = {
                 'two_phase': two_phase,
                 'three_phase': three_phase
             }
-        if phase == 5:
+        else:
             scene_mapping = {
                 'two_phase': two_phase,
                 'three_phase': three_phase,
@@ -855,12 +874,12 @@ class ModelFolder(_Folder):
             grid_mapping = {
                 'two_phase': two_phase
             }
-        if phase == 3:
+        elif phase == 3:
             grid_mapping = {
                 'two_phase': two_phase,
                 'three_phase': three_phase
             }
-        if phase == 5:
+        else:
             grid_mapping = {
                 'two_phase': two_phase,
                 'three_phase': three_phase,
