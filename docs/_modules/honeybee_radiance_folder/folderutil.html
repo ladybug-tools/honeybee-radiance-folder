@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>honeybee_radiance_folder.folderutil &#8212; honeybee radiance folder  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=e6365d57" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<link rel="icon" type="image/x-icon" href="https://github.com/ladybug-tools/artwork/raw/refs/heads/master/icons_bugs/ico/honeybee.ico">
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          honeybee radiance folder</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cli/index.html">CLI</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../cli/index.html#commands">Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../cli/main.html">main</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../cli/main.html#honeybee-radiance-folder">honeybee-radiance-folder</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/main.html#honeybee-radiance-folder-aperture-files">aperture-files</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/main.html#honeybee-radiance-folder-scene-files">scene-files</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/main.html#honeybee-radiance-folder-grid-files">grid-files</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/main.html#honeybee-radiance-folder-grid-info-files">grid-info-files</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/main.html#honeybee-radiance-folder-view-files">view-files</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/main.html#honeybee-radiance-folder-view-info-files">view-info-files</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/main.html#honeybee-radiance-folder-aperture-groups">aperture-groups</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/main.html#honeybee-radiance-folder-add-output-spec">add-output-spec</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/main.html#honeybee-radiance-folder-dynamic-scene">dynamic-scene</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/main.html#honeybee-radiance-folder-filter-folder">filter-folder</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../cli/main.html#honeybee-radiance-folder-filter-file">filter-file</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../honeybee_radiance_folder.html">honeybee_radiance_folder package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../honeybee_radiance_folder.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_radiance_folder.cli.html">honeybee_radiance_folder.cli module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_radiance_folder.config.html">honeybee_radiance_folder.config module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_radiance_folder.config.html#honeybee_radiance_folder.config.aperture_groups"><code class="docutils literal notranslate"><span class="pre">aperture_groups</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_radiance_folder.config.html#honeybee_radiance_folder.config.minimal"><code class="docutils literal notranslate"><span class="pre">minimal</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html">honeybee_radiance_folder.folder module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder"><code class="docutils literal notranslate"><span class="pre">ModelFolder</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.aperture_files"><code class="docutils literal notranslate"><span class="pre">aperture_files()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.aperture_folder"><code class="docutils literal notranslate"><span class="pre">aperture_folder()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.aperture_group_files_black"><code class="docutils literal notranslate"><span class="pre">aperture_group_files_black()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.aperture_group_folder"><code class="docutils literal notranslate"><span class="pre">aperture_group_folder()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.aperture_groups"><code class="docutils literal notranslate"><span class="pre">aperture_groups()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.aperture_groups_states"><code class="docutils literal notranslate"><span class="pre">aperture_groups_states()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.bsdf_folder"><code class="docutils literal notranslate"><span class="pre">bsdf_folder()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.combined_receivers"><code class="docutils literal notranslate"><span class="pre">combined_receivers()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.daylight_matrix_files"><code class="docutils literal notranslate"><span class="pre">daylight_matrix_files()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.dynamic_scene"><code class="docutils literal notranslate"><span class="pre">dynamic_scene()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.dynamic_scene_folder"><code class="docutils literal notranslate"><span class="pre">dynamic_scene_folder()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.from_model_folder"><code class="docutils literal notranslate"><span class="pre">from_model_folder()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.grid_data_all"><code class="docutils literal notranslate"><span class="pre">grid_data_all()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.grid_files"><code class="docutils literal notranslate"><span class="pre">grid_files()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.grid_folder"><code class="docutils literal notranslate"><span class="pre">grid_folder()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.grid_info"><code class="docutils literal notranslate"><span class="pre">grid_info()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.grid_info_files"><code class="docutils literal notranslate"><span class="pre">grid_info_files()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.grid_mapping"><code class="docutils literal notranslate"><span class="pre">grid_mapping()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.ies_files"><code class="docutils literal notranslate"><span class="pre">ies_files()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.ies_folder"><code class="docutils literal notranslate"><span class="pre">ies_folder()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.model_folder"><code class="docutils literal notranslate"><span class="pre">model_folder()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.octree_scene_mapping"><code class="docutils literal notranslate"><span class="pre">octree_scene_mapping()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.receiver_files"><code class="docutils literal notranslate"><span class="pre">receiver_files()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.receiver_folder"><code class="docutils literal notranslate"><span class="pre">receiver_folder()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.receiver_info_file"><code class="docutils literal notranslate"><span class="pre">receiver_info_file()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.scene_files"><code class="docutils literal notranslate"><span class="pre">scene_files()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.scene_folder"><code class="docutils literal notranslate"><span class="pre">scene_folder()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.view_files"><code class="docutils literal notranslate"><span class="pre">view_files()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.view_folder"><code class="docutils literal notranslate"><span class="pre">view_folder()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.view_info_files"><code class="docutils literal notranslate"><span class="pre">view_info_files()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.view_matrix_files"><code class="docutils literal notranslate"><span class="pre">view_matrix_files()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.write"><code class="docutils literal notranslate"><span class="pre">write()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.CFG_KEYS"><code class="docutils literal notranslate"><span class="pre">CFG_KEYS</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.CFG_KEYS_CHOICE"><code class="docutils literal notranslate"><span class="pre">CFG_KEYS_CHOICE</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.CFG_KEYS_OPTIONAL"><code class="docutils literal notranslate"><span class="pre">CFG_KEYS_OPTIONAL</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.CFG_KEYS_REQUIRED"><code class="docutils literal notranslate"><span class="pre">CFG_KEYS_REQUIRED</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.folder"><code class="docutils literal notranslate"><span class="pre">folder</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.has_aperture"><code class="docutils literal notranslate"><span class="pre">has_aperture</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.has_aperture_group"><code class="docutils literal notranslate"><span class="pre">has_aperture_group</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folder.html#honeybee_radiance_folder.folder.ModelFolder.has_dynamic_scene"><code class="docutils literal notranslate"><span class="pre">has_dynamic_scene</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_radiance_folder.folderutil.html">honeybee_radiance_folder.folderutil module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.ApertureGroup"><code class="docutils literal notranslate"><span class="pre">ApertureGroup</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.ApertureGroup.from_dict"><code class="docutils literal notranslate"><span class="pre">from_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.ApertureGroup.validate"><code class="docutils literal notranslate"><span class="pre">validate()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.ApertureGroup.state_count"><code class="docutils literal notranslate"><span class="pre">state_count</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.ApertureState"><code class="docutils literal notranslate"><span class="pre">ApertureState</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.ApertureState.from_dict"><code class="docutils literal notranslate"><span class="pre">from_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.ApertureState.validate"><code class="docutils literal notranslate"><span class="pre">validate()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.DynamicScene"><code class="docutils literal notranslate"><span class="pre">DynamicScene</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.DynamicScene.from_dict"><code class="docutils literal notranslate"><span class="pre">from_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.DynamicScene.validate"><code class="docutils literal notranslate"><span class="pre">validate()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.DynamicScene.state_count"><code class="docutils literal notranslate"><span class="pre">state_count</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.SceneState"><code class="docutils literal notranslate"><span class="pre">SceneState</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.SceneState.from_dict"><code class="docutils literal notranslate"><span class="pre">from_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.SceneState.validate"><code class="docutils literal notranslate"><span class="pre">validate()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.add_output_spec_to_receiver"><code class="docutils literal notranslate"><span class="pre">add_output_spec_to_receiver()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.combined_receiver"><code class="docutils literal notranslate"><span class="pre">combined_receiver()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.parse_aperture_groups"><code class="docutils literal notranslate"><span class="pre">parse_aperture_groups()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.parse_dynamic_scene"><code class="docutils literal notranslate"><span class="pre">parse_dynamic_scene()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.parse_states"><code class="docutils literal notranslate"><span class="pre">parse_states()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../honeybee_radiance_folder.gridutil.html">honeybee_radiance_folder.gridutil module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_radiance_folder.gridutil.html#honeybee_radiance_folder.gridutil.parse_grid_info"><code class="docutils literal notranslate"><span class="pre">parse_grid_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_radiance_folder.gridutil.html#honeybee_radiance_folder.gridutil.parse_grid_json"><code class="docutils literal notranslate"><span class="pre">parse_grid_json()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_radiance_folder.gridutil.html#honeybee_radiance_folder.gridutil.redistribute_sensors"><code class="docutils literal notranslate"><span class="pre">redistribute_sensors()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../honeybee_radiance_folder.gridutil.html#honeybee_radiance_folder.gridutil.restore_original_distribution"><code class="docutils literal notranslate"><span class="pre">restore_original_distribution()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../honeybee_radiance_folder.html#module-honeybee_radiance_folder">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cli/index.html">CLI</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../honeybee_radiance_folder.html">honeybee_radiance_folder package</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-4">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cli/index.html">CLI</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../honeybee_radiance_folder.html">honeybee_radiance_folder package</a></li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-8 content" role="main">
+      
+  <h1>Source code for honeybee_radiance_folder.folderutil</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;Utilities for Radiance folder structure.&quot;&quot;&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_as_posix</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="SceneState">
+<a class="viewcode-back" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.SceneState">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SceneState</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A state for a dynamic non-aperture geometry.</span>
+
+<span class="sd">    This object is parallels the ``ShadeState`` class in ``honeybee-radiance``.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        identifier (str): Human-readable identifier for the state.</span>
+<span class="sd">        default (str): Path to file to be used for normal representation of the geometry.</span>
+<span class="sd">        direct (str): Path to file to be used for direct studies.</span>
+
+<span class="sd">    Properties:</span>
+<span class="sd">        * identifier</span>
+<span class="sd">        * default</span>
+<span class="sd">        * direct</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">,</span> <span class="n">default</span><span class="p">,</span> <span class="n">direct</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span> <span class="o">=</span> <span class="n">identifier</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">_as_posix</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">direct</span> <span class="o">=</span> <span class="n">_as_posix</span><span class="p">(</span><span class="n">direct</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SceneState.from_dict">
+<a class="viewcode-back" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.SceneState.from_dict">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">input_dict</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a state from an input dictionary.</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            {</span>
+<span class="sd">            &quot;identifier&quot;: &quot;grass_covered&quot;,</span>
+<span class="sd">            &quot;default&quot;: &quot;ground..summer..000.rad&quot;,</span>
+<span class="sd">            &quot;direct&quot;: &quot;ground..direct..000.rad&quot;,</span>
+<span class="sd">            }</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;identifier&#39;</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="s1">&#39;direct&#39;</span><span class="p">]:</span>
+            <span class="k">assert</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">input_dict</span><span class="p">,</span> <span class="s1">&#39;State is missing required key: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">key</span>
+        <span class="n">identifier</span> <span class="o">=</span> <span class="n">input_dict</span><span class="p">[</span><span class="s1">&#39;identifier&#39;</span><span class="p">]</span>
+        <span class="n">default</span> <span class="o">=</span> <span class="n">_as_posix</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">input_dict</span><span class="p">[</span><span class="s1">&#39;default&#39;</span><span class="p">]))</span>
+        <span class="n">direct</span> <span class="o">=</span> <span class="n">_as_posix</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">input_dict</span><span class="p">[</span><span class="s1">&#39;direct&#39;</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">identifier</span><span class="p">,</span> <span class="n">default</span><span class="p">,</span> <span class="n">direct</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SceneState.validate">
+<a class="viewcode-back" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.SceneState.validate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">folder</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Validate files in this state.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            folder: Path to state folder.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default</span><span class="p">)),</span> \
+            <span class="s1">&#39;Failed to find default file for </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span>
+        <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">direct</span><span class="p">)),</span> \
+            <span class="s1">&#39;Failed to find direct file for </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;SceneState: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="ApertureState">
+<a class="viewcode-back" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.ApertureState">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ApertureState</span><span class="p">(</span><span class="n">SceneState</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A state for a dynamic aperture from Radiance files.</span>
+
+<span class="sd">    This object parallels the honeybee-radiance ``SubFaceState`` in</span>
+<span class="sd">    ``honeybee-radiance``.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        identifier (str): Optional human-readable identifier for the state. Can be None.</span>
+<span class="sd">        default (str): Path to file to be used for normal representation of the geometry.</span>
+<span class="sd">        direct (str): Path to file to be used for direct studies.</span>
+<span class="sd">        black (str): Path to file for blacking out the window.</span>
+<span class="sd">        tmtx (str): Path to file for transmittance matrix.</span>
+<span class="sd">        vmtx (str): Path to file for transmittance matrix.</span>
+<span class="sd">        dmtx (str): Path to file for transmittance matrix.</span>
+
+<span class="sd">    Properties:</span>
+<span class="sd">        * identifier</span>
+<span class="sd">        * default</span>
+<span class="sd">        * direct</span>
+<span class="sd">        * black</span>
+<span class="sd">        * tmtx</span>
+<span class="sd">        * vmtx</span>
+<span class="sd">        * dmtx</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">,</span> <span class="n">default</span><span class="p">,</span> <span class="n">direct</span><span class="p">,</span> <span class="n">black</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tmtx</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">vmtx</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">dmtx</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">SceneState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">,</span> <span class="n">default</span><span class="p">,</span> <span class="n">direct</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">black</span> <span class="o">=</span> <span class="n">_as_posix</span><span class="p">(</span><span class="n">black</span><span class="p">)</span> <span class="k">if</span> <span class="n">black</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tmtx</span> <span class="o">=</span> <span class="n">_as_posix</span><span class="p">(</span><span class="n">tmtx</span><span class="p">)</span> <span class="k">if</span> <span class="n">tmtx</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vmtx</span> <span class="o">=</span> <span class="n">_as_posix</span><span class="p">(</span><span class="n">vmtx</span><span class="p">)</span> <span class="k">if</span> <span class="n">vmtx</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dmtx</span> <span class="o">=</span> <span class="n">_as_posix</span><span class="p">(</span><span class="n">dmtx</span><span class="p">)</span> <span class="k">if</span> <span class="n">dmtx</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="ApertureState.from_dict">
+<a class="viewcode-back" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.ApertureState.from_dict">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">input_dict</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a state from an input dictionary.</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            {</span>
+<span class="sd">                &quot;identifier&quot;: &quot;clear&quot;,</span>
+<span class="sd">                &quot;default&quot;: &quot;./south_window..default..000.rad&quot;,</span>
+<span class="sd">                &quot;direct&quot;: &quot;./south_window..direct..000.rad&quot;,</span>
+<span class="sd">                &quot;black&quot;: &quot;./south_window..black.rad&quot;,</span>
+<span class="sd">                &quot;tmtx&quot;: &quot;clear.xml&quot;,</span>
+<span class="sd">                &quot;vmtx&quot;: &quot;./south_window..mtx.rad&quot;,</span>
+<span class="sd">                &quot;dmtx&quot;: &quot;./south_window..mtx.rad&quot;</span>
+<span class="sd">            }</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;identifier&#39;</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="s1">&#39;direct&#39;</span><span class="p">]:</span>
+            <span class="k">assert</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">input_dict</span><span class="p">,</span> <span class="s1">&#39;State is missing required key: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">key</span>
+        <span class="n">identifier</span> <span class="o">=</span> <span class="n">input_dict</span><span class="p">[</span><span class="s1">&#39;identifier&#39;</span><span class="p">]</span>
+        <span class="n">default</span> <span class="o">=</span> <span class="n">_as_posix</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">input_dict</span><span class="p">[</span><span class="s1">&#39;default&#39;</span><span class="p">]))</span>
+        <span class="n">direct</span> <span class="o">=</span> <span class="n">_as_posix</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">input_dict</span><span class="p">[</span><span class="s1">&#39;direct&#39;</span><span class="p">]))</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">black</span> <span class="o">=</span> <span class="n">input_dict</span><span class="p">[</span><span class="s1">&#39;black&#39;</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">black</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">tmtx</span> <span class="o">=</span> <span class="n">input_dict</span><span class="p">[</span><span class="s1">&#39;tmtx&#39;</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">tmtx</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">vmtx</span> <span class="o">=</span> <span class="n">_as_posix</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">input_dict</span><span class="p">[</span><span class="s1">&#39;vmtx&#39;</span><span class="p">]))</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">vmtx</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">dmtx</span> <span class="o">=</span> <span class="n">_as_posix</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">input_dict</span><span class="p">[</span><span class="s1">&#39;dmtx&#39;</span><span class="p">]))</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">dmtx</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">identifier</span><span class="p">,</span> <span class="n">default</span><span class="p">,</span> <span class="n">direct</span><span class="p">,</span> <span class="n">black</span><span class="p">,</span> <span class="n">tmtx</span><span class="p">,</span> <span class="n">vmtx</span><span class="p">,</span> <span class="n">dmtx</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ApertureState.validate">
+<a class="viewcode-back" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.ApertureState.validate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">folder</span><span class="p">,</span> <span class="n">bsdf_folder</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Validate files in this state.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            folder: Path to dynamic scene folder.</span>
+<span class="sd">            bsdf_folder: Path to BSDF folder.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default</span><span class="p">)),</span> \
+            <span class="s1">&#39;Failed to find default file for </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span>
+        <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">direct</span><span class="p">)),</span> \
+            <span class="s1">&#39;Failed to find direct file for </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">black</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">black</span><span class="p">)),</span> \
+                <span class="s1">&#39;Failed to find black file for </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tmtx</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">bsdf_folder</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tmtx</span><span class="p">)),</span> \
+                <span class="s1">&#39;Failed to find tmtx file for </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vmtx</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vmtx</span><span class="p">)),</span> \
+                <span class="s1">&#39;Failed to find vmtx file for </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dmtx</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dmtx</span><span class="p">)),</span> \
+                <span class="s1">&#39;Failed to find dmtx file for </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;ApertureState: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="DynamicScene">
+<a class="viewcode-back" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.DynamicScene">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DynamicScene</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Representation of a Dynamic scene geometry in Radiance folder.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        identifier (str): Text string for a unique dynamic scene group identifier.</span>
+<span class="sd">            This is required and cannot be None.</span>
+<span class="sd">        states(list[SceneState]): A list of scene states.</span>
+
+<span class="sd">    Properties:</span>
+<span class="sd">        * identifier</span>
+<span class="sd">        * states</span>
+<span class="sd">        * state_count</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">,</span> <span class="n">states</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span> <span class="o">=</span> <span class="n">identifier</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">states</span> <span class="o">=</span> <span class="n">states</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">state_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Number of states.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DynamicScene.from_dict">
+<a class="viewcode-back" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.DynamicScene.from_dict">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">input_dict</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a dynamic scene from a dictionary.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            input_dict: An input dictionary.</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            {</span>
+<span class="sd">                &quot;ground&quot;: [</span>
+<span class="sd">                    {</span>
+<span class="sd">                    &quot;identifier&quot;: &quot;grass_covered&quot;,</span>
+<span class="sd">                    &quot;default&quot;: &quot;ground..summer..000.rad&quot;,</span>
+<span class="sd">                    &quot;direct&quot;: &quot;ground..direct..000.rad&quot;</span>
+<span class="sd">                    },</span>
+<span class="sd">                    {</span>
+<span class="sd">                    &quot;identifier&quot;: &quot;snow_covered&quot;,</span>
+<span class="sd">                    &quot;default&quot;: &quot;ground..winter..001.rad&quot;,</span>
+<span class="sd">                    &quot;direct&quot;: &quot;ground..direct..000.rad&quot;</span>
+<span class="sd">                    }</span>
+<span class="sd">                ]</span>
+<span class="sd">            }</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">input_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> \
+            <span class="s1">&#39;There must be only one dynamic group in input dictionary.&#39;</span>
+        <span class="n">identifier</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="n">states_dict</span> <span class="o">=</span> <span class="n">input_dict</span><span class="p">[</span><span class="n">identifier</span><span class="p">]</span>
+        <span class="n">states</span> <span class="o">=</span> <span class="p">[</span><span class="n">SceneState</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">states_dict</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">identifier</span><span class="p">,</span> <span class="n">states</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DynamicScene.validate">
+<a class="viewcode-back" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.DynamicScene.validate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">folder</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Validate this dynamic geometry.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            folder: Path to dynamic scene folder.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">:</span>
+            <span class="n">state</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;DynamicScene: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="ApertureGroup">
+<a class="viewcode-back" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.ApertureGroup">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ApertureGroup</span><span class="p">(</span><span class="n">DynamicScene</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Representation of a Dynamic aperture in Radiance folder.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        identifier (str): Text string for a unique dynamic aperture group identifier.</span>
+<span class="sd">            This is required and cannot be None.</span>
+<span class="sd">        states: A list of aperture states.</span>
+
+<span class="sd">    Properties:</span>
+<span class="sd">        * identifier</span>
+<span class="sd">        * states</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ApertureGroup.from_dict">
+<a class="viewcode-back" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.ApertureGroup.from_dict">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">input_dict</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a dynamic aperture from a dictionary.</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            {</span>
+<span class="sd">                &quot;south_window&quot;: [</span>
+<span class="sd">                    {</span>
+<span class="sd">                    &quot;identifier&quot;: &quot;clear&quot;,</span>
+<span class="sd">                    &quot;default&quot;: &quot;./south_window..default..000.rad&quot;,</span>
+<span class="sd">                    &quot;direct&quot;: &quot;./south_window..direct..000.rad&quot;,</span>
+<span class="sd">                    &quot;black&quot;: &quot;./south_window..black.rad&quot;,</span>
+<span class="sd">                    &quot;tmtx&quot;: &quot;clear.xml&quot;,</span>
+<span class="sd">                    &quot;vmtx&quot;: &quot;./south_window..mtx.rad&quot;,</span>
+<span class="sd">                    &quot;dmtx&quot;: &quot;./south_window..mtx.rad&quot;</span>
+<span class="sd">                    },</span>
+<span class="sd">                    {</span>
+<span class="sd">                    &quot;identifier&quot;: &quot;diffuse&quot;,</span>
+<span class="sd">                    &quot;default&quot;: &quot;./south_window..default..001.rad&quot;,</span>
+<span class="sd">                    &quot;direct&quot;: &quot;./south_window..direct..001.rad&quot;,</span>
+<span class="sd">                    &quot;black&quot;: &quot;./south_window..black.rad&quot;,</span>
+<span class="sd">                    &quot;tmtx&quot;: &quot;diffuse50.xml&quot;,</span>
+<span class="sd">                    &quot;vmtx&quot;: &quot;./south_window..mtx.rad&quot;,</span>
+<span class="sd">                    &quot;dmtx&quot;: &quot;./south_window..mtx.rad&quot;</span>
+<span class="sd">                    }</span>
+<span class="sd">                ]</span>
+<span class="sd">            }</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">input_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> \
+            <span class="s1">&#39;There must be only one dynamic group in input dictionary.&#39;</span>
+        <span class="n">identifier</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="n">states_dict</span> <span class="o">=</span> <span class="n">input_dict</span><span class="p">[</span><span class="n">identifier</span><span class="p">]</span>
+        <span class="n">states</span> <span class="o">=</span> <span class="p">[</span><span class="n">ApertureState</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">states_dict</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">identifier</span><span class="p">,</span> <span class="n">states</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ApertureGroup.validate">
+<a class="viewcode-back" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.ApertureGroup.validate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">folder</span><span class="p">,</span> <span class="n">bsdf_folder</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Validate aperture group.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            folder: Path to dynamic scene folder.</span>
+<span class="sd">            bsdf_folder: Path to BSDF folder.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">:</span>
+            <span class="n">state</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">bsdf_folder</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;ApertureGroup: </span><span class="si">{}</span><span class="s1"> (#</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="parse_aperture_groups">
+<a class="viewcode-back" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.parse_aperture_groups">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">parse_aperture_groups</span><span class="p">(</span><span class="n">states_file</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bsdf_folder</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse dynamic apertures from a states.json file.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        states_file: Path to states JSON file.</span>
+<span class="sd">        validate: Validate the files in states files exist in the folder.</span>
+<span class="sd">        bsdf_folder: Required for validation of tmtx. Not required if validate is set to</span>
+<span class="sd">            False.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A list of dynamic apertures</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">states_file</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[]</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">states_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">inf</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">inf</span><span class="p">)</span>
+
+    <span class="n">apertures</span> <span class="o">=</span> <span class="p">[</span><span class="n">ApertureGroup</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span>
+        <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span><span class="p">})</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+
+    <span class="k">if</span> <span class="n">validate</span><span class="p">:</span>
+        <span class="c1"># check for the files to exist</span>
+        <span class="n">folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">states_file</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">aperture</span> <span class="ow">in</span> <span class="n">apertures</span><span class="p">:</span>
+            <span class="n">aperture</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">bsdf_folder</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">apertures</span></div>
+
+
+
+<div class="viewcode-block" id="parse_dynamic_scene">
+<a class="viewcode-back" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.parse_dynamic_scene">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">parse_dynamic_scene</span><span class="p">(</span><span class="n">states_file</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse dynamic nonaperture geometries from a state file.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        states_file: Path to states JSON file.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A list of dynamic nonaperture geometries</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">states_file</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[]</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">states_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">inf</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">inf</span><span class="p">)</span>
+
+    <span class="n">geometries</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">DynamicScene</span><span class="o">.</span><span class="n">from_dict</span><span class="p">({</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span><span class="p">})</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+    <span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">validate</span><span class="p">:</span>
+        <span class="c1"># check for the files to exist</span>
+        <span class="n">folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">states_file</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">geometry</span> <span class="ow">in</span> <span class="n">geometries</span><span class="p">:</span>
+            <span class="n">geometry</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">geometries</span></div>
+
+
+
+<div class="viewcode-block" id="add_output_spec_to_receiver">
+<a class="viewcode-back" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.add_output_spec_to_receiver">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_output_spec_to_receiver</span><span class="p">(</span><span class="n">receiver_file</span><span class="p">,</span> <span class="n">output_spec</span><span class="p">,</span> <span class="n">output_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add output spec to a receiver file.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        receiver_file: Path to a receiver file. You can find these files under the</span>
+<span class="sd">            ``aperture_group`` subfolder.</span>
+<span class="sd">        output_spec: A string for receiver output spec.</span>
+<span class="sd">        output_file: An optional output file to write the modified receiver. By default</span>
+<span class="sd">            this function overwrites the original file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># find and replace</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">receiver_file</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Failed to find </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">receiver_file</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">receiver_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^#@rfluxmtx[\s\S].*$&#39;</span><span class="p">,</span>
+                          <span class="n">content</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">MULTILINE</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> is not a valid receiver file with &#39;</span>
+            <span class="s1">&#39;RfluxmtxControlParameters.&#39;</span> <span class="o">%</span> <span class="n">receiver_file</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="s1">&#39;o=&#39;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> already has output_spec&#39;</span> <span class="o">%</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="n">ctrl_params</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39; o=</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">output_spec</span>
+
+    <span class="n">updated_content</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">ctrl_params</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>
+
+    <span class="n">out_file</span> <span class="o">=</span> <span class="n">output_file</span> <span class="ow">or</span> <span class="n">receiver_file</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">out_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outf</span><span class="p">:</span>
+        <span class="n">outf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">updated_content</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="parse_states">
+<a class="viewcode-back" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.parse_states">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">parse_states</span><span class="p">(</span><span class="n">states_file</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse states information from a json file.</span>
+<span class="sd">    </span>
+<span class="sd">    This information typically contains the various rad files for each state</span>
+<span class="sd">    such as &#39;default&#39;, &#39;black&#39;, &#39;direct&#39;, as well as matrix files such as</span>
+<span class="sd">    &#39;vmtx&#39;, &#39;tmtx&#39;, and &#39;dmtx&#39;.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        states_file: Path to the states file.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        A list containing the information about states.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">states_file</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[]</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">states_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">inf</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">inf</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="combined_receiver">
+<a class="viewcode-back" href="../../honeybee_radiance_folder.folderutil.html#honeybee_radiance_folder.folderutil.combined_receiver">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">combined_receiver</span><span class="p">(</span><span class="n">grid_name</span><span class="p">,</span> <span class="n">apt_group_folder</span><span class="p">,</span> <span class="n">apt_groups</span><span class="p">,</span> <span class="n">target_folder</span><span class="p">,</span>
+                      <span class="n">add_output_header</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Write combined receiver file for a grid and aperture groups.</span>
+
+<span class="sd">    The aperture group folder must be a relative path. Otherwise xform will fail when</span>
+<span class="sd">    using the combined receiver file in simulations.</span>
+
+<span class="sd">    Arg:</span>
+<span class="sd">        grid_name: A string of the grid name (identifier).</span>
+<span class="sd">        apt_group_folder: Path to aperture group folder.</span>
+<span class="sd">        apt_groups: A list of aperture groups to include in the combined receiver.</span>
+<span class="sd">        target_folder: A path of the target folder to write files to.</span>
+<span class="sd">        add_output_header: If set to True, a header will be added to redirect the</span>
+<span class="sd">            generated view matrix to the path specified through the &quot;o= ..&quot; option.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The path of the file that was written out as the combined receiver.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">file_name</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">..receiver.rad&#39;</span> <span class="o">%</span> <span class="n">grid_name</span>
+
+    <span class="n">apt_group_folder</span> <span class="o">=</span> <span class="n">apt_group_folder</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">)</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">content</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;# </span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">file_name</span><span class="p">)</span>  <span class="c1"># add header</span>
+    <span class="k">for</span> <span class="n">apt</span> <span class="ow">in</span> <span class="n">apt_groups</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">add_output_header</span><span class="p">:</span>
+            <span class="n">content</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;#@rfluxmtx o=</span><span class="si">%s</span><span class="s1">..</span><span class="si">%s</span><span class="s1">.vmx&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">apt</span><span class="p">,</span> <span class="n">grid_name</span><span class="p">))</span>
+        <span class="n">content</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;!xform ./</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">..mtx.rad</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">apt_group_folder</span><span class="p">,</span> <span class="n">apt</span><span class="p">))</span>
+
+    <span class="n">out_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">target_folder</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">out_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outf</span><span class="p">:</span>
+        <span class="n">outf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">content</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">file_name</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_nukedir</span><span class="p">(</span><span class="n">target_dir</span><span class="p">,</span> <span class="n">rmdir</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Delete all the files inside target_dir.</span>
+<span class="sd">    Usage:</span>
+<span class="sd">        nukedir(&quot;c:/ladybug/libs&quot;, True)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">target_dir</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+        <span class="k">return</span>
+
+    <span class="n">files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">f</span> <span class="o">==</span> <span class="s1">&#39;.&#39;</span> <span class="ow">or</span> <span class="n">f</span> <span class="o">==</span> <span class="s1">&#39;..&#39;</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="n">_nukedir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Failed to remove </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">path</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">rmdir</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">rmdir</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Failed to remove </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">d</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2026, Ladybug Tools.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.0.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
